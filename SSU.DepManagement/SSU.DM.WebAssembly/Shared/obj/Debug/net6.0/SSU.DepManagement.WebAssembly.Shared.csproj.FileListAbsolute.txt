@@ -1,0 +1,12 @@
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\bin\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.deps.json
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\bin\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\bin\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.csproj.AssemblyReference.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.AssemblyInfoInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.AssemblyInfo.cs
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.csproj.CoreCompileInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\refint\SSU.DepManagement.WebAssembly.Shared.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\SSU.DepManagement.WebAssembly.Shared.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.WebAssembly\Shared\obj\Debug\net6.0\ref\SSU.DepManagement.WebAssembly.Shared.dll

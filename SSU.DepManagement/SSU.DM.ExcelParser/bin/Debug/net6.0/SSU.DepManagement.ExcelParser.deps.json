@@ -1,0 +1,178 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "SSU.DepManagement.ExcelParser/1.0.0": {
+        "dependencies": {
+          "IronXL.Excel": "2023.8.19",
+          "Models": "1.0.0"
+        },
+        "runtime": {
+          "SSU.DepManagement.ExcelParser.dll": {}
+        }
+      },
+      "BitMiracle.LibTiff.NET/2.4.649": {
+        "runtime": {
+          "lib/netstandard2.0/BitMiracle.LibTiff.NET.dll": {
+            "assemblyVersion": "2.4.649.0",
+            "fileVersion": "2.4.649.0"
+          }
+        }
+      },
+      "IronSoftware.System.Drawing/2023.7.1": {
+        "dependencies": {
+          "BitMiracle.LibTiff.NET": "2.4.649",
+          "SixLabors.ImageSharp": "3.0.0",
+          "System.Memory": "4.5.5"
+        },
+        "runtime": {
+          "lib/net60/IronSoftware.Drawing.Common.dll": {
+            "assemblyVersion": "2023.7.1.0",
+            "fileVersion": "2023.7.1.0"
+          }
+        }
+      },
+      "IronXL.Excel/2023.8.19": {
+        "dependencies": {
+          "IronSoftware.System.Drawing": "2023.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/IronXL.dll": {
+            "assemblyVersion": "2023.8.19.0",
+            "fileVersion": "2023.8.19.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/7.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "7.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Binder/7.0.3": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.323.6910"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/7.0.0": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/3.0.0": {
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "System.Memory/4.5.5": {},
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "Models/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "7.0.3"
+        },
+        "runtime": {
+          "Models.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SSU.DepManagement.ExcelParser/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BitMiracle.LibTiff.NET/2.4.649": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XCEdfCphKo0UAvSg1h/OzOFWtjkIGnPMAziYkNqV7NVrqb/tZJTBxJhxIEX7gpvQwg8GIRYt133SUncfkKfjLA==",
+      "path": "bitmiracle.libtiff.net/2.4.649",
+      "hashPath": "bitmiracle.libtiff.net.2.4.649.nupkg.sha512"
+    },
+    "IronSoftware.System.Drawing/2023.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gaEJgK31E+4tt33WQNkxk3kK9IyDK8eZapPK2GIc0sG6toauI0rP4PC3e1J/Hf6fQ83rD4HlCHe4VVjVkE++Lg==",
+      "path": "ironsoftware.system.drawing/2023.7.1",
+      "hashPath": "ironsoftware.system.drawing.2023.7.1.nupkg.sha512"
+    },
+    "IronXL.Excel/2023.8.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rFyfY3PJJKic2WK/i6nhN66UmQ+u0tiPsr+j5F+I9oqWq/ikrB3/Nn6hlH8DuNdabVFXdLkCTOvjb8OVjjucFg==",
+      "path": "ironxl.excel/2023.8.19",
+      "hashPath": "ironxl.excel.2023.8.19.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-f34u2eaqIjNO9YLHBz8rozVZ+TcFiFs0F3r7nUJd7FRkVSxk8u4OpoK226mi49MwexHOR2ibP9MFvRUaLilcQQ==",
+      "path": "microsoft.extensions.configuration.abstractions/7.0.0",
+      "hashPath": "microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Binder/7.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1eRFwJBrkkncTpvh6mivB8zg4uBVm6+Y6stEJERrVEqZZc8Hvf+N1iIgj2ySYDUQko4J1Gw1rLf1M8bG83F0eA==",
+      "path": "microsoft.extensions.configuration.binder/7.0.3",
+      "hashPath": "microsoft.extensions.configuration.binder.7.0.3.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-um1KU5kxcRp3CNuI8o/GrZtD4AIOXDk+RLsytjZ9QPok3ttLUelLKpilVPuaFT3TFjOhSibUAso0odbOaCDj3Q==",
+      "path": "microsoft.extensions.primitives/7.0.0",
+      "hashPath": "microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ETEHRfUAn/rExqdmj2GDayPkW9zr3BruO9S4WF9ULpWmdydewIjoJqinbQc+o4DsM3X0wGZPyJLlj6N3uxV/aw==",
+      "path": "sixlabors.imagesharp/3.0.0",
+      "hashPath": "sixlabors.imagesharp.3.0.0.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

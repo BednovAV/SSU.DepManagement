@@ -1,0 +1,126 @@
+﻿@page "/faculties"
+@using Models.View
+
+@inject HttpClient Http
+
+<PageTitle>Список факультетов</PageTitle>
+
+<h1>Список факультетов</h1>
+
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Добавить факультет"
+              Click="@InsertRow" Disabled=@(facultyToInsert != null || facultyToUpdate != null) />
+<RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@faculties"
+                EditMode="DataGridEditMode.Single" TItem="FacultyViewItem" EmptyText="Факультетов не найдено"
+                RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow">
+    <Columns>
+        <RadzenDataGridColumn TItem="FacultyViewItem" Property="Name" Title="Название" TextAlign="TextAlign.Center">
+            <EditTemplate Context="faculty">
+                <RadzenTextBox @bind-Value="faculty.Name" Style="width:100%; display: block" Name="Name"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="Name" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="FacultyViewItem" Property="NameDat" Title="Название (Дательный падеж)" TextAlign="TextAlign.Center">
+            <EditTemplate Context="faculty">
+                <RadzenTextBox @bind-Value="faculty.NameDat" Style="width:100%; display: block" Name="NameDat"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="NameDat" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="FacultyViewItem" Context="order" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+                    <Template Context="faculty">
+                        <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRow(faculty))" @onclick:stopPropagation="true">
+                        </RadzenButton>
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))"  @onclick:stopPropagation="true">
+                        </RadzenButton>
+                    </Template>
+                    <EditTemplate Context="faculty">
+                        <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(faculty))">
+                        </RadzenButton>
+                        <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(faculty))">
+                        </RadzenButton>
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))">
+                        </RadzenButton>
+                    </EditTemplate>
+                </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    string facultyUrl = RouteConstants.FACULTY;
+    
+    RadzenDataGrid<FacultyViewItem> grid;
+    int dataCount;
+    bool isDataGridLoading;
+    IEnumerable<FacultyViewItem> faculties;
+
+    FacultyViewItem facultyToInsert;
+    FacultyViewItem facultyToUpdate;
+
+    async Task ResetGridAsync()
+    {
+        facultyToInsert = null;
+        facultyToUpdate = null;
+            
+        grid.Reset(true);
+        await grid.FirstPage(true);
+    }
+    
+    private async Task LoadData(LoadDataArgs arg)
+    {
+        isDataGridLoading = true;
+
+        faculties = (await GetFacultiesAsync()).ToList();
+        dataCount = faculties.Count();
+
+        isDataGridLoading = false;
+    }
+    
+    private async Task<IEnumerable<FacultyViewItem>> GetFacultiesAsync()
+    {
+        return await Http.GetFromJsonAsync<IEnumerable<FacultyViewItem>>(facultyUrl);
+    }
+
+    private async Task EditRow(FacultyViewItem faculty)
+    {
+        facultyToUpdate = faculty;
+        await grid.EditRow(faculty);
+    }
+
+    private async Task OnUpdateRow(FacultyViewItem faculty)
+    {
+        await Http.PutAsync(facultyUrl, JsonContent.Create(faculty));
+        await ResetGridAsync();
+    }
+
+    private async Task SaveRow(FacultyViewItem faculty)
+    {
+        await grid.UpdateRow(faculty);
+    }
+
+
+    private async Task CancelEdit(FacultyViewItem faculty)
+    {
+        grid.CancelEditRow(faculty);
+        await ResetGridAsync();
+    }
+
+    private async Task DeleteRow(FacultyViewItem faculty)
+    {
+        await Http.DeleteAsync(facultyUrl + $"/{faculty.Id}");
+        await ResetGridAsync();
+    }
+
+
+    private async Task InsertRow()
+    {
+        facultyToInsert = new FacultyViewItem();
+        await grid.InsertRow(facultyToInsert);
+    }
+
+    private async Task OnCreateRow(FacultyViewItem faculty)
+    {
+        await Http.PostAsync(facultyUrl, JsonContent.Create(faculty));
+
+        await ResetGridAsync();
+    }
+
+}

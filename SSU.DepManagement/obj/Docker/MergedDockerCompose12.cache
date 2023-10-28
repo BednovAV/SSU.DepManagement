@@ -1,0 +1,58 @@
+name: dockercompose6446059608420696812
+services:
+  postgres:
+    container_name: db
+    environment:
+      POSTGRES_DB: storage
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+    image: postgres:16
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+  ssu.dm.webassembly.server:
+    build:
+      context: C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: SSU.DM.WebAssembly.Server
+    container_name: SSU.DM.WebAssembly.Server
+    entrypoint:
+      - tail
+      - -f
+      - /dev/null
+    labels:
+      com.microsoft.visual-studio.project-name: SSU.DM.WebAssembly.Server
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages --additionalProbingPath /root/.nuget/fallbackpackages  "/app/SSU.DM.WebAssembly.Server.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      default: null
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\droll\vsdbg\vs2017u5
+        target: /remote_debugger
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\droll\AppData\Roaming/ASP.NET/Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\droll\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose6446059608420696812_default

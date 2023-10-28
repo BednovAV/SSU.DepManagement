@@ -1,0 +1,12 @@
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\bin\Debug\net7.0\SSU.DepManagement.ExcelWriter.deps.json
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\bin\Debug\net7.0\SSU.DepManagement.ExcelWriter.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\bin\Debug\net7.0\SSU.DepManagement.ExcelWriter.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.csproj.AssemblyReference.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.AssemblyInfoInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.AssemblyInfo.cs
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.csproj.CoreCompileInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\refint\SSU.DepManagement.ExcelWriter.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\SSU.DepManagement.ExcelWriter.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DepManagement.ExcelWriter\obj\Debug\net7.0\ref\SSU.DepManagement.ExcelWriter.dll

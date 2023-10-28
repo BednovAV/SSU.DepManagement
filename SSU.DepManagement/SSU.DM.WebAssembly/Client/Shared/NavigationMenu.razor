@@ -1,0 +1,13 @@
+﻿<RadzenSidebar @bind-Expanded="@SidebarExpanded">
+    <RadzenPanelMenu>
+        <RadzenPanelMenuItem Text="Home" Icon="home" Path="/" />
+        <RadzenPanelMenuItem Text="Counter" Icon="add" Path="/counter" />
+        <RadzenPanelMenuItem Text="Факультеты" Icon="add" Path="/faculties" />
+        <RadzenPanelMenuItem Text="Импорт заявки" Icon="publish" Path="/importrequest" />
+    </RadzenPanelMenu>
+</RadzenSidebar>
+
+@code {
+    [Parameter]
+    public bool SidebarExpanded { get; set; }
+}

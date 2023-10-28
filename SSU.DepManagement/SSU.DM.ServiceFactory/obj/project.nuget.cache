@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "TyiYIi3yJH169Mx+STsoR9LpOF66Oq/4dMaHoq94klz5pl4fDYsyGPET+t21n3yAzYtb80SzpT6HK0xEmydsQg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0-rc.1.23419.4\\microsoft.extensions.dependencyinjection.abstractions.8.0.0-rc.1.23419.4.nupkg.sha512"
+  ],
+  "logs": []
+}

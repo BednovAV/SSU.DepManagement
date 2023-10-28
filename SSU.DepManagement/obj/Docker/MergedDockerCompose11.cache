@@ -1,0 +1,19 @@
+name: dockercompose6446059608420696812
+services:
+  postgres:
+    container_name: db
+    environment:
+      POSTGRES_DB: storage
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+    image: postgres:16
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+networks:
+  default:
+    name: dockercompose6446059608420696812_default

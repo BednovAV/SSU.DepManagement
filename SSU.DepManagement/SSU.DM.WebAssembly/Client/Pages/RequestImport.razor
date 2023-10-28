@@ -1,0 +1,192 @@
+﻿@page "/importrequest"
+@using Models.View
+
+@inject HttpClient Http
+@inject DialogService DialogService
+@inject NotificationService NotificationService
+
+<h3 xmlns="http://www.w3.org/1999/html">Импорт заявки</h3>
+
+<RadzenCard>
+    <DownloadButton Text="Скачать шаблон"
+                    FileName="Шаблон заявки.xlsx"
+                    BusyLength="1"
+                    FileLink="@fileUrl"/>
+    <RadzenUpload ChooseText="Загрузить заявку" Url="@uploadUrl" Progress=@TrackUploadProgress Complete=@CompleteUpload/>
+    <DownloadButton Text="Сформировать общий расчет часов"
+                    FileName="общий расчет часов.xlsx"
+                    BusyLength="1"
+                    FileLink="@GetCalculationOfHoursReportUrl()"
+                    Disabled="@(selectedAppForms?.Any() != true)"/>
+</RadzenCard>
+
+<RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@appForms"
+                TItem="ApplicationFormViewItem" EmptyText="Заявок не найдено"
+                AllowRowSelectOnRowClick="false" SelectionMode="DataGridSelectionMode.Multiple" @bind-Value=@selectedAppForms>
+    <Template Context="appForm">
+        <RadzenDataGrid Data="@appForm.Requests" TItem="RequestViewItem">
+            <Columns>
+                <RadzenDataGridColumn TItem="RequestViewItem" Property="NameDiscipline" Title="Название дисциплины"/>
+                <RadzenDataGridColumn TItem="RequestViewItem" Property="Direction" Title="Направление"/>
+                <RadzenDataGridColumn TItem="RequestViewItem" Property="GroupNumber" Title="Номер группы"/>
+                <RadzenDataGridColumn TItem="RequestViewItem" Property="TotalHours" Title="Всего часов"/>
+            </Columns>
+        </RadzenDataGrid>
+    </Template>
+    <Columns>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Width="60px">
+            <HeaderTemplate>
+                <RadzenCheckBox TriState="false" TValue="bool" Value="@(appForms?.Any(i => selectedAppForms?.Contains(i) == true) == true)"
+                                Change="@(args => selectedAppForms = args ? appForms.ToList() : null)"/>
+            </HeaderTemplate>
+            <Template Context="data">
+                <RadzenCheckBox TriState="false" Value="@(selectedAppForms?.Contains(data) == true)"
+                                TValue="bool" Change=@((args) => grid.SelectRow(data))/>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Property="Name" Title="Название" Width="200px" TextAlign="TextAlign.Center"/>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem"  Property="FacultyName" Title="Факультет" Width="200px" TextAlign="TextAlign.Center"/>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Property="DateCreated" Title="Дата создания" Width="200px" TextAlign="TextAlign.Center"/>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Файл" Width="100px" TextAlign="TextAlign.Center">
+            <Template Context="appForm">
+                <DownloadButton
+                    BusyLength="1"
+                    FileLink="@fileUrl.AddParameter("key", appForm.FileKey)"
+                    FileName="@AddXlsx(appForm.Name)"
+                    Text="Save"
+                    Style="width: 80px"/>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Удалить" TextAlign="TextAlign.Center" Width="60px">
+            <Template Context="appForm">
+                <RadzenButton Click="() => ShowDeletePopup(appForm)" Icon="delete"/>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    string fileUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_FILE);
+    string uploadUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_UPLOAD_REQUEST);
+    string getAppFormsUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_APP_FORMS);
+    string deleteAppFormUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_DELETE_APP_FORM);
+    string calculationOfHoursReportUrl => Http.GetUrl(RouteConstants.REPORTS_CALCULATION_OF_HOURS);
+
+    RadzenDataGrid<ApplicationFormViewItem> grid;
+    IEnumerable<ApplicationFormViewItem> appForms;
+    IList<ApplicationFormViewItem> selectedAppForms = new List<ApplicationFormViewItem>();
+    bool isDataGridLoading;
+    int dataCount;
+
+    async Task ResetGridAsync()
+    {
+        grid.Reset(true);
+        await grid.FirstPage(true);
+    }
+
+    private async Task ShowDeletePopup(ApplicationFormViewItem appForm)
+    {
+        var isDeleteButtonBusy = false;
+
+        var result = await DialogService.OpenAsync("Необходимо подтвердить", ds =>
+            @<RadzenStack Gap="1.5rem">
+                <p>Вы действительно хотите удалить заявку <b>@appForm.Name</b>?</p>
+                <RadzenStack Orientation="Orientation.Horizontal" Gap="0.5rem" AlignItems="AlignItems.Center">
+                    <RadzenStack Orientation="Orientation.Horizontal">
+                        <RadzenButton IsBusy="@isDeleteButtonBusy" Text="Да" Click="() => DeleteAppForm(ds)" Style="width: 80px;" ButtonStyle="ButtonStyle.Danger"/>
+                        <RadzenButton Text="Отменить" Click="() => ds.Close()" ButtonStyle="ButtonStyle.Light"/>
+                    </RadzenStack>
+                </RadzenStack>
+            </RadzenStack>);
+
+        return;
+
+        async Task DeleteAppForm(DialogService dialogService)
+        {
+            isDeleteButtonBusy = true;
+            dialogService.Refresh();
+
+            var deleteResult = await Http.PostAsync(deleteAppFormUrl, JsonContent.Create(new { appFormId = appForm.Id }));
+            dialogService.Close();
+            NotificationMessage message;
+            if (deleteResult.IsSuccessStatusCode)
+            {
+                message = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Операция выполнена успешно!",
+                    Detail = $"Запрос {appForm.Name} успешно удален",
+                    Duration = TimeSpan.FromSeconds(2).TotalMilliseconds
+                };
+            }
+            else
+            {
+                message = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Что-то пошло не так!",
+                    Detail = $"Не удалось удалить запрос {appForm.Name}",
+                    Duration = TimeSpan.FromSeconds(2).TotalMilliseconds
+                };
+            }
+            NotificationService.Notify(message);
+            ResetGridAsync();
+        }
+    }
+
+    private async Task<IEnumerable<ApplicationFormViewItem>> GetAppFormsAsync()
+    {
+        return await Http.GetFromJsonAsync<IEnumerable<ApplicationFormViewItem>>(getAppFormsUrl);
+    }
+
+    private string AddXlsx(string str) => str + ".xlsx";
+
+    private async Task LoadData(LoadDataArgs arg)
+    {
+        isDataGridLoading = true;
+
+        appForms = (await GetAppFormsAsync()).ToList();
+        dataCount = appForms.Count();
+
+        isDataGridLoading = false;
+    }
+
+
+    int progress;
+    bool showProgress;
+    bool showComplete;
+    string completionMessage;
+    bool cancelUpload = false;
+
+
+    void TrackUploadProgress(UploadProgressArgs args)
+    {
+        showProgress = true;
+        showComplete = false;
+        progress = args.Progress;
+
+    // cancel upload
+        args.Cancel = cancelUpload;
+
+    // reset cancel flag
+        cancelUpload = false;
+    }
+
+    void CompleteUpload(UploadCompleteEventArgs args)
+    {
+        completionMessage = !args.Cancelled ? "Upload Complete!" : "Upload Cancelled!";
+
+        showProgress = false;
+        showComplete = true;
+
+        ResetGridAsync();
+        StateHasChanged();
+    }
+
+    string GetCalculationOfHoursReportUrl()
+    {
+        return calculationOfHoursReportUrl
+            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
+    }
+
+}

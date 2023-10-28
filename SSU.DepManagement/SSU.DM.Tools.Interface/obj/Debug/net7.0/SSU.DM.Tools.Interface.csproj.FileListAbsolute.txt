@@ -1,0 +1,11 @@
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\bin\Debug\net7.0\SSU.DM.Tools.Interface.deps.json
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\bin\Debug\net7.0\SSU.DM.Tools.Interface.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\bin\Debug\net7.0\SSU.DM.Tools.Interface.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.AssemblyInfoInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.AssemblyInfo.cs
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.csproj.CoreCompileInputs.cache
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\refint\SSU.DM.Tools.Interface.dll
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\SSU.DM.Tools.Interface.pdb
+C:\Users\droll\Desktop\DiplomFiles\SSU.DepManagement\SSU.DM.Tools.Interface\obj\Debug\net7.0\ref\SSU.DM.Tools.Interface.dll

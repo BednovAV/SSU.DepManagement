@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SSU.DepManagement.WebAssembly.Client.props" />
+</Project>

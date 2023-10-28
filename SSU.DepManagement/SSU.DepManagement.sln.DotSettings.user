@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\droll\.nuget\packages\ironxl.excel\2022.11.10251" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\droll\.nuget\packages\ironxl.excel\2022.12.11262" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\droll\.nuget\packages\ironxl.excel\2023.8.19" Loaded="True" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
