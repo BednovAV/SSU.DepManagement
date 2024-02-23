@@ -31,4 +31,8 @@ public class RequestViewItem
     public string Reporting { get; set; }
 
     public string Note { get; set; }
+
+    public TeacherViewItem Teacher { get; set; }
+
+    public ISet<long> AvailableTeacherIds { get; set; }
 }

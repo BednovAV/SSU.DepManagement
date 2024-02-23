@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SSU.DM.ExcelWriter
-build_property.ProjectDir = C:\Users\droll\Desktop\DiplomFiles\SrcRepo\src\SSU.DepManagement\SSU.DM.ExcelWriter\
+build_property.ProjectDir = C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.ExcelWriter\

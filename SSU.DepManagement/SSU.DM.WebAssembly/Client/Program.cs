@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Radzen;
+using Syncfusion.Blazor;
 
 namespace SSU.DM.WebAssembly.Client
 {
@@ -19,6 +20,7 @@ namespace SSU.DM.WebAssembly.Client
             builder.Services.AddScoped<TooltipService>();
             builder.Services.AddScoped<ContextMenuService>();
             builder.Services.AddRadzenComponents();
+            builder.Services.AddSyncfusionBlazor();
 
             await builder.Build().RunAsync();
         }

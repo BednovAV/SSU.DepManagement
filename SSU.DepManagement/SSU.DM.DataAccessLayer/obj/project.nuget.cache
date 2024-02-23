@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MnEctMx0TyndGMTCnuegDkL+6TB0r+Cwz6NCA+71L9vdZSkfY/1kcVRwpi2YTk2kOuzyUqDt39bOgerzPsX9oA==",
+  "dgSpecHash": "1f65kWG2Fpcsh8SDHdCer0W4tCxVBOonRgQS4Xkkmt5zMCP6yVqkpeUJ1ftwOuEYMP7GZuJntUcHxfiFWWNFqg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
+  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droll\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

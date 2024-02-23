@@ -7,4 +7,6 @@ public class Faculty
     public string Name { get; set; }
 
     public string NameDat { get; set; }
+
+    public virtual List<Competence> Competencies { get; set; }
 }

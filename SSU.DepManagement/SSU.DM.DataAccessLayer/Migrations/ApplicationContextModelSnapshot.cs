@@ -118,12 +118,17 @@ namespace SSU.DM.DataAccessLayer.Migrations
                     b.Property<int>("Semester")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("TeacherId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("TotalHours")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationFormId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Requests");
                 });
@@ -142,6 +147,28 @@ namespace SSU.DM.DataAccessLayer.Migrations
                     b.HasKey("Key");
 
                     b.ToTable("SavedFiles");
+                });
+
+            modelBuilder.Entity("SSU.DM.DataAccessLayer.DbEntities.Teacher", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("SSU.DM.DataAccessLayer.DbEntities.ApplicationForm", b =>
@@ -167,10 +194,21 @@ namespace SSU.DM.DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SSU.DM.DataAccessLayer.DbEntities.Teacher", "Teacher")
+                        .WithMany("Requests")
+                        .HasForeignKey("TeacherId");
+
                     b.Navigation("ApplicationForm");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("SSU.DM.DataAccessLayer.DbEntities.ApplicationForm", b =>
+                {
+                    b.Navigation("Requests");
+                });
+
+            modelBuilder.Entity("SSU.DM.DataAccessLayer.DbEntities.Teacher", b =>
                 {
                     b.Navigation("Requests");
                 });

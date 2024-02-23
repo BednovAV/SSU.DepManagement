@@ -9,8 +9,6 @@ public class Request
 {
     public int Id { get; set; }
     
-    public string NameDiscipline { get; set; }
-
     public string Direction { get; set; }
 
     public int Semester { get; set; }
@@ -39,12 +37,17 @@ public class Request
 
     public Guid ApplicationFormId { get; set; }
     public virtual ApplicationForm ApplicationForm { get; set; }
+
+    public long? TeacherId { get; set; }
+    public virtual Teacher Teacher { get; set; }
+
+    public long DisciplineId { get; set; }
+    public virtual Discipline Discipline { get; set; }
     
-    public static Request FromModel(RequestItem model, Guid applicationFormId)
+    public static Request FromModel(ParsedRequest model, Guid applicationFormId, long disciplineId)
     {
         return new()
         {
-            NameDiscipline = model.NameDiscipline,
             Direction = model.Direction,
             Semester = model.Semester,
             BudgetCount = model.BudgetCount,
@@ -58,7 +61,8 @@ public class Request
             IndependentWorkHours = model.IndependentWorkHours,
             Reporting = model.Reporting,
             Note = model.Note,
-            ApplicationFormId = applicationFormId
+            ApplicationFormId = applicationFormId,
+            DisciplineId = disciplineId,
         };
     }
 }
@@ -73,5 +77,11 @@ internal class RequestConfiguration : IEntityTypeConfiguration<Request>
             .WithMany(a => a.Requests)
             .HasForeignKey(r => r.ApplicationFormId)
             .IsRequired();
+        builder.HasOne(r => r.Teacher)
+            .WithMany(t => t.Requests)
+            .HasForeignKey(r => r.TeacherId);
+        builder.HasOne(r => r.Discipline)
+            .WithMany(t => t.Requests)
+            .HasForeignKey(r => r.DisciplineId);
     }
 }

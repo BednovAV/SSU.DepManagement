@@ -9,8 +9,20 @@ public static class RouteConstants
     public const string IMPORT_REQUEST_DELETE_APP_FORM = "importrequest/deleteappform";
     
     public const string REPORTS_CALCULATION_OF_HOURS = "reports/calculationofhours";
+    public const string IMPORT_REQUEST_FACULTY_LINK = "reports/facultyLink";
+    public const string IMPORT_REQUEST_TEACHER_LINK = "reports/teacherLink";
+    public const string IMPORT_REQUEST_TEACHER_LINK_VALIDATE = "reports/teacherLink/validate";
+    public const string IMPORT_REQUEST_ASSIGN_TEACHERS = "reports/teacher/assign";
     
     public const string FACULTY = "faculty";
+    
+    public const string JOB_TITLE = "jobTitle";
+    
+    public const string SEMESTER = "semester";
+    
+    public const string TEACHER = "teacher";
+    public const string TEACHER_CAPACITY = "teacher/capacity";
+    public const string TEACHER_COMPETENCE = "teacher/competence";
 
     /// <summary>
     /// Adds the specified parameter to the Query String.

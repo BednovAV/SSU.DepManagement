@@ -1,0 +1,114 @@
+﻿@page "/capacities"
+@using Models.View
+@using SSU.DM.WebAssembly.Client.Extensions
+@using SSU.DM.WebAssembly.Shared.Models
+
+@inject HttpClient Http
+
+<PageTitle>Нагрузка преподавателей</PageTitle>
+
+<h1>Нагрузка преподавателей</h1>
+
+<RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@capacities"
+                TItem="TeacherCapacitiesViewItem" EmptyText="Нагрузка не найдена"
+                EditMode="DataGridEditMode.Single" RowUpdate="@OnUpdateRow">
+    <Columns>
+        <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Property="Teacher" Title="Преподаватель" TextAlign="TextAlign.Center">
+        </RadzenDataGridColumn>
+        @foreach (var semester in semesters ?? Array.Empty<SemesterViewItem>())
+        {
+            <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Title="@semester.Name" TextAlign="TextAlign.Center">
+                <Columns>
+                    <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Title="Распределено" TextAlign="TextAlign.Center">
+                        <Template Context="data">
+                            @(data.CapacityBySemester[semester.Id].AllocatedHours)
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Title="Всего часов" TextAlign="TextAlign.Center">
+                        <Template Context="data">
+                            @(data.CapacityBySemester[semester.Id].TotalHours)
+                        </Template>
+                        <EditTemplate Context="data">
+                            <RadzenNumeric @bind-Value="data.CapacityBySemester[semester.Id].TotalHours" Style="width:100%; display: block" Name="CapacityTotal"/>
+                            <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="CapacityTotal" Popup="true"/>
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGridColumn>
+        }
+        <RadzenDataGridColumn OrderIndex="Int32.MaxValue" TItem="TeacherCapacitiesViewItem" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="130px">
+            <Template Context="item">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium"
+                              Click="@(args => EditRow(item))" @onclick:stopPropagation="true"/>
+            </Template>
+            <EditTemplate Context="item">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium"
+                              Click="@((args) => SaveRow(item))"/>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1"
+                              Click="@((args) => CancelEdit(item))"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    RadzenDataGrid<TeacherCapacitiesViewItem> grid;
+    int dataCount;
+    bool isDataGridLoading;
+    IEnumerable<TeacherCapacitiesViewItem> capacities;
+    IEnumerable<SemesterViewItem> semesters;
+    TeacherCapacitiesViewItem itemToUpdate = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        semesters = await Http.GetSemestersAsync();
+        await base.OnInitializedAsync();
+    }
+
+    async Task ResetGridAsync()
+    {
+        grid.Reset(true);
+        await grid.FirstPage(true);
+    }
+    
+    private async Task LoadData(LoadDataArgs arg)
+    {
+        isDataGridLoading = true;
+        
+        capacities = await Http.GetTeacherCapacitiesAsync();
+        dataCount = capacities.Count();
+
+        isDataGridLoading = false;
+    }
+
+    private async Task EditRow(TeacherCapacitiesViewItem item)
+    {
+        itemToUpdate = item;
+        await grid.EditRow(item);
+    }
+
+    private async Task SaveRow(TeacherCapacitiesViewItem item)
+    {
+        await grid.UpdateRow(item);
+    }
+
+    private async Task CancelEdit(TeacherCapacitiesViewItem item)
+    {
+        grid.CancelEditRow(item);
+        await ResetGridAsync();
+    }
+
+    private async Task OnUpdateRow(TeacherCapacitiesViewItem item)
+    {
+        var request = new UpdateTeacherCapacityRequest
+        {
+            TeacherId = item.Teacher.Id,
+            TotalHoursBySemester = item.CapacityBySemester.ToDictionary(
+                capacity => capacity.Key,
+                capacity => capacity.Value.TotalHours)
+        };
+        await Http.UpdateTeacherCapacitiesAsync(request);
+        await ResetGridAsync();
+    }
+
+}

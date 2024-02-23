@@ -13,7 +13,7 @@ public static class ParserConfig
     internal static IParser? GetParser<TParserResult>(TParserResult resultObj)
         => resultObj switch
         {
-            List<RequestItem> => new RequestParser(),
+            List<ParsedRequest> => new RequestParser(),
             _ => null
         };
 }

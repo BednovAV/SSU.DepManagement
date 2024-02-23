@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Uh7xT/cwx4BxJJ1UyNsq8AjbGh1Xv+U/U5w4IrWOa6caucQTL6s5l7xW7XqHkyYVO4XRIvLOL4ivX4aidmwCbA==",
+  "dgSpecHash": "h7rxjcctCgZI9WhR+cXVO1mtEtQXOQcKLuF+s8RD2ygRwnpb0Cjuo04zheQO85EFFrPcjYO6IpjXi/rsadvVGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.FileInserter\\SSU.DM.FileInserter.csproj",
+  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.FileInserter\\SSU.DM.FileInserter.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droll\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.3\\microsoft.data.sqlite.core.7.0.3.nupkg.sha512",

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using SSU.DM.DataAccessLayer.Core;
 using SSU.DM.DataAccessLayer.DbEntities;
 
@@ -13,6 +12,9 @@ public class ApplicationFormDao : BaseDao<ApplicationForm, Guid>, IApplicationFo
     protected override DbSet<ApplicationForm> SelectDbSet(ApplicationContext db)
         => db.ApplicationForms;
 
+    protected override Guid SelectKey(ApplicationForm entity)
+        => entity.ApplicationFormId;
+
     public void Add(Guid id, DateTimeOffset dateCreated, string fileKey)
     {
         var entity = new ApplicationForm()
@@ -22,5 +24,15 @@ public class ApplicationFormDao : BaseDao<ApplicationForm, Guid>, IApplicationFo
             FileKey = fileKey,
         };
         Add(entity);
+    }
+
+    public void SetFacultyId(Guid appFormId, int facultyId)
+    {
+        var entity = GetById(appFormId);
+        entity.FacultyId = facultyId;
+        UseContext(ctx =>
+        {
+            ctx.ApplicationForms.Update(entity);
+        });
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "25qKDPMXFZD9OlWp8UfMp1MhTU6+Du4DeKdcT511zdzy2xCuKs892z6vNyUpY3uTJgmfvjxoa7J3uCwFM/7twQ==",
+  "dgSpecHash": "b2k0kM/FxovWLk+dz/lOPCk1QfqRbYVfs/rHJFeG851QuiG+e9Ths7e5UFbAImbW9WAPIlq4/BIhc6LPH3z//w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
+  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.configuration.binder\\7.0.3\\microsoft.extensions.configuration.binder.7.0.3.nupkg.sha512",

@@ -7,5 +7,7 @@ namespace SSU.DM.DataAccessLayer.DataAccessObjects;
 
 public interface IRequestDao : IDao<Request, int>
 {
-    void AddRange(IEnumerable<RequestItem> requestItems, Guid applicationFormId);
+    void AddRange(IEnumerable<ParsedRequest> requestItems, Guid applicationFormId);
+    
+    void SetTeacherId(int requestId, long? teacherId);
 }

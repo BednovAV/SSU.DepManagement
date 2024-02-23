@@ -1,7 +1,9 @@
 using Models.ConfigSections;
 using Models.Extensions;
+using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ServiceFactory;
 using SSU.DM.WebAssembly.Server;
+using SSU.DM.WebAssembly.Server.HostedServices;
 
 namespace SSU.DepManagement.WebAssembly;
 
@@ -20,6 +22,7 @@ public class Program
         var dataConfiguration = config.GetSection<DataConfigurationConfigSection>();
         var connectionString = config.GetConnectionString(dataConfiguration.SelectedConnection);
         builder.Services.RegisterApplicationDependencies(connectionString);
+        builder.Services.AddHostedService<WarmUpHostedService>();
         ServiceFactory.Provider = builder.Services.BuildServiceProvider();
         
         var app = builder.Build();

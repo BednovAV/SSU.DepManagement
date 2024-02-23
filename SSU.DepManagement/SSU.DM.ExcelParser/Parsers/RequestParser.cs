@@ -4,9 +4,9 @@ using SSU.DM.ExcelParser.Abstract;
 
 namespace SSU.DM.ExcelParser.Parsers;
 
-internal class RequestParser : AbstractParserLite<List<RequestItem>>
+internal class RequestParser : AbstractParserLite<List<ParsedRequest>>
 {
-    protected override List<RequestItem>? MapToResult(ExcelWorkbook workBook)
+    protected override List<ParsedRequest>? MapToResult(ExcelWorkbook workBook)
     {
         var workSheet = workBook.Worksheets.FirstOrDefault();
         var endRow = 5;
@@ -16,7 +16,7 @@ internal class RequestParser : AbstractParserLite<List<RequestItem>>
         return Enumerable.Range(5, endRow - 5).Select(x => ReadRow(workSheet, x)).ToList();
     }
 
-    private RequestItem ReadRow(ExcelWorksheet workSheet, int rowNumber)
+    private ParsedRequest ReadRow(ExcelWorksheet workSheet, int rowNumber)
     {
         return new()
         {

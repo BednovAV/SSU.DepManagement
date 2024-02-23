@@ -7,7 +7,7 @@
         <entry key="Common:c4deebc1-5960-4a03-817d-729f4b841dcf:dbContext" value="SSU.DM.DataAccessLayer.Core.ApplicationContext" />
         <entry key="Common:noBuild" value="false" />
         <entry key="Common:outputFolder" value="Migrations" />
-        <entry key="Common:useDefaultConnection" value="false" />
+        <entry key="Common:useDefaultConnection" value="true" />
       </map>
     </option>
   </component>

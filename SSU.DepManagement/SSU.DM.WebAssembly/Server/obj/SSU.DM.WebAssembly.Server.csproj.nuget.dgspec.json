@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj": {}
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -70,21 +65,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
         "projectName": "SSU.DM.DataAccessLayer",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,15 +83,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj"
               }
             }
           }
@@ -158,21 +148,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj",
         "projectName": "SSU.DM.ExcelParser",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -180,21 +166,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
               }
             }
           }
@@ -234,21 +219,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
         "projectName": "SSU.DM.ExcelUtils",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -256,15 +237,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
               }
             }
           }
@@ -304,21 +284,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj",
         "projectName": "SSU.DM.ExcelWriter",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -326,21 +302,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
               }
             }
           }
@@ -380,88 +355,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\SSU.DM.LogicLayer.Faculty.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\SSU.DM.LogicLayer.Faculty.csproj",
-        "projectName": "SSU.DM.LogicLayer.Faculty",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\SSU.DM.LogicLayer.Faculty.csproj",
-        "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
-              },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
         "projectName": "SSU.DM.LogicLayer.Interfaces",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -469,15 +373,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj"
               }
             }
           }
@@ -511,21 +414,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\SSU.DM.LogicLayer.Reports.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\SSU.DM.LogicLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\SSU.DM.LogicLayer.Reports.csproj",
-        "projectName": "SSU.DM.LogicLayer.Reports",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\SSU.DM.LogicLayer.Reports.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\SSU.DM.LogicLayer.csproj",
+        "projectName": "SSU.DM.LogicLayer",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\SSU.DM.LogicLayer.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -533,21 +432,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
               }
             }
           }
@@ -581,91 +479,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\SSU.DM.LogicLayer.Request.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\SSU.DM.LogicLayer.Request.csproj",
-        "projectName": "SSU.DM.LogicLayer.Request",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\SSU.DM.LogicLayer.Request.csproj",
-        "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
-              },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
-              },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj",
         "projectName": "SSU.DM.ServiceFactory",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -673,7 +497,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -717,21 +540,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj",
         "projectName": "SSU.DM.Tools.Interface",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -739,7 +558,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -777,21 +595,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj",
         "projectName": "SSU.DM.WebAssembly.Client",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -799,18 +613,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\Models\\Models.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj"
               }
             }
           }
@@ -840,7 +653,11 @@
             },
             "Radzen.Blazor": {
               "target": "Package",
-              "version": "[4.16.0, )"
+              "version": "[4.24.6, )"
+            },
+            "Syncfusion.Blazor.Navigations": {
+              "target": "Package",
+              "version": "[24.2.5, )"
             }
           },
           "imports": [
@@ -857,7 +674,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[7.0.12, 7.0.12]"
+              "version": "[7.0.16, 7.0.16]"
             }
           ],
           "frameworkReferences": {
@@ -874,21 +691,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj",
         "projectName": "SSU.DM.WebAssembly.Server",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\SSU.DM.WebAssembly.Server.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Server\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -896,45 +709,38 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.DataAccessLayer\\SSU.DM.DataAccessLayer.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelParser\\SSU.DM.ExcelParser.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelWriter\\SSU.DM.ExcelWriter.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\SSU.DM.LogicLayer.Faculty.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Faculty\\SSU.DM.LogicLayer.Faculty.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\SSU.DM.LogicLayer.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer\\SSU.DM.LogicLayer.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\SSU.DM.LogicLayer.Reports.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Reports\\SSU.DM.LogicLayer.Reports.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\SSU.DM.LogicLayer.Request.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Request\\SSU.DM.LogicLayer.Request.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ServiceFactory\\SSU.DM.ServiceFactory.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj"
               },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.Tools.Interface\\SSU.DM.Tools.Interface.csproj"
-              },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj"
-              },
-              "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
-                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj"
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj"
               }
             }
           }
@@ -1005,21 +811,17 @@
         }
       }
     },
-    "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
+    "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj",
         "projectName": "SSU.DM.WebAssembly.Shared",
-        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj",
+        "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\SSU.DM.WebAssembly.Shared.csproj",
         "packagesPath": "C:\\Users\\droll\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Shared\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\droll\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -1027,13 +829,16 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\Models\\Models.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

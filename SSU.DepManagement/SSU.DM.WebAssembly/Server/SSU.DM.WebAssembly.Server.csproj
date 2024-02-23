@@ -29,10 +29,8 @@
     <ProjectReference Include="..\..\SSU.DM.DataAccessLayer\SSU.DM.DataAccessLayer.csproj" />
     <ProjectReference Include="..\..\SSU.DM.ExcelParser\SSU.DM.ExcelParser.csproj" />
     <ProjectReference Include="..\..\SSU.DM.ExcelWriter\SSU.DM.ExcelWriter.csproj" />
-    <ProjectReference Include="..\..\SSU.DM.LogicLayer.Faculty\SSU.DM.LogicLayer.Faculty.csproj" />
     <ProjectReference Include="..\..\SSU.DM.LogicLayer.Interfaces\SSU.DM.LogicLayer.Interfaces.csproj" />
-    <ProjectReference Include="..\..\SSU.DM.LogicLayer.Reports\SSU.DM.LogicLayer.Reports.csproj" />
-    <ProjectReference Include="..\..\SSU.DM.LogicLayer.Request\SSU.DM.LogicLayer.Request.csproj" />
+    <ProjectReference Include="..\..\SSU.DM.LogicLayer\SSU.DM.LogicLayer.csproj" />
     <ProjectReference Include="..\..\SSU.DM.ServiceFactory\SSU.DM.ServiceFactory.csproj" />
     <ProjectReference Include="..\..\SSU.DM.Tools.Interface\SSU.DM.Tools.Interface.csproj" />
     <ProjectReference Include="..\Client\SSU.DM.WebAssembly.Client.csproj" />

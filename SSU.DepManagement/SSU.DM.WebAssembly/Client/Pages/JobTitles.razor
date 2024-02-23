@@ -1,0 +1,123 @@
+﻿@page "/jobtitles"
+@using Models.View
+@using SSU.DM.WebAssembly.Client.Extensions
+
+@inject HttpClient Http
+
+<PageTitle>Список должностей</PageTitle>
+
+<h1>Список должностей</h1>
+
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Добавить должность"
+              Click="@InsertRow" Disabled=@(jobTitleToInsert != null || jobTitleToUpdate != null)/>
+<RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@jobTitles"
+                EditMode="DataGridEditMode.Single" TItem="JobTitleViewItem" EmptyText="Должностей не найдено"
+                RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow">
+    <Columns>
+        <RadzenDataGridColumn TItem="JobTitleViewItem" Property="Name" Title="Название" TextAlign="TextAlign.Center">
+            <EditTemplate Context="jobTitle">
+                <RadzenTextBox @bind-Value="jobTitle.Name" Style="width:100%; display: block" Name="Name"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="Name" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="JobTitleViewItem" Property="LowerBoundHours" Title="Нижняя граница часов" TextAlign="TextAlign.Center">
+            <EditTemplate Context="jobTitle">
+                <RadzenNumeric @bind-Value="jobTitle.LowerBoundHours" Style="width:100%; display: block" Name="LowerBoundHours"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="LowerBoundHours" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="JobTitleViewItem" Property="UpperBoundHours" Title="Верхняя граница часов" TextAlign="TextAlign.Center">
+            <EditTemplate Context="jobTitle">
+                <RadzenNumeric @bind-Value="jobTitle.UpperBoundHours" Style="width:100%; display: block" Name="UpperBoundHours"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="UpperBoundHours" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="JobTitleViewItem" Context="order" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+            <Template Context="jobTitle">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRow(jobTitle))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(jobTitle))" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="jobTitle">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(jobTitle))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(jobTitle))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    RadzenDataGrid<JobTitleViewItem> grid;
+    int dataCount;
+    bool isDataGridLoading;
+    IEnumerable<JobTitleViewItem> jobTitles;
+
+    JobTitleViewItem jobTitleToInsert;
+    JobTitleViewItem jobTitleToUpdate;
+
+    async Task ResetGridAsync()
+    {
+        jobTitleToInsert = null;
+        jobTitleToUpdate = null;
+
+        grid.Reset(true);
+        await grid.FirstPage(true);
+    }
+
+    private async Task LoadData(LoadDataArgs arg)
+    {
+        isDataGridLoading = true;
+
+        jobTitles = await Http.GetJobTitlesAsync();
+        dataCount = jobTitles.Count();
+
+        isDataGridLoading = false;
+    }
+
+    private async Task EditRow(JobTitleViewItem jobTitle)
+    {
+        jobTitleToUpdate = jobTitle;
+        await grid.EditRow(jobTitle);
+    }
+
+    private async Task OnUpdateRow(JobTitleViewItem jobTitle)
+    {
+        await Http.UpdateJobTitleAsync(jobTitle);
+        await ResetGridAsync();
+    }
+
+    private async Task SaveRow(JobTitleViewItem jobTitle)
+    {
+        await grid.UpdateRow(jobTitle);
+    }
+
+
+    private async Task CancelEdit(JobTitleViewItem jobTitle)
+    {
+        grid.CancelEditRow(jobTitle);
+        await ResetGridAsync();
+    }
+
+    private async Task DeleteRow(JobTitleViewItem jobTitle)
+    {
+        await Http.DeleteJobTitleAsync(jobTitle.Id);
+        await ResetGridAsync();
+    }
+
+
+    private async Task InsertRow()
+    {
+        jobTitleToInsert = new JobTitleViewItem();
+        await grid.InsertRow(jobTitleToInsert);
+    }
+
+    private async Task OnCreateRow(JobTitleViewItem jobTitle)
+    {
+        await Http.CreateJobTitleAsync(jobTitle);
+        await ResetGridAsync();
+    }
+
+}

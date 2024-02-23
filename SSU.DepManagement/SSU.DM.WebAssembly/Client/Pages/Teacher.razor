@@ -1,0 +1,156 @@
+﻿@page "/teachers"
+@using Models.View
+@using SSU.DM.WebAssembly.Client.Cards
+@using SSU.DM.WebAssembly.Client.Extensions
+
+@inject HttpClient Http
+@inject DialogService DialogService
+
+<PageTitle>Список преподавателей</PageTitle>
+
+<h1>Список преподавателей</h1>
+
+<RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Добавить преподавателя"
+              Click="@InsertRow" Disabled=@(teacherToInsert != null || teacherToUpdate != null) />
+<RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@teachers"
+                EditMode="DataGridEditMode.Single" TItem="TeacherViewItem" EmptyText="Преподавателей не найдено"
+                RowUpdate="@OnUpdateRow" RowCreate="@OnCreateRow">
+    <Columns>
+        <RadzenDataGridColumn TItem="TeacherViewItem" Property="FirstName" Title="Имя" TextAlign="TextAlign.Center">
+            <EditTemplate Context="data">
+                <RadzenTextBox @bind-Value="data.FirstName" Style="width:100%; display: block" Name="FirstName"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="FirstName" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="TeacherViewItem" Property="MiddleName" Title="Отчество" TextAlign="TextAlign.Center">
+            <EditTemplate Context="data">
+                <RadzenTextBox @bind-Value="data.MiddleName" Style="width:100%; display: block" Name="MiddleName"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="MiddleName" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="TeacherViewItem" Property="LastName" Title="Фамилия" TextAlign="TextAlign.Center">
+            <EditTemplate Context="data">
+                <RadzenTextBox @bind-Value="data.LastName" Style="width:100%; display: block" Name="LastName"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="LastName" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="TeacherViewItem" Title="Должность" Property="JobTitle" Width="200px" TextAlign="TextAlign.Center">
+            <EditTemplate Context="data">
+                <RadzenDropDown
+                    TValue="JobTitleViewItem"
+                    Value=@data.JobTitle
+                    Data=@jobTitles
+                    Style="width: 80%; max-width: 180px;"
+                    CHACHE/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="TeacherViewItem" Property="Rate" Title="Ставка" TextAlign="TextAlign.Center">
+            <EditTemplate Context="data">
+                <RadzenNumeric Placeholder="1.0" Step="0.5" @bind-Value="data.Rate" Style="width:100%; display: block" Name="rate"/>
+                <RadzenRequiredValidator Text="Не заполнено обязательное поле" Component="rate" Popup="true"/>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Title="Компетенции" TItem="TeacherViewItem" TextAlign="TextAlign.Center" Width="156px">
+            <Template Context="teacher">
+                <RadzenButton Disabled="teacherToInsert != null || teacherToUpdate != null" Icon="account_tree" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium"
+                              Click="@(() => OpenTeacher(teacher))" @onclick:stopPropagation="true"/>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="TeacherViewItem" TextAlign="TextAlign.Center" Width="156px">
+            <Template Context="teacher">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRow(teacher))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(teacher))"  @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="teacher">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(teacher))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(teacher))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    RadzenDataGrid<TeacherViewItem> grid;
+    int dataCount;
+    bool isDataGridLoading;
+    IEnumerable<TeacherViewItem> teachers;
+    IEnumerable<JobTitleViewItem> jobTitles;
+
+    TeacherViewItem teacherToInsert;
+    TeacherViewItem teacherToUpdate;
+
+    async Task ResetGridAsync()
+    {
+        teacherToInsert = null;
+        teacherToUpdate = null;
+            
+        grid.Reset(true);
+        await grid.FirstPage(true);
+    }
+    
+    private async Task LoadData(LoadDataArgs arg)
+    {
+        isDataGridLoading = true;
+
+        teachers = await Http.GetTeachersAsync();
+        jobTitles = await Http.GetJobTitlesAsync();
+        dataCount = teachers.Count();
+
+        isDataGridLoading = false;
+    }
+
+    private async Task EditRow(TeacherViewItem teacher)
+    {
+        teacherToUpdate = teacher;
+        await grid.EditRow(teacher);
+    }
+
+    private async Task OnUpdateRow(TeacherViewItem teacher)
+    {
+        await Http.UpdateTeacherAsync(teacher);
+        await ResetGridAsync();
+    }
+
+    private async Task SaveRow(TeacherViewItem teacher)
+    {
+        await grid.UpdateRow(teacher);
+    }
+
+
+    private async Task CancelEdit(TeacherViewItem teacher)
+    {
+        grid.CancelEditRow(teacher);
+        await ResetGridAsync();
+    }
+
+    private async Task DeleteRow(TeacherViewItem teacher)
+    {
+        await Http.DeleteTeacherAsync(teacher.Id);
+        await ResetGridAsync();
+    }
+
+
+    private async Task InsertRow()
+    {
+        teacherToInsert = new TeacherViewItem();
+        await grid.InsertRow(teacherToInsert);
+    }
+
+    private async Task OnCreateRow(TeacherViewItem teacher)
+    {
+        await Http.CreateTeacherAsync(teacher);
+        await ResetGridAsync();
+    }
+
+    private async Task OpenTeacher(TeacherViewItem teacher)
+    {
+        await DialogService.OpenAsync<TeacherCompetencies>($"Информация о преподавателе: {teacher.ToString()}",
+            new Dictionary<string, object>() { { "Teacher", teacher } },
+            new DialogOptions() { Width = "700px", Height = "700px" });
+    }
+
+}

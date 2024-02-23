@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZSgFIt1abR4SMouX0Hfs6nqw77HnhjH3o9Zk6DJp5unU62CLg/cfR9INk/iCLmo7xSMioKl/9HHXQM0AtX/bYA==",
+  "dgSpecHash": "XQekEhN+oyYjPsJ6rhUr7CsGzA8+RWFXT778paWX+wJ8mDyAdUg6Pp5RuW6shWnvYHHlbpA5UVhltZEW03K2CQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\SrcRepo\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
+  "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.ExcelUtils\\SSU.DM.ExcelUtils.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droll\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\epplus\\7.0.0-rc1\\epplus.7.0.0-rc1.nupkg.sha512",

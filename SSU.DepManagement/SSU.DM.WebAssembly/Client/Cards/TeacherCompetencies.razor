@@ -1,0 +1,79 @@
+﻿@using Models.View
+@using SSU.DM.WebAssembly.Client.Extensions
+@using SSU.DM.WebAssembly.Shared.Models
+@using Syncfusion.Blazor.Navigations
+@using Orientation = Radzen.Orientation
+
+@inject Radzen.DialogService dialogService
+@inject HttpClient Http
+
+<RadzenTree @ref="tree" AllowCheckChildren="true" AllowCheckBoxes="true" @bind-CheckedValues=@checkedValues Data=@competencies>
+    <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
+                     TextProperty="DisciplineName" ChildrenProperty="Faculties" />
+    <RadzenTreeLevel TextProperty="FacultyName" ChildrenProperty="Types" />
+    <RadzenTreeLevel HasChildren="_ => false" />
+</RadzenTree>
+
+<RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem">
+    <RadzenButton Click="@((args) => CloseDialog(false))" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Light" Text="Отменить" Style="width: 120px" />
+    <RadzenButton Click="@((args) => CloseDialog(true))" Variant="Variant.Flat" Text="Сохранить" Style="width: 120px" />
+</RadzenStack>
+
+@code {
+
+    [Parameter]
+    public TeacherViewItem Teacher { get; set; }
+    
+    RadzenTree tree;
+    IEnumerable<TeacherCompetenciesViewItem> competencies;
+    IEnumerable<object> checkedValues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        competencies = await Http.GetTeacherCompetenciesAsync(Teacher.Id);
+        checkedValues = competencies.Where(x => x.Checked).Cast<object>()
+            .Concat(competencies.Where(x => !x.Checked).SelectMany(
+            x => x.Faculties)
+            .Where(x => x.Checked)
+            ).ToList();
+    }
+
+    async Task CloseDialog(bool saveChanges)
+    {
+        if (saveChanges)
+        {
+            var disciplineCompets = checkedValues
+                .OfType<TeacherCompetenciesViewItem>()
+                .SelectMany(x => x.Faculties)
+                .Select(x => x.Competence)
+                .ToList();
+            
+            var facultyCompets = checkedValues
+                .OfType<FacultyDisciplineViewItem>()
+                .Select(x => x.Competence)
+                .Where(x => !disciplineCompets.Contains(x))
+                .ToList();
+            disciplineCompets.AddRange(facultyCompets);
+            var request = new SaveTeacherCompetenciesRequest
+            {
+                TeacherId = Teacher.Id,
+                Competencies = disciplineCompets
+            };
+            await Http.SaveTeacherCompetenciesAsync(request);
+        }
+        dialogService.Close();
+    }
+
+    private bool ShouldExpanded(TeacherCompetenciesViewItem? item)
+    {
+        if (item == null)
+            return false;
+
+        if (item.Faculties.All(x => x.Checked))
+            return false;
+
+        return item.Faculties.Any(x => x.Checked);
+    }
+
+}

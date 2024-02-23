@@ -1,5 +1,6 @@
 ﻿@page "/faculties"
 @using Models.View
+@using SSU.DM.WebAssembly.Client.Extensions
 
 @inject HttpClient Http
 
@@ -26,27 +27,25 @@
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="FacultyViewItem" Context="order" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
-                    <Template Context="faculty">
-                        <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRow(faculty))" @onclick:stopPropagation="true">
-                        </RadzenButton>
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))"  @onclick:stopPropagation="true">
-                        </RadzenButton>
-                    </Template>
-                    <EditTemplate Context="faculty">
-                        <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(faculty))">
-                        </RadzenButton>
-                        <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(faculty))">
-                        </RadzenButton>
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))">
-                        </RadzenButton>
-                    </EditTemplate>
-                </RadzenDataGridColumn>
+            <Template Context="faculty">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRow(faculty))" @onclick:stopPropagation="true">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))"  @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="faculty">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRow(faculty))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEdit(faculty))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRow(faculty))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGrid>
 
 @code {
-    string facultyUrl = RouteConstants.FACULTY;
-    
     RadzenDataGrid<FacultyViewItem> grid;
     int dataCount;
     bool isDataGridLoading;
@@ -68,15 +67,10 @@
     {
         isDataGridLoading = true;
 
-        faculties = (await GetFacultiesAsync()).ToList();
+        faculties = await Http.GetFacultiesAsync();
         dataCount = faculties.Count();
 
         isDataGridLoading = false;
-    }
-    
-    private async Task<IEnumerable<FacultyViewItem>> GetFacultiesAsync()
-    {
-        return await Http.GetFromJsonAsync<IEnumerable<FacultyViewItem>>(facultyUrl);
     }
 
     private async Task EditRow(FacultyViewItem faculty)
@@ -87,7 +81,7 @@
 
     private async Task OnUpdateRow(FacultyViewItem faculty)
     {
-        await Http.PutAsync(facultyUrl, JsonContent.Create(faculty));
+        await Http.UpdateFacultyAsync(faculty);
         await ResetGridAsync();
     }
 
@@ -105,7 +99,7 @@
 
     private async Task DeleteRow(FacultyViewItem faculty)
     {
-        await Http.DeleteAsync(facultyUrl + $"/{faculty.Id}");
+        await Http.DeleteFacultyAsync(faculty.Id);
         await ResetGridAsync();
     }
 
@@ -118,8 +112,7 @@
 
     private async Task OnCreateRow(FacultyViewItem faculty)
     {
-        await Http.PostAsync(facultyUrl, JsonContent.Create(faculty));
-
+        await Http.CreateFacultyAsync(faculty);
         await ResetGridAsync();
     }
 

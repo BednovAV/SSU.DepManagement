@@ -1,5 +1,8 @@
 ﻿@page "/importrequest"
 @using Models.View
+@using SSU.DM.WebAssembly.Client.Extensions
+@using SSU.DM.WebAssembly.Shared.Models
+@using System.Net
 
 @inject HttpClient Http
 @inject DialogService DialogService
@@ -18,11 +21,18 @@
                     BusyLength="1"
                     FileLink="@GetCalculationOfHoursReportUrl()"
                     Disabled="@(selectedAppForms?.Any() != true)"/>
+    <RadzenButton
+        Click="@(async (args) => await AssignTeachers())"
+        Text="Распределить преподавателей"
+        Disabled="@(selectedAppForms?.Any() != true)" />
 </RadzenCard>
 
 <RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@appForms"
                 TItem="ApplicationFormViewItem" EmptyText="Заявок не найдено"
-                AllowRowSelectOnRowClick="false" SelectionMode="DataGridSelectionMode.Multiple" @bind-Value=@selectedAppForms>
+                AllowRowSelectOnRowClick="false"
+                RowExpand="@(item => expandedAppFormIds.Add(item.Id))"
+                RowCollapse="@(item => expandedAppFormIds.Remove(item.Id))"
+                SelectionMode="DataGridSelectionMode.Multiple" @bind-Value=@selectedAppForms>
     <Template Context="appForm">
         <RadzenDataGrid Data="@appForm.Requests" TItem="RequestViewItem">
             <Columns>
@@ -30,6 +40,18 @@
                 <RadzenDataGridColumn TItem="RequestViewItem" Property="Direction" Title="Направление"/>
                 <RadzenDataGridColumn TItem="RequestViewItem" Property="GroupNumber" Title="Номер группы"/>
                 <RadzenDataGridColumn TItem="RequestViewItem" Property="TotalHours" Title="Всего часов"/>
+                <RadzenDataGridColumn TItem="RequestViewItem" Title="Преподаватель" TextAlign="TextAlign.Center">
+                    <Template Context="request">
+                        <RadzenDropDown
+                            TValue="RequestViewItem"
+                            Value=@(request.Teacher?.ToString() ?? "-")
+                            Data=@(teachers.Where(item => request.AvailableTeacherIds.Contains(item.Id) || item.Id == emptyTeacherId))
+                            Name="teacherLink"
+                            Disabled="@(updateTeacherDisabled || appForm.FacultyName == "-")"
+                            Style="width: 80%; max-width: 180px;"
+                            Change="@(async args => await CreateRequestTeacherLink(args, request))"/>
+                    </Template>
+                </RadzenDataGridColumn>
             </Columns>
         </RadzenDataGrid>
     </Template>
@@ -45,16 +67,30 @@
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ApplicationFormViewItem" Property="Name" Title="Название" Width="200px" TextAlign="TextAlign.Center"/>
-        <RadzenDataGridColumn TItem="ApplicationFormViewItem"  Property="FacultyName" Title="Факультет" Width="200px" TextAlign="TextAlign.Center"/>
-        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Property="DateCreated" Title="Дата создания" Width="200px" TextAlign="TextAlign.Center"/>
-        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Файл" Width="100px" TextAlign="TextAlign.Center">
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Факультет" Width="200px" TextAlign="TextAlign.Center">
+            <Template Context="appForm">
+                <RadzenDropDown
+                    TValue="FacultyViewItem"
+                    Value=@appForm.FacultyName
+                    Data=@faculties
+                    Disabled="updateFacultyDisabled"
+                    Style="width: 80%; max-width: 180px;"
+                    Change="@(async args => await CreateAppFormFacultyLink(args, appForm))"/>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Property="DateCreated" Title="Дата создания" Width="200px" TextAlign="TextAlign.Center">
+            <Template Context="appForm">
+                @TimeZoneInfo.ConvertTimeFromUtc(appForm.DateCreated.DateTime, TimeZoneInfo.Local).ToString("dd.MM.yyyy (HH:mm)")
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Файл" Width="150px" TextAlign="TextAlign.Center">
             <Template Context="appForm">
                 <DownloadButton
                     BusyLength="1"
                     FileLink="@fileUrl.AddParameter("key", appForm.FileKey)"
                     FileName="@AddXlsx(appForm.Name)"
-                    Text="Save"
-                    Style="width: 80px"/>
+                    Text="Скачать"
+                    Style="width: 130px"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="ApplicationFormViewItem" Title="Удалить" TextAlign="TextAlign.Center" Width="60px">
@@ -68,13 +104,15 @@
 @code {
     string fileUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_FILE);
     string uploadUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_UPLOAD_REQUEST);
-    string getAppFormsUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_APP_FORMS);
-    string deleteAppFormUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_DELETE_APP_FORM);
     string calculationOfHoursReportUrl => Http.GetUrl(RouteConstants.REPORTS_CALCULATION_OF_HOURS);
+    long emptyTeacherId = -1;
 
     RadzenDataGrid<ApplicationFormViewItem> grid;
     IEnumerable<ApplicationFormViewItem> appForms;
-    IList<ApplicationFormViewItem> selectedAppForms = new List<ApplicationFormViewItem>();
+    ISet<Guid> expandedAppFormIds = new HashSet<Guid>();
+    IEnumerable<FacultyViewItem> faculties;
+    IEnumerable<TeacherViewItem> teachers;
+    IList<ApplicationFormViewItem> selectedAppForms;
     bool isDataGridLoading;
     int dataCount;
 
@@ -106,7 +144,7 @@
             isDeleteButtonBusy = true;
             dialogService.Refresh();
 
-            var deleteResult = await Http.PostAsync(deleteAppFormUrl, JsonContent.Create(new { appFormId = appForm.Id }));
+            var deleteResult = await Http.DeleteAppFormAsync(appForm.Id);
             dialogService.Close();
             NotificationMessage message;
             if (deleteResult.IsSuccessStatusCode)
@@ -134,23 +172,21 @@
         }
     }
 
-    private async Task<IEnumerable<ApplicationFormViewItem>> GetAppFormsAsync()
-    {
-        return await Http.GetFromJsonAsync<IEnumerable<ApplicationFormViewItem>>(getAppFormsUrl);
-    }
-
     private string AddXlsx(string str) => str + ".xlsx";
 
     private async Task LoadData(LoadDataArgs arg)
     {
         isDataGridLoading = true;
 
-        appForms = (await GetAppFormsAsync()).ToList();
+        appForms = (await Http.GetAppFormsAsync()).ToList();
+        faculties = await Http.GetFacultiesAsync();
+        teachers = (await Http.GetTeachersAsync()).Prepend(new TeacherViewItem { Id = emptyTeacherId });
+        selectedAppForms = new List<ApplicationFormViewItem>();
         dataCount = appForms.Count();
-
         isDataGridLoading = false;
-    }
+        Task.Run(async () => await grid.ExpandRows(appForms.Where(x => expandedAppFormIds.Contains(x.Id))));
 
+    }
 
     int progress;
     bool showProgress;
@@ -187,6 +223,67 @@
     {
         return calculationOfHoursReportUrl
             .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
+    }
+
+    bool updateFacultyDisabled = false;
+
+    private async Task<HttpResponseMessage> CreateAppFormFacultyLink(object args, ApplicationFormViewItem appForm)
+    {
+        updateFacultyDisabled = true;
+        if (args is not FacultyViewItem faculty)
+        {
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+
+        var response = await Http.CreateAppFormFacultyLinkAsync(new CreateAppFormFacultyLinkRequest(appForm.Id, faculty.Id));
+        updateFacultyDisabled = false;
+        
+        await grid.RefreshDataAsync();
+        return response;
+    }
+
+    bool updateTeacherDisabled = false;
+
+    private async Task CreateRequestTeacherLink(object args, RequestViewItem request)
+    {
+        updateTeacherDisabled = true;
+        if (args is not TeacherViewItem teacher)
+        {
+            return;
+        }
+        if (teacher.Id == request.Teacher?.Id)
+        {
+            updateTeacherDisabled = false;
+            return;
+        }
+        var teacherId = teacher.Id == -1 ? (long?)null : teacher.Id;
+        var response = await Http.CreateRequestTeacherLinkAsync(
+            new CreateRequestTeacherLinkRequest(request.Id, teacherId));
+        
+        if (!response.IsSuccess)
+        {
+            var message = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Невозможно назначить преподавателя!",
+                Detail = response.ErrorMessage,
+                Duration = TimeSpan.FromSeconds(10).TotalMilliseconds
+            };
+            NotificationService.Notify(message);
+        }
+        else
+        {
+            request.Teacher = teacher;
+        }
+        
+        await grid.RefreshDataAsync();
+        updateTeacherDisabled = false;
+    }
+
+    private async Task AssignTeachers()
+    {
+        await Http.AssignTeachersAsync(selectedAppForms.Select(x => x.Id).ToList());
+        await grid.RefreshDataAsync();
     }
 
 }

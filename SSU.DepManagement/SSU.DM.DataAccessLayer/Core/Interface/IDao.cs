@@ -1,10 +1,14 @@
 ﻿namespace SSU.DM.DataAccessLayer.Core.Interface;
 
-public interface IDao<TEntity, in TKey> where TEntity : class
+public interface IDao<TEntity, TKey> where TEntity : class
 {
-    void Add(TEntity entity);
+    TKey Add(TEntity entity);
+    
+    void Add(IEnumerable<TEntity> entities);
     
     void Update(TEntity entity);
+    
+    void Update(IEnumerable<TEntity> entities);
     
     IReadOnlyList<TEntity> GetAll(Func<TEntity, bool> predicate = null, int? takeCount = null);
     

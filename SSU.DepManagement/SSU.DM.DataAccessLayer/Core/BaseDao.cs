@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Models.ConfigSections;
-using Models.Extensions;
 using System.Data;
 using SSU.DM.DataAccessLayer.Core.Interface;
 
@@ -18,14 +15,26 @@ public abstract class BaseDao<TEntity, TKey> : IDisposable, IDao<TEntity, TKey>,
 
     protected abstract DbSet<TEntity> SelectDbSet(ApplicationContext db);
     
-    public virtual void Add(TEntity entity)
-    {
-        UseContext(db => SelectDbSet(db).Add(entity));
-    }
+    protected abstract TKey SelectKey(TEntity entity);
     
+    public virtual TKey Add(TEntity entity)
+    {
+        return SelectKey(UseContext(db => SelectDbSet(db).Add(entity)).Entity);
+    }
+
+    public void Add(IEnumerable<TEntity> entities)
+    {
+        UseContext(db => SelectDbSet(db).AddRange(entities));
+    }
+
     public virtual void Update(TEntity entity)
     {
         UseContext(db => SelectDbSet(db).Update(entity));
+    }
+
+    public void Update(IEnumerable<TEntity> entities)
+    {
+        UseContext(db => SelectDbSet(db).UpdateRange(entities));
     }
 
     public virtual void DeleteById(TKey key)
