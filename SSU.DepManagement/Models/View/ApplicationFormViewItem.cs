@@ -12,5 +12,5 @@ public class ApplicationFormViewItem
 
     public string FileKey { get; set; }
 
-    public IReadOnlyList<RequestViewItem> Requests { get; set; }
+    public IReadOnlyList<AppFormDisciplineViewItem> Disciplines { get; set; }
 }

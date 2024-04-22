@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qaTlehBXvt1baL76T3hWGxJxme1gfUmSExeGr1ViM3gtgf/S8tpfD34cTiGT89+hIguoskyM9rNFKh1u3G/Z6g==",
+  "dgSpecHash": "xlm0sHM2p3KhP+sk6/b9G5qlWb1YptTmf7LVWeHt2ykCblN3GYRzbjglRv8iDxjfXgA52qzblAvOUmdBdp3YtA==",
   "success": true,
   "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\SSU.DM.WebAssembly.Client.csproj",
   "expectedPackageFiles": [
@@ -53,7 +53,7 @@
     "C:\\Users\\droll\\.nuget\\packages\\system.linq.dynamic.core\\1.3.7\\system.linq.dynamic.core.1.3.7.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.16\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.16.nupkg.sha512"
+    "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.18\\microsoft.netcore.app.runtime.mono.browser-wasm.7.0.18.nupkg.sha512"
   ],
   "logs": []
 }

@@ -18,7 +18,9 @@ public class WarmUpHostedService : BackgroundService
         
         using var scope = scopeFactory.CreateScope();
         var appFormDao = scope.ServiceProvider.GetRequiredService<IApplicationFormDao>();
+        var teachersDao = scope.ServiceProvider.GetRequiredService<ITeachersDao>();
         
         appFormDao.GetAll();
+        teachersDao.GetAll();
     }
 }

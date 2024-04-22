@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Models.Request;
 
 namespace SSU.DM.DataAccessLayer.DbEntities;
 
@@ -15,13 +16,21 @@ public class Competence
     
     public int FacultyId { get; set; }
     public virtual Faculty Faculty { get; set; }
+
+    public LessonForm LessonForm { get; set; }
 }
 
 internal class СompetenceConfiguration : IEntityTypeConfiguration<Competence>
 {
     public void Configure(EntityTypeBuilder<Competence> builder)
     {
-        builder.HasKey(competence => new { competence.TeacherId, competence.DisciplineId, competence.FacultyId });
+        builder.HasKey(competence => new
+        {
+            competence.TeacherId,
+            competence.DisciplineId,
+            competence.FacultyId,
+            competence.LessonForm
+        });
         builder.HasOne(c => c.Teacher)
             .WithMany(t => t.Сompetencies)
             .HasForeignKey(c => c.TeacherId)

@@ -17,7 +17,7 @@ public class RequestDao : BaseDao<Request, int>, IRequestDao
     protected override int SelectKey(Request entity)
         => entity.Id;
 
-    public void AddRange(IEnumerable<ParsedRequest> requestItems, Guid applicationFormId)
+    /*public void AddRange(IEnumerable<ParsedRequest> requestItems, Guid applicationFormId)
     {
         var disciplines = UseContext(db => db.Disciplines.ToList());
         UseContext(db => db.Requests
@@ -35,6 +35,29 @@ public class RequestDao : BaseDao<Request, int>, IRequestDao
                 }
                 
                 return Request.FromModel(x, applicationFormId, discipline.Id);
+            })));
+    }*/
+
+    public void AddRange(IEnumerable<RequestSaveItem> requestItems, Guid applicationFormId)
+    {
+        UseContext(db => db.Requests
+            .AddRange(requestItems.Select(item => new Request
+            {
+                Id = 0,
+                Direction = item.Direction,
+                Semester = item.Semester,
+                BudgetCount = item.BudgetCount,
+                CommercialCount = item.CommercialCount,
+                GroupNumber = item.GroupNumber,
+                GroupForm = item.GroupForm,
+                TotalHours = item.TotalHours,
+                LessonHours = item.LessonHours,
+                IndependentWorkHours = item.IndependentWorkHours,
+                Reporting = item.Reporting,
+                Note = item.Note,
+                ApplicationFormId = applicationFormId,
+                DisciplineId = item.DisciplineId,
+                LessonForm = item.LessonForm,
             })));
     }
 

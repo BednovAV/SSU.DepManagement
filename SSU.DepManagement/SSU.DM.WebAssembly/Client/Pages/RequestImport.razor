@@ -21,6 +21,11 @@
                     BusyLength="1"
                     FileLink="@GetCalculationOfHoursReportUrl()"
                     Disabled="@(selectedAppForms?.Any() != true)"/>
+    <DownloadButton Text="Сформировать отчет о распределении учебных поручений"
+                    FileName="отчет о распределении учебных поручений.xlsx"
+                    BusyLength="1"
+                    FileLink="@GetDistributionReportUrl()"
+                    Disabled="@(selectedAppForms?.Any() != true)"/>
     <RadzenButton
         Click="@(async (args) => await AssignTeachers())"
         Text="Распределить преподавателей"
@@ -34,24 +39,42 @@
                 RowCollapse="@(item => expandedAppFormIds.Remove(item.Id))"
                 SelectionMode="DataGridSelectionMode.Multiple" @bind-Value=@selectedAppForms>
     <Template Context="appForm">
-        <RadzenDataGrid Data="@appForm.Requests" TItem="RequestViewItem">
+        <RadzenDataGrid @ref="miniGrid" Data="@appForm.Disciplines" TItem="AppFormDisciplineViewItem"
+                        RowExpand="@(item => expandedDisciplineIds.Add(item.Name))"
+                        RowCollapse="@(item => expandedDisciplineIds.Remove(item.Name))">
+            <Template Context="discipline">
+                <RadzenDataGrid @ref="requestsGrid" Data="@discipline.Requests" TItem="RequestViewItem" Render="@OnRender">
+                    <GroupHeaderTemplate>
+                        <i>@(context.Data.Key)</i>
+                    </GroupHeaderTemplate>
+                    <Columns>
+                        <RadzenDataGridColumn TItem="RequestViewItem" Property="GroupNumber" Title="Группа"/>
+                        <RadzenDataGridColumn TItem="RequestViewItem" Property="Direction" Title="Направление"/>
+                        <RadzenDataGridColumn TItem="RequestViewItem" Property="TotalHours" Title="Часы"/>
+                        <RadzenDataGridColumn TItem="RequestViewItem" Title="Преподаватель" TextAlign="TextAlign.Center">
+                            <Template Context="request">
+                                <RadzenDropDown
+                                    TValue="RequestViewItem"
+                                    Value=@(request.Teacher?.ToString() ?? "-")
+                                    Data=@(teachers.Where(item => request.AvailableTeacherIds.Contains(item.Id) || item.Id == emptyTeacherId))
+                                    Name="teacherLink"
+                                    Disabled="@(updateTeacherDisabled || appForm.FacultyName == "-")"
+                                    Style="width: 80%; max-width: 180px;"
+                                    Change="@(async args => await CreateRequestTeacherLink(args, request))"/>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </Template>
             <Columns>
-                <RadzenDataGridColumn TItem="RequestViewItem" Property="NameDiscipline" Title="Название дисциплины"/>
-                <RadzenDataGridColumn TItem="RequestViewItem" Property="Direction" Title="Направление"/>
-                <RadzenDataGridColumn TItem="RequestViewItem" Property="GroupNumber" Title="Номер группы"/>
-                <RadzenDataGridColumn TItem="RequestViewItem" Property="TotalHours" Title="Всего часов"/>
-                <RadzenDataGridColumn TItem="RequestViewItem" Title="Преподаватель" TextAlign="TextAlign.Center">
-                    <Template Context="request">
-                        <RadzenDropDown
-                            TValue="RequestViewItem"
-                            Value=@(request.Teacher?.ToString() ?? "-")
-                            Data=@(teachers.Where(item => request.AvailableTeacherIds.Contains(item.Id) || item.Id == emptyTeacherId))
-                            Name="teacherLink"
-                            Disabled="@(updateTeacherDisabled || appForm.FacultyName == "-")"
-                            Style="width: 80%; max-width: 180px;"
-                            Change="@(async args => await CreateRequestTeacherLink(args, request))"/>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Name" Title="Название дисциплины"/>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Semester" Title="Семестр"/>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Title="Группы">
+                    <Template Context="discipline">
+                        @(string.Join(", ", discipline.Groups))
                     </Template>
                 </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="TotalHours" Title="Всего часов"/>
             </Columns>
         </RadzenDataGrid>
     </Template>
@@ -105,11 +128,15 @@
     string fileUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_FILE);
     string uploadUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_UPLOAD_REQUEST);
     string calculationOfHoursReportUrl => Http.GetUrl(RouteConstants.REPORTS_CALCULATION_OF_HOURS);
+    string distributionReportUrl => Http.GetUrl(RouteConstants.REPORTS_DISTRIBUTION);
     long emptyTeacherId = -1;
 
     RadzenDataGrid<ApplicationFormViewItem> grid;
+    RadzenDataGrid<AppFormDisciplineViewItem> miniGrid;
+    RadzenDataGrid<RequestViewItem> requestsGrid;
     IEnumerable<ApplicationFormViewItem> appForms;
     ISet<Guid> expandedAppFormIds = new HashSet<Guid>();
+    ISet<string> expandedDisciplineIds = new HashSet<string>();
     IEnumerable<FacultyViewItem> faculties;
     IEnumerable<TeacherViewItem> teachers;
     IList<ApplicationFormViewItem> selectedAppForms;
@@ -184,7 +211,12 @@
         selectedAppForms = new List<ApplicationFormViewItem>();
         dataCount = appForms.Count();
         isDataGridLoading = false;
-        Task.Run(async () => await grid.ExpandRows(appForms.Where(x => expandedAppFormIds.Contains(x.Id))));
+        Task.Run(async () =>
+        {
+            await grid.ExpandRows(appForms.Where(x => expandedAppFormIds.Contains(x.Id)));
+            await miniGrid.ExpandRows(appForms.SelectMany(x => x.Disciplines)
+                .Where(x => expandedDisciplineIds.Contains(x.Name)));
+        });
 
     }
 
@@ -201,10 +233,10 @@
         showComplete = false;
         progress = args.Progress;
 
-    // cancel upload
+        // cancel upload
         args.Cancel = cancelUpload;
 
-    // reset cancel flag
+        // reset cancel flag
         cancelUpload = false;
     }
 
@@ -222,6 +254,12 @@
     string GetCalculationOfHoursReportUrl()
     {
         return calculationOfHoursReportUrl
+            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
+    }
+    
+    string GetDistributionReportUrl()
+    {
+        return distributionReportUrl
             .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
     }
 
@@ -284,6 +322,15 @@
     {
         await Http.AssignTeachersAsync(selectedAppForms.Select(x => x.Id).ToList());
         await grid.RefreshDataAsync();
+    }
+
+    private void OnRender(DataGridRenderEventArgs<RequestViewItem> args)
+    {
+        if(args.FirstRender)
+        {
+            args.Grid.Groups.Add(new GroupDescriptor(){ Property = "LessonForm", SortOrder = SortOrder.Descending });
+            StateHasChanged();
+        }
     }
 
 }

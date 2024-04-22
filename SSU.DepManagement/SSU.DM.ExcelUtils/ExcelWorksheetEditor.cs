@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using System.Text.RegularExpressions;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 namespace SSU.DM.ExcelUtils;
@@ -6,10 +7,12 @@ namespace SSU.DM.ExcelUtils;
 public class ExcelWorksheetEditor
 {
     private readonly ExcelWorksheet _worksheet;
+    private readonly Regex _markRegex;
 
     public ExcelWorksheetEditor(ExcelWorksheet worksheet)
     {
         _worksheet = worksheet;
+        _markRegex =  new Regex(@"{\w+}", RegexOptions.Compiled);
     }
 
     public void Merge(string addressRange,
@@ -63,6 +66,70 @@ public class ExcelWorksheetEditor
             }
         }
     }
+    
+    public void ReplacePlaceholders(IDictionary<string, string> placeholders)
+    {
+        foreach (var cell in _worksheet.Cells)
+        {
+            var matches = _markRegex.Matches(cell.Text);
+            foreach (Match match in matches)
+            {
+                if (placeholders.TryGetValue(match.Value.Trim('{', '}'), out var newValue))
+                {
+                    SetValue(cell.Address,cell.Text.Replace(match.Value, newValue));
+                }
+            }
+        }
+    }
+    
+    public int? GetRowByMark(string mark)
+    {
+        foreach (var cell in _worksheet.Cells)
+        {
+            var matches = _markRegex.Matches(cell.Text);
+            foreach (Match match in matches)
+            {
+                if (match.Value.Trim('{', '}').Equals(mark, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return int.Parse(ParseTools.GetAddress(cell).row);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void CopyFrom(
+        ExcelWorksheetEditor sourceWorksheet,
+        string destination,
+        params ExcelRangeCopyOptionFlags[] excelRangeCopyOptionFlags)
+    {
+        CopyFrom(sourceWorksheet._worksheet, destination, excelRangeCopyOptionFlags);
+    }
+    
+    public void CopyFrom(
+        ExcelWorksheet sourceWorksheet,
+        string destination,
+        params ExcelRangeCopyOptionFlags[] excelRangeCopyOptionFlags)
+    {
+        sourceWorksheet.Cells[1, 1, sourceWorksheet.GetLastUsedRow(), sourceWorksheet.GetLastUsedColumn()]
+            .Copy(_worksheet.Cells[destination], excelRangeCopyOptionFlags);
+
+        for (int i = 1; i < sourceWorksheet.GetLastUsedColumn() + 1; i++)
+        {
+            _worksheet.Columns[i].Width = sourceWorksheet.Columns[i].Width;
+        }
+        
+        for (int i = 1; i < sourceWorksheet.GetLastUsedRow() + 1; i++)
+        {
+            _worksheet.Rows[i].Height = sourceWorksheet.Rows[i].Height;
+        }
+    }
+    
+    public int GetLastUsedRow()
+    {
+        return _worksheet.GetLastUsedRow();
+    }
 
     private void ApplyStandardStyle(ExcelStyle style,
         bool bold = false,
@@ -76,5 +143,20 @@ public class ExcelWorksheetEditor
         style.Font.Bold = bold;
         style.Font.Italic = italic;
         style.HorizontalAlignment = horizontalAlignment;
+    }
+
+    public void InsertEmptyRows(int currentRow, int count)
+    {
+        _worksheet.InsertRow(currentRow, count);
+    }
+
+    public void Clear()
+    {
+        _worksheet.Cells.Delete(eShiftTypeDelete.Up);
+    }
+
+    public int FilledRowsCount()
+    {
+        return _worksheet.GetLastUsedRow();
     }
 }

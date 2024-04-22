@@ -42,3 +42,10 @@ public enum ReportingForm
     [Description("зач")]
     Test
 }
+
+public enum LessonForm
+{
+    Lecture,
+    Practical,
+    Laboratory
+}

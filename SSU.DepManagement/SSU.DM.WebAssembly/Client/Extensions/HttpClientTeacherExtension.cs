@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Models.Request;
 using Models.View;
 using SSU.DM.WebAssembly.Shared;
 using SSU.DM.WebAssembly.Shared.Models;
@@ -26,10 +27,11 @@ public static class HttpClientTeacherExtension
         await http.PutAsync(TEACHER_CAPACITIES_URL, JsonContent.Create(request));
     }
     
-    public static async Task<IEnumerable<TeacherCompetenciesViewItem>> GetTeacherCompetenciesAsync(
+    public static async Task<IDictionary<LessonForm, IReadOnlyList<TeacherCompetenciesViewItem>>> GetTeacherCompetenciesAsync(
         this HttpClient http, long teacherId)
     {
-        return await http.GetFromJsonAsync<IReadOnlyList<TeacherCompetenciesViewItem>>(TEACHER_COMPETENCIES_URL + $"/{teacherId}");
+        return await http.GetFromJsonAsync<IDictionary<LessonForm, IReadOnlyList<TeacherCompetenciesViewItem>>>(
+            TEACHER_COMPETENCIES_URL + $"/{teacherId}");
     }
     
     public static async Task SaveTeacherCompetenciesAsync(this HttpClient http, SaveTeacherCompetenciesRequest request)

@@ -7,11 +7,4 @@ public class FacultyDisciplineViewItem// : IEqualityComparer<FacultyDisciplineVi
     public string FacultyName { get; set; }
 
     public bool Checked { get; set; }
-
-    public List<string> Types { get; set; } = new List<string>
-    {
-        "Лекции",
-        "Практические занятия",
-        "Лабораторные занятия"
-    };
 }

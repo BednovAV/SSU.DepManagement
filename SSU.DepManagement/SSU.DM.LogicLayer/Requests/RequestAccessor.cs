@@ -1,4 +1,5 @@
-﻿using Models.View;
+﻿using Models.Request;
+using Models.View;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.DataAccessLayer.DbEntities;
 using SSU.DM.LogicLayer.Interfaces.Request;
@@ -41,13 +42,45 @@ public class RequestAccessor : IRequestAccessor
             FacultyName = appForm.Faculty?.Name ?? "-",
             DateCreated = appForm.DateTimeCreated,
             FileKey = appForm.FileKey,
-            Requests = appForm.Requests
-                .OrderBy(r => r.Discipline.Name)
-                .ThenBy(r => r.GroupNumber)
-                .ThenBy(r => r.TotalHours)
-                .Select(RequestConverter.ConvertToViewItem)
-                .ToList(),
+            Disciplines = MapAppFormDisciplines(appForm.Requests),
         };
 
-   
+    private IReadOnlyList<AppFormDisciplineViewItem> MapAppFormDisciplines(IEnumerable<Request> appFormRequests)
+    {
+        return appFormRequests.GroupBy(x => new
+            {
+                x.Discipline.Name, x.Semester
+            })
+            .Select(x => new AppFormDisciplineViewItem
+            {
+                Name = x.Key.Name,
+                Semester = x.Key.Semester,
+                Groups = GetGroups(x),
+                TotalHours = GetTotalHours(x),
+                Requests = GetRequests(x)
+            })
+            .ToList();
+    }
+
+    private IReadOnlyList<int> GetGroups(IEnumerable<Request> requests)
+    {
+        return new[] { 111, 222 };
+        throw new NotImplementedException();
+    }
+
+    private int GetTotalHours(IEnumerable<Request> requests)
+    {
+        return 0;
+        throw new NotImplementedException();
+    }
+
+    private IReadOnlyList<RequestViewItem> GetRequests(IEnumerable<Request> requests)
+    {
+        return requests
+            .OrderBy(x => x.LessonForm)
+            .ThenBy(x => x.Semester)
+            .ThenBy(x => x.GroupNumber)
+            .Select(RequestConverter.MapToRequestViewItem)
+            .ToList();
+    }
 }

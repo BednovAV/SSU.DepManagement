@@ -3,39 +3,73 @@
 @using SSU.DM.WebAssembly.Shared.Models
 @using Syncfusion.Blazor.Navigations
 @using Orientation = Radzen.Orientation
+@using Models.Request
 
 @inject Radzen.DialogService dialogService
 @inject HttpClient Http
 
-<RadzenTree @ref="tree" AllowCheckChildren="true" AllowCheckBoxes="true" @bind-CheckedValues=@checkedValues Data=@competencies>
-    <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
-                     TextProperty="DisciplineName" ChildrenProperty="Faculties" />
-    <RadzenTreeLevel TextProperty="FacultyName" ChildrenProperty="Types" />
-    <RadzenTreeLevel HasChildren="_ => false" />
-</RadzenTree>
+<RadzenTabs RenderMode="TabRenderMode.Client">
+    <Tabs>
+        <RadzenTabsItem Text="Лекции">
+            <RadzenTree AllowCheckChildren="true" AllowCheckBoxes="true" @bind-CheckedValues=@lectureCheckedValues Data=@lectureCompetencies>
+                <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
+                                 TextProperty="DisciplineName" ChildrenProperty="Faculties"/>
+                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+            </RadzenTree>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Практики">
+            <RadzenTree AllowCheckChildren="true" AllowCheckBoxes="true" @bind-CheckedValues=@practicalCheckedValues Data=@practicalCompetencies>
+                <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
+                                 TextProperty="DisciplineName" ChildrenProperty="Faculties"/>
+                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+            </RadzenTree>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Лабораторные">
+            <RadzenTree AllowCheckChildren="true" AllowCheckBoxes="true" @bind-CheckedValues=@laboratoryCheckedValues Data=@laboratoryCompetencies>
+                <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
+                                 TextProperty="DisciplineName" ChildrenProperty="Faculties"/>
+                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+            </RadzenTree>
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
 
 <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem">
-    <RadzenButton Click="@((args) => CloseDialog(false))" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Light" Text="Отменить" Style="width: 120px" />
-    <RadzenButton Click="@((args) => CloseDialog(true))" Variant="Variant.Flat" Text="Сохранить" Style="width: 120px" />
+    <RadzenButton Click="@((args) => CloseDialog(false))" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Light" Text="Отменить" Style="width: 120px"/>
+    <RadzenButton Click="@((args) => CloseDialog(true))" Variant="Variant.Flat" Text="Сохранить" Style="width: 120px"/>
 </RadzenStack>
 
 @code {
 
     [Parameter]
     public TeacherViewItem Teacher { get; set; }
-    
-    RadzenTree tree;
-    IEnumerable<TeacherCompetenciesViewItem> competencies;
-    IEnumerable<object> checkedValues;
+
+    IEnumerable<TeacherCompetenciesViewItem> lectureCompetencies;
+    IEnumerable<object> lectureCheckedValues;
+    IEnumerable<TeacherCompetenciesViewItem> practicalCompetencies;
+    IEnumerable<object> practicalCheckedValues;
+    IEnumerable<TeacherCompetenciesViewItem> laboratoryCompetencies;
+    IEnumerable<object> laboratoryCheckedValues;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        competencies = await Http.GetTeacherCompetenciesAsync(Teacher.Id);
-        checkedValues = competencies.Where(x => x.Checked).Cast<object>()
-            .Concat(competencies.Where(x => !x.Checked).SelectMany(
-            x => x.Faculties)
-            .Where(x => x.Checked)
+        var allCompetencies = await Http.GetTeacherCompetenciesAsync(Teacher.Id);
+
+        lectureCompetencies = allCompetencies[LessonForm.Lecture];
+        lectureCheckedValues = GetCheckedCompets(lectureCompetencies.ToList());
+        practicalCompetencies = allCompetencies[LessonForm.Practical];
+        practicalCheckedValues = GetCheckedCompets(practicalCompetencies.ToList());
+        laboratoryCompetencies = allCompetencies[LessonForm.Laboratory];
+        laboratoryCheckedValues = GetCheckedCompets(laboratoryCompetencies.ToList());
+    }
+
+    private List<object> GetCheckedCompets(List<TeacherCompetenciesViewItem> compets)
+    {
+        return compets.Where(x => x.Checked).Cast<object>()
+            .Concat(compets.Where(x => !x.Checked).SelectMany(
+                x => x.Faculties)
+                .Where(x => x.Checked)
             ).ToList();
     }
 
@@ -43,13 +77,17 @@
     {
         if (saveChanges)
         {
-            var disciplineCompets = checkedValues
+            var disciplineCompets = lectureCheckedValues
+                .Concat(practicalCheckedValues)
+                .Concat(laboratoryCheckedValues)
                 .OfType<TeacherCompetenciesViewItem>()
                 .SelectMany(x => x.Faculties)
                 .Select(x => x.Competence)
                 .ToList();
-            
-            var facultyCompets = checkedValues
+
+            var facultyCompets = lectureCheckedValues
+                .Concat(practicalCheckedValues)
+                .Concat(laboratoryCheckedValues)
                 .OfType<FacultyDisciplineViewItem>()
                 .Select(x => x.Competence)
                 .Where(x => !disciplineCompets.Contains(x))

@@ -65,7 +65,7 @@ internal abstract class AbstractParser<TMappedResult, TLoadData> : IParser<TMapp
 
     protected TValue? GetField<TValue>(ExcelRange cell)
     {
-        var (row, column) = GetAddress(cell);
+        var (row, column) = ParseTools.GetAddress(cell);
         if (cell.Text == SOME_VALUE)
         {
             if (_lastValues.TryGetValue(column, out var lastValue))
@@ -87,14 +87,6 @@ internal abstract class AbstractParser<TMappedResult, TLoadData> : IParser<TMapp
              cellValue = cell.GetValue<TValue>();
         _lastValues[column] = cellValue;
         return cellValue;
-    }
-
-    private (string row, string column) GetAddress(ExcelAddress cell)
-    {
-        var row = string.Join(string.Empty, cell.Address.SkipWhile(char.IsLetter));
-        var column = string.Join(string.Empty, cell.Address.TakeWhile(char.IsLetter));
-
-        return (row, column);
     }
 
     private T GetEnumValueFromDescription<T>(string description)

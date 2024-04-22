@@ -54,7 +54,8 @@ public static class DependencyBuilder
             .AddScoped<ICompetenceLogic, CompetenceLogic>()
             .AddScoped<IDisciplineLogic, DisciplineLogic>()
             .AddScoped<IJobTitleLogic, JobTitleLogic>()
-            .AddScoped<ICalculationOfHoursBuilder, CalculationOfHoursBuilder>();
+            .AddScoped<ICalculationOfHoursBuilder, CalculationOfHoursBuilder>()
+            .AddScoped<IDistributionReportBuilder, DistributionReportBuilder>();
     
     /// <summary>
     /// Parsers

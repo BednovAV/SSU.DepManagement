@@ -21,7 +21,10 @@ public class CompetenceDao : BaseDao<Competence, (long, long, int)>, ICompetence
     {
         return UseContext(db => db.Competencies
             .Where(competence => competence.TeacherId == teacherId)
-            .Select(competence => new CompetenceShortInfo(competence.DisciplineId, competence.FacultyId))
+            .Select(competence => new CompetenceShortInfo(
+                competence.DisciplineId,
+                competence.FacultyId,
+                competence.LessonForm))
             .ToHashSet());
     }
 
@@ -35,6 +38,7 @@ public class CompetenceDao : BaseDao<Competence, (long, long, int)>, ICompetence
                 TeacherId = teacherId,
                 DisciplineId = info.DisciplineId,
                 FacultyId = info.FacultyId,
+                LessonForm = info.LessonForm
             }));
         });
     }

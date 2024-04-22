@@ -67,7 +67,7 @@ public class RequestImportController : ControllerBase
     }
     
     [HttpPost(RouteConstants.IMPORT_REQUEST_ASSIGN_TEACHERS)]
-    public ActionResult CreateTeacherLink([FromBody]HashSet<Guid> appFromIds)
+    public ActionResult AssignTeachers([FromBody]HashSet<Guid> appFromIds)
     {
         _requestEditor.AssignTeachers(appFromIds);
         return Ok();

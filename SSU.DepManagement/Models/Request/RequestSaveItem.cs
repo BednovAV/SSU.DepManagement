@@ -16,16 +16,22 @@ public class RequestSaveItem
 
     public string GroupForm { get; init; }
 
-    public int TotalHours { get; init; }
+    public int LessonHours { get; init; }
+    
+    public double? ControlOfIndependentWorkHours { get; set; }
+    
+    public double? PreExamConsultationHours { get; set; }
 
-    public int LectureHours { get; init; }
+    public double? ExamHours { get; set; }
+    
+    public double? CheckingTestPaperHours { get; set; }
 
-    public int PracticalHours { get; init; }
+    public double TotalHours { get; init; }
+    
+    public int IndependentWorkHours { get; set; }
 
-    public int LaboratoryHours { get; init; }
-
-    public int IndependentWorkHours { get; init; }
-
+    public LessonForm LessonForm { get; init; }
+    
     public ReportingForm Reporting { get; init; }
 
     public string Note { get; init; }

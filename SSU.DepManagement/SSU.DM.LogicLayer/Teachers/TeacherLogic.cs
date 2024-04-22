@@ -35,7 +35,7 @@ public class TeacherLogic : ITeacherLogic
             .ToList();
     }
 
-    public void UpdateCapacities(long teacherId, Dictionary<long, int> totalHoursBySemester)
+    public void UpdateCapacities(long teacherId, Dictionary<long, float> totalHoursBySemester)
     {
         var existedSemesters = _teacherCapacityDao.GetTeacherSemesters(teacherId);
 
@@ -77,13 +77,9 @@ public class TeacherLogic : ITeacherLogic
                 semester => semester.Id,
                 semester =>
                 {
-                    var teacherCapacity = teacher.Capacities
-                        .FirstOrDefault(capacity => capacity.SemesterId == semester.Id);
-                    return new CapacityView(
-                        TotalHours: teacherCapacity?.Hours ?? 0,
-                        AllocatedHours: teacher.Requests
-                            //.Where(request => request.SemesterId == teacherCapacity.SemesterId)
-                            .Sum(request => request.TotalHours));
+                    return teacher.Requests
+                            //.Where(request => request.SemesterId == semester.Id)
+                            .Sum(request => request.TotalHours);
                 })
         };
     }

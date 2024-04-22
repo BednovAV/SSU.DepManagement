@@ -21,17 +21,15 @@ public class Request
 
     public string GroupForm { get; set; }
 
-    public int TotalHours { get; set; }
-
-    public int LectureHours { get; set; }
-
-    public int PracticalHours { get; set; }
-
-    public int LaboratoryHours { get; set; }
+    public double TotalHours { get; set; }
+    
+    public int? LessonHours { get; init; }
 
     public int IndependentWorkHours { get; set; }
 
     public ReportingForm Reporting { get; set; }
+    
+    public LessonForm? LessonForm { get; init; }
 
     public string Note { get; set; }
 
@@ -55,9 +53,6 @@ public class Request
             GroupNumber = model.GroupNumber,
             GroupForm = model.GroupForm,
             TotalHours = model.TotalHours,
-            LectureHours = model.LectureHours,
-            PracticalHours = model.PracticalHours,
-            LaboratoryHours = model.LaboratoryHours,
             IndependentWorkHours = model.IndependentWorkHours,
             Reporting = model.Reporting,
             Note = model.Note,

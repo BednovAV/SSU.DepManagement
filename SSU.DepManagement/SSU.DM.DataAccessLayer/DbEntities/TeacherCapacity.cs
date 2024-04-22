@@ -13,7 +13,7 @@ public class TeacherCapacity
     public virtual Semester Semester { get; set; }
     
     
-    public int Hours { get; set; }
+    public float Hours { get; set; }
 }
 
 internal class TeacherCapacityConfiguration : IEntityTypeConfiguration<TeacherCapacity>

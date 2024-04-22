@@ -1,4 +1,5 @@
-﻿using Models.View;
+﻿using Models.Request;
+using Models.View;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.DataAccessLayer.DbEntities;
 using SSU.DM.LogicLayer.Interfaces.Competencies;
@@ -21,14 +22,27 @@ public class CompetenceLogic : ICompetenceLogic
         _disciplineDao = disciplineDao;
     }
 
-    public IReadOnlyList<TeacherCompetenciesViewItem> GetTeacherCompetencies(long teacherId)
+    public IDictionary<LessonForm, IReadOnlyList<TeacherCompetenciesViewItem>> GetTeacherCompetencies(
+        long teacherId)
     {
         var faculties = _facultyDao.GetAll();
         var disciplines = _disciplineDao.GetAll();
 
         var teacherCompetencies = _competenceDao.GetTeacherCompetencies(teacherId);
 
-        var result = new List<TeacherCompetenciesViewItem>();
+        return Enum.GetValues<LessonForm>()
+            .ToDictionary(
+                lessonForm => lessonForm,
+                lessonForm => BuildTeacherCompetencies(disciplines, faculties, teacherCompetencies, lessonForm));
+    }
+
+    private static IReadOnlyList<TeacherCompetenciesViewItem> BuildTeacherCompetencies(
+        IReadOnlyList<DataAccessLayer.DbEntities.Discipline> disciplines,
+        IReadOnlyList<Faculty> faculties,
+        ISet<CompetenceShortInfo> teacherCompetencies,
+        LessonForm lessonForm)
+    {
+        var formResult = new List<TeacherCompetenciesViewItem>();
         foreach (var discipline in disciplines)
         {
             var disciplineItem = new TeacherCompetenciesViewItem
@@ -40,17 +54,17 @@ public class CompetenceLogic : ICompetenceLogic
             {
                 disciplineItem.Faculties.Add(new FacultyDisciplineViewItem
                 {
-                    Competence = new CompetenceShortInfo(discipline.Id, faculty.Id),
+                    Competence = new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm),
                     FacultyName = faculty.Name,
-                    Checked = teacherCompetencies.Contains(new CompetenceShortInfo(discipline.Id, faculty.Id))
+                    Checked = teacherCompetencies.Contains(new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm))
                 });
             }
 
             disciplineItem.Checked = disciplineItem.Faculties.All(x => x.Checked);
-            result.Add(disciplineItem);
+            formResult.Add(disciplineItem);
         }
 
-        return result;
+        return formResult;
     }
 
     public void SaveTeacherCompetencies(long teacherId, IReadOnlyList<CompetenceShortInfo> competencies)

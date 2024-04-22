@@ -46,8 +46,8 @@ public class RequestEditor : IRequestEditor
     {
         var bytes = await stream.ReadAllBytesAsync();
         
-        //var requests = ProcessRequests(_excelParser.Parse<List<ParsedRequest>>(bytes));
-        var requests = _excelParser.Parse<List<ParsedRequest>>(bytes);
+        var requests = ProcessRequests(_excelParser.Parse<List<ParsedRequest>>(bytes));
+        //var requests = _excelParser.Parse<List<ParsedRequest>>(bytes);
         var fileKey = Guid.NewGuid().ToString();
         var applicationFormId = Guid.NewGuid();
 
@@ -55,7 +55,7 @@ public class RequestEditor : IRequestEditor
         {
             _filesStorage.Save(fileKey, fileName, bytes);
             _applicationFormDao.Add(applicationFormId, DateTimeOffset.Now.UtcDateTime, fileKey);
-            _requestDao.AddRange(requests.Value, applicationFormId);
+            _requestDao.AddRange(requests, applicationFormId);
         });
         
         return applicationFormId;
@@ -69,13 +69,22 @@ public class RequestEditor : IRequestEditor
 
     private List<RequestSaveItem> ProcessRequest(IEnumerable<ParsedRequest> requests)
     {
-        /*var result = new List<RequestSaveItem>();
+        requests = requests.ToList();
+        
+        var result = new List<RequestSaveItem>();
+        var disciplineId = _disciplineLogic.GetOrCreateDisciplineId(requests.First().NameDiscipline);
 
-        var lecture = requests.Where(x => x.LectureHours != 0);
-        if (lecture != null)
-        {
-            var disciplineId = _disciplineLogic.GetOrCreateDisciplineId(lecture.NameDiscipline, DisciplineType.Lecture);
-            result.Add(new RequestSaveItem
+        result.AddRange(GetLectures(requests, disciplineId));
+        result.AddRange(GetPracticals(requests, disciplineId));
+        result.AddRange(GetLaboratories(requests, disciplineId));
+
+        return result;
+    }
+
+    private static List<RequestSaveItem> GetLectures(IEnumerable<ParsedRequest> requests, long disciplineId)
+    {
+        return requests.Where(x => x.LectureHours != 0)
+            .Select(lecture => new RequestSaveItem
             {
                 DisciplineId = disciplineId,
                 Direction = lecture.Direction,
@@ -83,18 +92,66 @@ public class RequestEditor : IRequestEditor
                 BudgetCount = lecture.BudgetCount,
                 CommercialCount = lecture.CommercialCount,
                 GroupNumber = lecture.GroupNumber,
-                GroupForm = null,
-                TotalHours = 0,
-                LectureHours = 0,
-                PracticalHours = 0,
-                LaboratoryHours = 0,
-                IndependentWorkHours = 0,
-                Reporting = ReportingForm.Exam,
-                Note = null
-            });
-        }*/
+                GroupForm = lecture.GroupForm,
+                LessonHours = lecture.LectureHours,
+                ControlOfIndependentWorkHours = CalculateControlOfIndependentWorkHours(lecture), // TODO:
+                PreExamConsultationHours = 0, // TODO
+                CheckingTestPaperHours = 0, // TODO
+                ExamHours = 0, // TODO
+                TotalHours = 0, // TODO:
+                IndependentWorkHours = lecture.IndependentWorkHours,
+                LessonForm = LessonForm.Lecture,
+                Reporting = lecture.Reporting,
+                Note = lecture.Note
+            }).ToList();
+    }
 
+    private static double? CalculateControlOfIndependentWorkHours(ParsedRequest request)
+    {
         return null;
+        //return request.IndependentWorkHours * request.Co
+    }
+
+    private IEnumerable<RequestSaveItem> GetPracticals(IEnumerable<ParsedRequest> requests, long disciplineId)
+    {
+        return requests.Where(x => x.PracticalHours != 0)
+            .Select(lecture => new RequestSaveItem
+            {
+                DisciplineId = disciplineId,
+                Direction = lecture.Direction,
+                Semester = lecture.Semester,
+                BudgetCount = lecture.BudgetCount,
+                CommercialCount = lecture.CommercialCount,
+                GroupNumber = lecture.GroupNumber,
+                GroupForm = lecture.GroupForm,
+                LessonHours = lecture.PracticalHours,
+                TotalHours = 0, // TODO:
+                IndependentWorkHours = lecture.IndependentWorkHours,
+                LessonForm = LessonForm.Practical,
+                Reporting = lecture.Reporting,
+                Note = lecture.Note
+            }).ToList();
+    }
+
+    private IEnumerable<RequestSaveItem> GetLaboratories(IEnumerable<ParsedRequest> requests, long disciplineId)
+    {
+        return requests.Where(x => x.LaboratoryHours != 0)
+            .Select(lecture => new RequestSaveItem
+            {
+                DisciplineId = disciplineId,
+                Direction = lecture.Direction,
+                Semester = lecture.Semester,
+                BudgetCount = lecture.BudgetCount,
+                CommercialCount = lecture.CommercialCount,
+                GroupNumber = lecture.GroupNumber,
+                GroupForm = lecture.GroupForm,
+                LessonHours = lecture.LaboratoryHours,
+                TotalHours = 0, // TODO:
+                IndependentWorkHours = lecture.IndependentWorkHours,
+                LessonForm = LessonForm.Laboratory,
+                Reporting = lecture.Reporting,
+                Note = lecture.Note
+            }).ToList();
     }
 
     public async Task<bool> DeleteAsync(Guid appFormId)
@@ -155,7 +212,7 @@ public class RequestEditor : IRequestEditor
     {
         var requests = _requestDao.GetAll(request 
                 => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
-            .Select(RequestConverter.ConvertToViewItem)
+            .Select(RequestConverter.MapToRequestViewItem)
             .OrderByDescending(request => request.TotalHours)
             .ThenBy(request => request.AvailableTeacherIds.Count)
             .ToList();
@@ -165,14 +222,14 @@ public class RequestEditor : IRequestEditor
             item =>
             {
                 var capacity = item.CapacityBySemester.First().Value;
-                return capacity.TotalHours - capacity.AllocatedHours;
+                return item.Teacher.JobTitle.UpperBoundHours * item.Teacher.Rate - capacity;
             });
 
         foreach (var request in requests)
         {
             var teacherId = freeHoursByTeacherId
                 .OrderBy(x => x.Value)
-                .Cast<KeyValuePair<long, int>?>()
+                .Cast<KeyValuePair<long, float?>?>()
                 .FirstOrDefault(x =>
                     request.AvailableTeacherIds.Contains(x?.Key ?? -1)
                     && request.TotalHours <= x?.Value)

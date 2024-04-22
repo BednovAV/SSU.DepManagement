@@ -4,5 +4,5 @@ public class UpdateTeacherCapacityRequest
 {
     public long TeacherId { get; set; }
     
-    public Dictionary<long, int> TotalHoursBySemester { get; set; }
+    public Dictionary<long, float> TotalHoursBySemester { get; set; }
 }

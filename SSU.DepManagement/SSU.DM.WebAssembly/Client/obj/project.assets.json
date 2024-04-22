@@ -3425,7 +3425,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-            "version": "[7.0.16, 7.0.16]"
+            "version": "[7.0.18, 7.0.18]"
           }
         ],
         "frameworkReferences": {

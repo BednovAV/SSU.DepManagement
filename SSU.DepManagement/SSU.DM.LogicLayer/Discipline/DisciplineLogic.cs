@@ -13,12 +13,11 @@ public class DisciplineLogic : IDisciplineLogic
         _disciplineDao = disciplineDao;
     }
 
-    public long GetOrCreateDisciplineId(string name, DisciplineType type)
+    public long GetOrCreateDisciplineId(string name)
     {
-        /*var disciplineId = _disciplineDao
+        var disciplineId = _disciplineDao
             .GetAll(discipline =>
-                discipline.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-                && discipline.Type == type)
+                discipline.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
             .FirstOrDefault()?.Id;
         
         if (!disciplineId.HasValue)
@@ -26,12 +25,9 @@ public class DisciplineLogic : IDisciplineLogic
             disciplineId = _disciplineDao.Add(new DataAccessLayer.DbEntities.Discipline
             {
                 Name = name,
-                Type = type,
             });
         }
 
-        return disciplineId.Value;*/
-
-        return default;
+        return disciplineId.Value;
     }
 }
