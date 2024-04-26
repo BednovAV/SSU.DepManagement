@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4Fcpsee82BYAO6x2SPBBCKgf2QzqFzwMN2XJnSR52Jc=",
+  "Hash": "hHrY1aKPq/y3yXCKGBmS4FHqx1AvXWho2MI8NIKXZhs=",
   "Source": "SSU.DM.WebAssembly.Client",
   "BasePath": "/",
   "Mode": "Root",
@@ -16,23 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark-base.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/dark-base.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark-base.css"
-    },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark.css",
       "SourceId": "Radzen.Blazor",
@@ -51,12 +34,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/default-base.css",
+      "RelativePath": "css/dark-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,7 +48,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default-base.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\dark-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default.css",
@@ -85,12 +68,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/fluent-base.css",
+      "RelativePath": "css/default-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,41 +82,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-base.css"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark-base.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/fluent-dark-base.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark-base.css"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/fluent-dark.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\default-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent.css",
@@ -153,12 +102,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/humanistic-base.css",
+      "RelativePath": "css/fluent-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -167,7 +116,41 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic-base.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-base.css"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/fluent-dark.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark.css"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark-base.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/fluent-dark-base.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\fluent-dark-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic.css",
@@ -187,12 +170,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/material-base.css",
+      "RelativePath": "css/humanistic-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -201,41 +184,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-base.css"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark-base.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/material-dark-base.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark-base.css"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/material-dark.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\humanistic-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material.css",
@@ -255,6 +204,23 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material.css"
     },
     {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/material3.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3.css"
+    },
+    {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
@@ -270,23 +236,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-base.css"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark-base.css",
-      "SourceId": "Radzen.Blazor",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
-      "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/material3-dark-base.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark.css",
@@ -306,12 +255,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/material3.css",
+      "RelativePath": "css/material3-dark-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -320,15 +269,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material3-dark-base.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/software-base.css",
+      "RelativePath": "css/material-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -337,7 +286,41 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software-base.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-base.css"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/material-dark.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark.css"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark-base.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/material-dark-base.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\material-dark-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software.css",
@@ -357,12 +340,12 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software.css"
     },
     {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard-base.css",
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software-base.css",
       "SourceId": "Radzen.Blazor",
       "SourceType": "Package",
       "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
       "BasePath": "_content/Radzen.Blazor",
-      "RelativePath": "css/standard-base.css",
+      "RelativePath": "css/software-base.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -371,7 +354,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard-base.css"
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\software-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard.css",
@@ -389,6 +372,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard.css"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard-base.css",
+      "SourceId": "Radzen.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\",
+      "BasePath": "_content/Radzen.Blazor",
+      "RelativePath": "css/standard-base.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\css\\standard-base.css"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\radzen.blazor\\4.24.6\\staticwebassets\\fonts\\MaterialIcons-Regular.woff",
@@ -918,6 +918,23 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\svgbase.min.js"
     },
     {
+      "Identity": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor.min.js",
+      "SourceId": "Syncfusion.Blazor.Core",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\",
+      "BasePath": "_content/Syncfusion.Blazor.Core",
+      "RelativePath": "scripts/syncfusion-blazor.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor.min.js"
+    },
+    {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor-base.min.js",
       "SourceId": "Syncfusion.Blazor.Core",
       "SourceType": "Package",
@@ -950,23 +967,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor-extended.min.js"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor.min.js",
-      "SourceId": "Syncfusion.Blazor.Core",
-      "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\",
-      "BasePath": "_content/Syncfusion.Blazor.Core",
-      "RelativePath": "scripts/syncfusion-blazor.min.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.core\\24.2.5\\staticwebassets\\scripts\\syncfusion-blazor.min.js"
     },
     {
       "Identity": "C:\\Users\\droll\\.nuget\\packages\\syncfusion.blazor.data\\24.2.5\\staticwebassets\\scripts\\data.min.js",
@@ -1649,6 +1649,23 @@
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.18\\runtimes\\browser-wasm\\native\\dotnet.wasm"
     },
     {
+      "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt.dat",
+      "SourceId": "SSU.DM.WebAssembly.Client",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/icudt.dat",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "native",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.18\\runtimes\\browser-wasm\\native\\icudt.dat"
+    },
+    {
       "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt_CJK.dat",
       "SourceId": "SSU.DM.WebAssembly.Client",
       "SourceType": "Computed",
@@ -1698,23 +1715,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.18\\runtimes\\browser-wasm\\native\\icudt_no_CJK.dat"
-    },
-    {
-      "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\icudt.dat",
-      "SourceId": "SSU.DM.WebAssembly.Client",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/icudt.dat",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "BlazorWebAssemblyResource",
-      "AssetTraitValue": "native",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\droll\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\7.0.18\\runtimes\\browser-wasm\\native\\icudt.dat"
     },
     {
       "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\bin\\Debug\\net7.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.dll",
@@ -9316,23 +9316,6 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
-      "SourceId": "SSU.DM.WebAssembly.Client",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "css/open-iconic/FONT-LICENSE",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
-    },
-    {
       "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "SSU.DM.WebAssembly.Client",
       "SourceType": "Discovered",
@@ -9433,6 +9416,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "SourceId": "SSU.DM.WebAssembly.Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "css/open-iconic/FONT-LICENSE",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
       "Identity": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.WebAssembly\\Client\\wwwroot\\css\\open-iconic\\ICON-LICENSE",

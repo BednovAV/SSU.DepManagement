@@ -40,8 +40,8 @@
                 SelectionMode="DataGridSelectionMode.Multiple" @bind-Value=@selectedAppForms>
     <Template Context="appForm">
         <RadzenDataGrid @ref="miniGrid" Data="@appForm.Disciplines" TItem="AppFormDisciplineViewItem"
-                        RowExpand="@(item => expandedDisciplineIds.Add(item.Name))"
-                        RowCollapse="@(item => expandedDisciplineIds.Remove(item.Name))">
+                        RowExpand="@(item => expandedDisciplineIds.Add(GetDisciplineId(appForm, item)))"
+                        RowCollapse="@(item => expandedDisciplineIds.Remove(GetDisciplineId(appForm, item)))">
             <Template Context="discipline">
                 <RadzenDataGrid @ref="requestsGrid" Data="@discipline.Requests" TItem="RequestViewItem" Render="@OnRender">
                     <GroupHeaderTemplate>
@@ -214,8 +214,11 @@
         Task.Run(async () =>
         {
             await grid.ExpandRows(appForms.Where(x => expandedAppFormIds.Contains(x.Id)));
-            await miniGrid.ExpandRows(appForms.SelectMany(x => x.Disciplines)
-                .Where(x => expandedDisciplineIds.Contains(x.Name)));
+            await miniGrid.ExpandRows(appForms.SelectMany(
+                x => x.Disciplines,
+                (appForm, discipline) => new { appForm, discipline })
+                .Where(x => expandedDisciplineIds.Contains(GetDisciplineId(x.appForm, x.discipline)))
+                .Select(x => x.discipline));
         });
 
     }
@@ -331,6 +334,11 @@
             args.Grid.Groups.Add(new GroupDescriptor(){ Property = "LessonForm", SortOrder = SortOrder.Descending });
             StateHasChanged();
         }
+    }
+
+    private string GetDisciplineId(ApplicationFormViewItem appForm, AppFormDisciplineViewItem item)
+    {
+        return $"{appForm.Id}{item.Name}";
     }
 
 }

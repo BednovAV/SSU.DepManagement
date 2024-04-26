@@ -68,10 +68,9 @@ public class RequestAccessor : IRequestAccessor
         throw new NotImplementedException();
     }
 
-    private int GetTotalHours(IEnumerable<Request> requests)
+    private double GetTotalHours(IEnumerable<Request> requests)
     {
-        return 0;
-        throw new NotImplementedException();
+        return requests.Sum(x => x.TotalHours);
     }
 
     private IReadOnlyList<RequestViewItem> GetRequests(IEnumerable<Request> requests)

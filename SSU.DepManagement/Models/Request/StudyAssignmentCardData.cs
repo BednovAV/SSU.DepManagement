@@ -18,19 +18,20 @@ public class StudyAssignmentTeacherData
 
 public class StudyAssignmentHours
 {
-    public int Lectures { get; set; }
-    public int Practicals { get; set; }
-    public int Laboratory { get; set; }
-    public int ControlOfIndependentWork { get; set; }
-    public int PreExamConsultation { get; set; }
-    public int Exam { get; set; }
-    public int PracticeManagement { get; set; }
-    public int CourseWork { get; set; }
-    public int DiplomaWork { get; set; }
-    public int Gac { get; set; }
-    public int CheckingTestPaperHours { get; set; }
-    public int AspirantManagement { get; set; }
-    public int ApplicantManagement { get; set; }
-    public int MasterManagement { get; set; }
-    public int ExtracurricularActivity { get; set; }
+    public double Lectures { get; set; }
+    public double Practicals { get; set; }
+    public double Laboratory { get; set; }
+    public double ControlOfIndependentWork { get; set; }
+    public double PreExamConsultation { get; set; }
+    public double Exam { get; set; }
+    public double Test { get; set; }
+    public double PracticeManagement { get; set; }
+    public double CourseWork { get; set; }
+    public double DiplomaWork { get; set; }
+    public double Gac { get; set; }
+    public double CheckingTestPaperHours { get; set; }
+    public double AspirantManagement { get; set; }
+    public double ApplicantManagement { get; set; }
+    public double MasterManagement { get; set; }
+    public double ExtracurricularActivity { get; set; }
 }

@@ -12,7 +12,7 @@ public class RequestConverter
             Id = request.Id,
             Direction = request.Direction,
             GroupNumber = request.GroupNumber,
-            TotalHours = 0,// TODO
+            TotalHours = request.TotalHours,// TODO
             LessonForm = GetLessonFromName(request.LessonForm!.Value),
             Teacher = request.Teacher?.ToViewItem(),
             AvailableTeacherIds = request.Discipline.Competencies

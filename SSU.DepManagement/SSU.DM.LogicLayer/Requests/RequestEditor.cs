@@ -98,7 +98,7 @@ public class RequestEditor : IRequestEditor
                 PreExamConsultationHours = 0, // TODO
                 CheckingTestPaperHours = 0, // TODO
                 ExamHours = 0, // TODO
-                TotalHours = 0, // TODO:
+                //TotalHours = 0, // TODO:
                 IndependentWorkHours = lecture.IndependentWorkHours,
                 LessonForm = LessonForm.Lecture,
                 Reporting = lecture.Reporting,

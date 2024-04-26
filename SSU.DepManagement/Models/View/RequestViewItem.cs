@@ -10,7 +10,7 @@ public class RequestViewItem
     
     public string GroupNumber { get; set; }
 
-    public float TotalHours { get; set; }
+    public double TotalHours { get; set; }
 
     public string LessonForm { get; set; }
     
