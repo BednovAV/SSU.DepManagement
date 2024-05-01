@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Models.Request;
 using Models.View;
 
 namespace SSU.DM.DataAccessLayer.DbEntities;
@@ -20,9 +21,13 @@ public class Teacher
 
     public float? Rate { get; set; }
 
+    public TeacherRateBounds Bounds => new()
+    {
+        Lower = Math.Round((JobTitle?.LowerBoundHours ?? 0) * (Rate ?? 0), 1),
+        Upper = Math.Round((JobTitle?.UpperBoundHours ?? 0) * (Rate ?? 0), 1),
+    };
+
     public virtual List<Request> Requests { get; set; }
-    
-    public virtual List<TeacherCapacity> Capacities { get; set; }
     
     public virtual List<Competence> Сompetencies { get; set; }
 
@@ -34,6 +39,7 @@ public class Teacher
             MiddleName = MiddleName,
             LastName = LastName,
             Rate = Rate,
+            Bounds = Bounds,
             JobTitle = JobTitle?.ToViewItem(),
         };
 }

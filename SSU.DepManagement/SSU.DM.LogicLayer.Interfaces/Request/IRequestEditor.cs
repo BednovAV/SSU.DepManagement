@@ -1,4 +1,7 @@
-﻿namespace SSU.DM.LogicLayer.Interfaces.Request;
+﻿using Models.View;
+using SSU.DM.WebAssembly.Shared.Models;
+
+namespace SSU.DM.LogicLayer.Interfaces.Request;
 
 public interface IRequestEditor
 {
@@ -8,7 +11,7 @@ public interface IRequestEditor
     
     void CreateFacultyLinkAsync(Guid appFormId, int facultyId);
     
-    string? CreateTeacherLink(int requestId, long? teacherId);
+    CreateTeacherLinkResponse CreateTeacherLink(int requestId, long? teacherId);
     
     void AssignTeachers(HashSet<Guid> appFromIds);
 }

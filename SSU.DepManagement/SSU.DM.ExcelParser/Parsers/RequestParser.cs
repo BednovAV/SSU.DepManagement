@@ -22,17 +22,17 @@ internal class RequestParser : AbstractParserLite<List<ParsedRequest>>
         {
             NameDiscipline = GetField<string>(workSheet.Cells[rowNumber, 1]),
             Direction = GetField<string>(workSheet.Cells[rowNumber, 2]),
-            Semester = GetField<int>(workSheet.Cells[rowNumber, 3]),
-            BudgetCount = GetField<int>(workSheet.Cells[rowNumber, 4]),
-            CommercialCount = GetField<int>(workSheet.Cells[rowNumber, 5]),
+            Semester = GetField<string>(workSheet.Cells[rowNumber, 3]),
+            BudgetCount = GetField<string>(workSheet.Cells[rowNumber, 4]),
+            CommercialCount = GetField<string>(workSheet.Cells[rowNumber, 5]),
             GroupNumber = GetField<string>(workSheet.Cells[rowNumber, 6]),
             GroupForm = GetField<string>(workSheet.Cells[rowNumber, 7]),
             TotalHours = GetField<int>(workSheet.Cells[rowNumber, 8]),
             LectureHours = GetField<int>(workSheet.Cells[rowNumber, 9]),
             PracticalHours = GetField<int>(workSheet.Cells[rowNumber, 10]),
             LaboratoryHours = GetField<int>(workSheet.Cells[rowNumber, 11]),
-            IndependentWorkHours = GetField<int>(workSheet.Cells[rowNumber, 12]),
-            Reporting = GetField<ReportingForm>(workSheet.Cells[rowNumber, 13]),
+            IndependentWorkHours = GetField<string>(workSheet.Cells[rowNumber, 12]),
+            Reporting = GetField<string>(workSheet.Cells[rowNumber, 13]),
             Note = GetField<string>(workSheet.Cells[rowNumber, 14]),
         };
     }

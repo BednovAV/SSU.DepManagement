@@ -43,21 +43,33 @@ public class RequestDao : BaseDao<Request, int>, IRequestDao
         UseContext(db => db.Requests
             .AddRange(requestItems.Select(item => new Request
             {
-                Id = 0,
                 Direction = item.Direction,
                 Semester = item.Semester,
                 BudgetCount = item.BudgetCount,
                 CommercialCount = item.CommercialCount,
                 GroupNumber = item.GroupNumber,
+                SubgroupNumber = item.SubgroupNumber,
                 GroupForm = item.GroupForm,
-                TotalHours = item.TotalHours,
                 LessonHours = item.LessonHours,
                 IndependentWorkHours = item.IndependentWorkHours,
+                ControlOfIndependentWork = item.ControlOfIndependentWork,
+                PreExamConsultation = item.PreExamConsultation,
+                ReportingHours = item.ReportingHours,
+                PracticeManagement = item.PracticeManagement,
+                CourseWork = item.CourseWork,
+                DiplomaWork = item.DiplomaWork,
+                Gac = item.Gac,
+                HasTestPaper = item.HasTestPaper,
+                AspirantManagement = item.AspirantManagement,
+                ApplicantManagement = item.ApplicantManagement,
+                ExtracurricularActivity = item.ExtracurricularActivity,
+                MasterManagement = item.MasterManagement,
                 Reporting = item.Reporting,
                 Note = item.Note,
                 ApplicationFormId = applicationFormId,
                 DisciplineId = item.DisciplineId,
                 LessonForm = item.LessonForm,
+                StudyForm = item.StudyForm,
             })));
     }
 

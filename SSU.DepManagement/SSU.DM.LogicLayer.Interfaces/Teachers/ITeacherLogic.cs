@@ -8,8 +8,6 @@ public interface ITeacherLogic
 
     IReadOnlyList<TeacherCapacitiesViewItem> GetTeacherCapacities();
 
-    void UpdateCapacities(long teacherId, Dictionary<long, float> totalHoursBySemester);
-
     void Create(TeacherViewItem viewItem);
 
     void Update(TeacherViewItem viewItem);

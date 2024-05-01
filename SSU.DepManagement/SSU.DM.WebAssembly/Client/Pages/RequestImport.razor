@@ -21,10 +21,15 @@
                     BusyLength="1"
                     FileLink="@GetCalculationOfHoursReportUrl()"
                     Disabled="@(selectedAppForms?.Any() != true)"/>
+    <DownloadButton Text="Сформировать карточки учебных поручений"
+                    FileName="карточки учебных поручений.xlsx"
+                    BusyLength="1"
+                    FileLink="@GetDistributionReportUrl()"
+                    Disabled="@(selectedAppForms?.Any() != true)"/>
     <DownloadButton Text="Сформировать отчет о распределении учебных поручений"
                     FileName="отчет о распределении учебных поручений.xlsx"
                     BusyLength="1"
-                    FileLink="@GetDistributionReportUrl()"
+                    FileLink="@GetStudyAssignmentReportUrl()"
                     Disabled="@(selectedAppForms?.Any() != true)"/>
     <RadzenButton
         Click="@(async (args) => await AssignTeachers())"
@@ -129,6 +134,7 @@
     string uploadUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_UPLOAD_REQUEST);
     string calculationOfHoursReportUrl => Http.GetUrl(RouteConstants.REPORTS_CALCULATION_OF_HOURS);
     string distributionReportUrl => Http.GetUrl(RouteConstants.REPORTS_DISTRIBUTION);
+    string studyAssignmentReportUrl => Http.GetUrl(RouteConstants.REPORTS_STUDY_ASSIGNMENT);
     long emptyTeacherId = -1;
 
     RadzenDataGrid<ApplicationFormViewItem> grid;
@@ -265,6 +271,12 @@
         return distributionReportUrl
             .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
     }
+    
+    string GetStudyAssignmentReportUrl()
+    {
+        return studyAssignmentReportUrl
+            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
+    }
 
     bool updateFacultyDisabled = false;
 
@@ -301,19 +313,41 @@
         var response = await Http.CreateRequestTeacherLinkAsync(
             new CreateRequestTeacherLinkRequest(request.Id, teacherId));
         
-        if (!response.IsSuccess)
+        if (response.Type == CreateTeacherLinkResponse.ResponseType.Error)
         {
             var message = new NotificationMessage
             {
                 Severity = NotificationSeverity.Error,
-                Summary = "Невозможно назначить преподавателя!",
-                Detail = response.ErrorMessage,
+                Summary = "Ошибка!",
+                Detail = response.Message,
                 Duration = TimeSpan.FromSeconds(10).TotalMilliseconds
             };
             NotificationService.Notify(message);
         }
         else
         {
+            if (response.Type == CreateTeacherLinkResponse.ResponseType.Warning)
+            {
+                var message = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = "Внимание!",
+                    Detail = response.Message,
+                    Duration = TimeSpan.FromSeconds(10).TotalMilliseconds
+                };
+                NotificationService.Notify(message);
+            }
+            else if(response.Type == CreateTeacherLinkResponse.ResponseType.Success)
+            {
+                var message = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Операция выполнена успешно!",
+                    Detail = response.Message,
+                    Duration = TimeSpan.FromSeconds(10).TotalMilliseconds
+                };
+                NotificationService.Notify(message);
+            }
             request.Teacher = teacher;
         }
         

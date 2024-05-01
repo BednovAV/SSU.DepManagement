@@ -5,22 +5,22 @@ namespace SSU.DM.WebAssembly.Server.HostedServices;
 
 public class WarmUpHostedService : BackgroundService
 {
-    private readonly IServiceScopeFactory scopeFactory;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public WarmUpHostedService(IServiceScopeFactory scopeFactory)
     {
-        this.scopeFactory = scopeFactory;
+        _scopeFactory = scopeFactory;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await Task.Yield();
         
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var appFormDao = scope.ServiceProvider.GetRequiredService<IApplicationFormDao>();
         var teachersDao = scope.ServiceProvider.GetRequiredService<ITeachersDao>();
         
-        appFormDao.GetAll();
+        var appforms = appFormDao.GetAll();
         teachersDao.GetAll();
     }
 }

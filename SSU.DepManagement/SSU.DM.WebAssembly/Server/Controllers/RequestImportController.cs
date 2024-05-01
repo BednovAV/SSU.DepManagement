@@ -58,12 +58,7 @@ public class RequestImportController : ControllerBase
     [HttpPost(RouteConstants.IMPORT_REQUEST_TEACHER_LINK)]
     public ActionResult CreateTeacherLink([FromBody]CreateRequestTeacherLinkRequest request)
     {
-        var errorMessage = _requestEditor.CreateTeacherLink(request.RequestId, request.TeacherId);
-        return Ok(new CreateRequestTeacherLinkResponse
-        {
-            IsSuccess = errorMessage == null,
-            ErrorMessage = errorMessage
-        });
+        return Ok(_requestEditor.CreateTeacherLink(request.RequestId, request.TeacherId));
     }
     
     [HttpPost(RouteConstants.IMPORT_REQUEST_ASSIGN_TEACHERS)]

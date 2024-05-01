@@ -9,17 +9,14 @@ public class TeacherLogic : ITeacherLogic
 {
     private readonly ITeachersDao _teachersDao;
     private readonly ISemesterDao _semesterDao;
-    private readonly ITeacherCapacityDao _teacherCapacityDao;
 
 
     public TeacherLogic(
         ITeachersDao teachersDao,
-        ISemesterDao semesterDao,
-        ITeacherCapacityDao teacherCapacityDao)
+        ISemesterDao semesterDao)
     {
         _teachersDao = teachersDao;
         _semesterDao = semesterDao;
-        _teacherCapacityDao = teacherCapacityDao;
     }
 
     public IReadOnlyList<TeacherViewItem> GetAll()
@@ -33,36 +30,6 @@ public class TeacherLogic : ITeacherLogic
         return _teachersDao.GetAll()
             .Select(teacher => CreateTeacherCapacitiesViewItem(teacher, semesters))
             .ToList();
-    }
-
-    public void UpdateCapacities(long teacherId, Dictionary<long, float> totalHoursBySemester)
-    {
-        var existedSemesters = _teacherCapacityDao.GetTeacherSemesters(teacherId);
-
-        var itemsToInsert = new List<TeacherCapacity>();
-        var itemsToUpdate = new List<TeacherCapacity>();
-
-        foreach (var item in totalHoursBySemester)
-        {
-            var entity = new TeacherCapacity
-            {
-                TeacherId = teacherId,
-                SemesterId = item.Key,
-                Hours = item.Value
-            };
-            
-            if (existedSemesters.Contains(item.Key))
-            {
-                itemsToUpdate.Add(entity);
-            }
-            else
-            {
-                itemsToInsert.Add(entity);
-            }
-        }
-
-        _teacherCapacityDao.Update(itemsToUpdate);
-        _teacherCapacityDao.Add(itemsToInsert);
     }
 
     private TeacherCapacitiesViewItem CreateTeacherCapacitiesViewItem(

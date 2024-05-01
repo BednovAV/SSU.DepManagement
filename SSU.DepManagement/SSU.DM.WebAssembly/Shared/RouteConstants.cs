@@ -10,6 +10,7 @@ public static class RouteConstants
     
     public const string REPORTS_CALCULATION_OF_HOURS = "reports/calculationofhours";
     public const string REPORTS_DISTRIBUTION = "reports/distributionreport";
+    public const string REPORTS_STUDY_ASSIGNMENT = "reports/studyassignmentreport";
     public const string IMPORT_REQUEST_FACULTY_LINK = "reports/facultyLink";
     public const string IMPORT_REQUEST_TEACHER_LINK = "reports/teacherLink";
     public const string IMPORT_REQUEST_TEACHER_LINK_VALIDATE = "reports/teacherLink/validate";

@@ -944,7 +944,8 @@
         "dependencies": {
           "SSU.DM.DataAccessLayer": "1.0.0",
           "SSU.DM.LogicLayer.Interfaces": "1.0.0",
-          "SSU.DM.Tools.Interface": "1.0.0"
+          "SSU.DM.Tools.Interface": "1.0.0",
+          "SSU.DM.WebAssembly.Shared": "1.0.0"
         },
         "runtime": {
           "SSU.DM.LogicLayer.dll": {}
@@ -952,7 +953,8 @@
       },
       "SSU.DM.LogicLayer.Interfaces/1.0.0": {
         "dependencies": {
-          "Models": "1.0.0"
+          "Models": "1.0.0",
+          "SSU.DM.WebAssembly.Shared": "1.0.0"
         },
         "runtime": {
           "SSU.DM.LogicLayer.Interfaces.dll": {}

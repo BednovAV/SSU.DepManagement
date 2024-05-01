@@ -49,20 +49,22 @@ public static class DependencyBuilder
             .AddScoped<ITeacherLogic, TeacherLogic>()
             .AddScoped<ISemesterLogic, SemesterLogic>()
             .AddScoped<IRequestAccessor, RequestAccessor>()
+            .AddScoped<IParsedRequestProcessor, ParsedRequestProcessor>()
             .AddScoped<IRequestEditor, RequestEditor>()
             .AddScoped<IFacultyLogic, FacultyLogic>()
             .AddScoped<ICompetenceLogic, CompetenceLogic>()
             .AddScoped<IDisciplineLogic, DisciplineLogic>()
             .AddScoped<IJobTitleLogic, JobTitleLogic>()
             .AddScoped<ICalculationOfHoursBuilder, CalculationOfHoursBuilder>()
+            .AddScoped<IStudyAssignmentReportBuilder, StudyAssignmentReportBuilder>()
             .AddScoped<IDistributionReportBuilder, DistributionReportBuilder>();
-    
+
     /// <summary>
     /// Parsers
     /// </summary>
     private static IServiceCollection RegisterParserDependencies(this IServiceCollection services)
         => services;
-    
+
     /// <summary>
     /// Writers
     /// </summary>
@@ -75,7 +77,7 @@ public static class DependencyBuilder
     private static IServiceCollection RegisterToolsDependencies(this IServiceCollection services)
         => services
             .AddScoped<IExcelParser, Parser>();
-    
+
     /// <summary>
     /// DAO
     /// </summary>
@@ -87,7 +89,6 @@ public static class DependencyBuilder
             .AddScoped<IRequestDao, RequestDao>()
             .AddScoped<ITeachersDao, TeacherDao>()
             .AddScoped<IFacultyDao, FacultyDao>()
-            .AddScoped<ITeacherCapacityDao, TeacherCapacitiesDao>()
             .AddScoped<IDisciplineDao, DisciplineDao>()
             .AddScoped<ICompetenceDao, CompetenceDao>()
             .AddScoped<IJobTitleDao, JobTitleDao>()

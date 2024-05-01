@@ -23,7 +23,7 @@ public static class ParseTools
         while (row >= 1)
         {
             var range = worksheet.Cells[row, 1, row, worksheet.Dimension.End.Column];
-            if (range.Any(c => !string.IsNullOrEmpty(c.Text)))
+            if (range.Any(c => !string.IsNullOrEmpty(c.Text) || !string.IsNullOrEmpty(c.Formula)))
             {
                 break;
             }
@@ -45,7 +45,7 @@ public static class ParseTools
         while (column >= 1)
         {
             var range = worksheet.Cells[1, column, worksheet.Dimension.End.Row, column];
-            if (range.Any(c => !string.IsNullOrEmpty(c.Text)))
+            if (range.Any(c => !string.IsNullOrEmpty(c.Text) || !string.IsNullOrEmpty(c.Formula)))
             {
                 break;
             }

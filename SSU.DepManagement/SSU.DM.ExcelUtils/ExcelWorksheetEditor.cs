@@ -28,7 +28,7 @@ public class ExcelWorksheetEditor
     }
 
     public void SetValueRightAlignment(string address,
-        object text,
+        object? text,
         bool bold = false,
         bool italic = false)
         => SetValue(address, text, bold, italic, ExcelHorizontalAlignment.Right);
@@ -45,7 +45,7 @@ public class ExcelWorksheetEditor
     }
     
     public void SetValue(string address,
-        object text,
+        object? text,
         bool bold = false,
         bool italic = false,
         ExcelHorizontalAlignment horizontalAlignment = ExcelHorizontalAlignment.Left)
@@ -65,6 +65,18 @@ public class ExcelWorksheetEditor
                 _worksheet.Cells[i, j].Style.Border.BorderAround(ExcelBorderStyle.Thin);
             }
         }
+    }
+    
+    public void SetBorders(ExcelBorderStyle borderStyle, string? addressRange = null)
+    {
+        var cellsRange = addressRange != null
+            ? _worksheet.Cells[addressRange]
+            : _worksheet.Cells[1, 1, GetLastUsedRow(), GetLastUsedColumn()];
+
+        cellsRange.Style.Border.Top.Style = borderStyle;
+        cellsRange.Style.Border.Bottom.Style = borderStyle;
+        cellsRange.Style.Border.Right.Style = borderStyle;
+        cellsRange.Style.Border.Left.Style = borderStyle;
     }
     
     public void ReplacePlaceholders(IDictionary<string, string> placeholders)
@@ -129,6 +141,11 @@ public class ExcelWorksheetEditor
     public int GetLastUsedRow()
     {
         return _worksheet.GetLastUsedRow();
+    }
+    
+    public int GetLastUsedColumn()
+    {
+        return _worksheet.GetLastUsedColumn();
     }
 
     private void ApplyStandardStyle(ExcelStyle style,

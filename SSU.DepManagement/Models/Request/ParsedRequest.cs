@@ -8,15 +8,13 @@ public class ParsedRequest
 
     public string Direction { get; init; }
 
-    public int Semester { get; init; }
+    public string Semester { get; init; }
     
-    public int BudgetCount { get; init; }
+    public string BudgetCount { get; init; }
     
-    public int CommercialCount { get; init; }
+    public string CommercialCount { get; init; }
     
     public string GroupNumber { get; init; }
-    
-    public string SubGroupCount { get; init; }
 
     public string GroupForm { get; init; }
 
@@ -28,11 +26,13 @@ public class ParsedRequest
 
     public int LaboratoryHours { get; init; }
 
-    public int IndependentWorkHours { get; init; }
+    public string IndependentWorkHours { get; init; }
 
-    public ReportingForm Reporting { get; init; }
+    public string Reporting { get; init; }
 
     public string Note { get; init; }
+
+    public StudyForm StudyForm { get; set; }
 }
 
 public enum ReportingForm
@@ -40,12 +40,25 @@ public enum ReportingForm
     [Description("экз")]
     Exam,
     [Description("зач")]
-    Test
+    Test,
+    [Description("")]
+    None
+}
+
+public enum StudyForm
+{
+    [Description("Очная форма")]
+    FullTime,
+    [Description("Заочная форма")]
+    Extramural,
+    [Description("Заочная форма")]
+    PartTime
 }
 
 public enum LessonForm
 {
     Lecture,
     Practical,
-    Laboratory
+    Laboratory,
+    Gac
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Request;
 
@@ -9,27 +10,68 @@ public class Request
 {
     public int Id { get; set; }
     
-    public string Direction { get; set; }
+    public List<string> Direction { get; set; }
 
-    public int Semester { get; set; }
+    public List<int> Semester { get; set; }
+
+    public int YearSemester => Semester[0] % 2 == 0 ? 2 : 1;
     
-    public int BudgetCount { get; set; }
+    public List<int> BudgetCount { get; set; }
     
-    public int CommercialCount { get; set; }
+    public List<int> CommercialCount { get; set; }
     
-    public string GroupNumber { get; set; }
+    public List<int> GroupNumber { get; set; }
+
+    public int[][] GroupNumbersByDirection => GroupNumber
+        .GroupBy(x => x / 10)
+        .Select(x => x.ToArray())
+        .ToArray();
+    
+    public int? SubgroupNumber { get; set; }
+
+    public string GroupNumberString => SubgroupNumber.HasValue
+        ? $"{GroupNumber[0]}({SubgroupNumber.Value})"
+        : string.Join(", ", GroupNumber);
 
     public string GroupForm { get; set; }
-
-    public double TotalHours { get; set; }
     
-    public int? LessonHours { get; init; }
+    public int LessonHours { get; init; }
 
-    public int IndependentWorkHours { get; set; }
+    public List<int> IndependentWorkHours { get; set; }
+    
+    public double ControlOfIndependentWork { get; set; }
 
-    public ReportingForm Reporting { get; set; }
+    public bool HasTestPaper { get; set; }
+
+    public double CheckingTestPaperHours => HasTestPaper
+        ? Math.Round((BudgetCount.Sum() + CommercialCount.Sum()) / 2d, 1)
+        : 0d;
+
+    public double PreExamConsultation { get; set; }
+    
+    public double ReportingHours { get; set; }
+    
+    public double PracticeManagement { get; set; }
+    
+    public double CourseWork { get; set; }
+    
+    public double DiplomaWork { get; set; }
+    
+    public double Gac { get; set; }
+    
+    public double AspirantManagement { get; set; }
+    
+    public double ApplicantManagement { get; set; }
+    
+    public double ExtracurricularActivity { get; set; }
+    
+    public double MasterManagement { get; set; }
+
+    public List<ReportingForm> Reporting { get; set; }
     
     public LessonForm? LessonForm { get; init; }
+    
+    public StudyForm StudyForm { get; init; }
 
     public string Note { get; set; }
 
@@ -41,25 +83,11 @@ public class Request
 
     public long DisciplineId { get; set; }
     public virtual Discipline Discipline { get; set; }
-    
-    public static Request FromModel(ParsedRequest model, Guid applicationFormId, long disciplineId)
-    {
-        return new()
-        {
-            Direction = model.Direction,
-            Semester = model.Semester,
-            BudgetCount = model.BudgetCount,
-            CommercialCount = model.CommercialCount,
-            GroupNumber = model.GroupNumber,
-            GroupForm = model.GroupForm,
-            TotalHours = model.TotalHours,
-            IndependentWorkHours = model.IndependentWorkHours,
-            Reporting = model.Reporting,
-            Note = model.Note,
-            ApplicationFormId = applicationFormId,
-            DisciplineId = disciplineId,
-        };
-    }
+
+    public double TotalHours => Math.Round(LessonHours + ControlOfIndependentWork + PreExamConsultation
+                                + ReportingHours + PracticeManagement + CourseWork + DiplomaWork + Gac
+                                + CheckingTestPaperHours + AspirantManagement + ApplicantManagement 
+                                + ExtracurricularActivity + MasterManagement, 1);
 }
 
 internal class RequestConfiguration : IEntityTypeConfiguration<Request>

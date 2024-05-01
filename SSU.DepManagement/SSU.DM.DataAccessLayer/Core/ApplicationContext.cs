@@ -23,8 +23,6 @@ public class ApplicationContext : DbContext
     
     public DbSet<Semester> Semesters { get; set; } = null!;
     
-    public DbSet<TeacherCapacity> TeacherCapacities { get; set; } = null!;
-    
     public DbSet<Discipline> Disciplines { get; set; } = null!;
     
     public DbSet<Competence> Competencies { get; set; } = null!;

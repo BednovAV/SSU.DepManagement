@@ -10,8 +10,8 @@ public class RequestConverter
         return new RequestViewItem
         {
             Id = request.Id,
-            Direction = request.Direction,
-            GroupNumber = request.GroupNumber,
+            Direction = string.Join(", ", request.Direction),
+            GroupNumber = request.GroupNumberString,
             TotalHours = request.TotalHours,// TODO
             LessonForm = GetLessonFromName(request.LessonForm!.Value),
             Teacher = request.Teacher?.ToViewItem(),

@@ -80,29 +80,44 @@ public static class FacultyFiller
         int row)
     {
         var hourCounts = request.HourCounts;
-        worksheet.SetValueRightAlignment($"I{row}", request.HourCounts.Lectures);
-        worksheet.SetFormula($"J{row}", $"{hourCounts.Practices}*F{row}");
-        worksheet.SetFormula($"K{row}", $"{hourCounts.Laboratory}*G{row}");
+        if (request.HourCounts.Lectures.HasValue)
+        {
+            worksheet.SetValueRightAlignment($"I{row}", request.HourCounts.Lectures);
+        }
+
+        if (hourCounts.Practices != default)
+        {
+            worksheet.SetValueRightAlignment($"J{row}", hourCounts.Practices);
+        }
+
+        if (hourCounts.Laboratory != default)
+        {
+            worksheet.SetValueRightAlignment($"K{row}", hourCounts.Laboratory);
+        }
         worksheet.SetFormula($"L{row}", $"ROUND(H{row}*F{row}*5%;1)");
         if (request.ReportingForm is ReportingForm.Exam)
         {
             worksheet.SetFormula($"M{row}", $"2*F{row}");
             worksheet.SetFormula($"N{row}", $"ROUND(E{row}/2;1)");
         }
-        else
+        else if (request.ReportingForm == ReportingForm.Test)
         {
             worksheet.SetFormula($"O{row}", $"ROUND(E{row}/3;1)");
         }
-        worksheet.SetFormula($"P{row}", $"E{row}*{hourCounts.PracticeManagement}");
-        worksheet.SetFormula($"Q{row}", $"E{row}*{hourCounts.CourseWorks}");
-        worksheet.SetFormula($"R{row}", $"E{row}*{hourCounts.QualificationWorks}");
-        worksheet.SetFormula($"S{row}", $"ROUND(E{row}/2;1)");
-        worksheet.SetFormula($"T{row}", $"ROUND(E{row}/2;1)");
+        // worksheet.SetFormula($"P{row}", $"E{row}*{hourCounts.PracticeManagement}");
+        // worksheet.SetFormula($"Q{row}", $"E{row}*{hourCounts.CourseWorks}");
+        // worksheet.SetFormula($"R{row}", $"E{row}*{hourCounts.QualificationWorks}");
+        //worksheet.SetFormula($"S{row}", $"ROUND(E{row}/2;1)");
+        if (request.HasTestPaper)
+        {
+            worksheet.SetFormula($"T{row}", $"ROUND(E{row}/2;1)");
+        }
         worksheet.SetFormula($"U{row}", $"");
         worksheet.SetFormula($"V{row}", $"");
-        worksheet.SetFormula($"W{row}", $"E{row}*{hourCounts.MastersProgramManagement}");
+        //worksheet.SetFormula($"W{row}", $"E{row}*{hourCounts.MastersProgramManagement}");
         worksheet.SetFormula($"X{row}", $"");
         worksheet.SetFormula($"Y{row}", $"");
+        
         worksheet.SetFormula($"Z{row}", $"SUM(I{row}:Y{row})");
     }
 }

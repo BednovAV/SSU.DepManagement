@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "b2k0kM/FxovWLk+dz/lOPCk1QfqRbYVfs/rHJFeG851QuiG+e9Ths7e5UFbAImbW9WAPIlq4/BIhc6LPH3z//w==",
+  "dgSpecHash": "BsmpbjimGJUJP28PaB0EnhxZAXQCEteVeeC+fmdvgN6ymVeWmiI+8WnrMSFa5I81uiMvMo9nxldljauAPxZNJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\droll\\Desktop\\DiplomFiles\\src\\SSU.DepManagement\\SSU.DM.LogicLayer.Interfaces\\SSU.DM.LogicLayer.Interfaces.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.configuration.binder\\7.0.3\\microsoft.extensions.configuration.binder.7.0.3.nupkg.sha512",
-    "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
-    "C:\\Users\\droll\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\droll\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

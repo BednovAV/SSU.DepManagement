@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Models.Request;
 
 namespace Models.View;
 
@@ -13,6 +14,8 @@ public class TeacherViewItem
     public string LastName { get; set; }
     
     public float? Rate { get; set; }
+
+    public TeacherRateBounds Bounds { get; set; }
     
     public JobTitleViewItem JobTitle { get; set; }
     

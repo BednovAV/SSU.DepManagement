@@ -1,13 +1,12 @@
-﻿using Models.Enums;
-using Models.Extensions;
+﻿using Models.Extensions;
 using Models.Request;
+using Models.View;
 using SSU.DM.DataAccessLayer.Core.Interface;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
-using SSU.DM.LogicLayer.Interfaces.Discipline;
 using SSU.DM.LogicLayer.Interfaces.Request;
 using SSU.DM.LogicLayer.Interfaces.Teachers;
 using SSU.DM.Tools.Interface;
-using SSU.DM.Tools.Interface.Models;
+using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.LogicLayer.Requests;
 
@@ -19,9 +18,9 @@ public class RequestEditor : IRequestEditor
     private readonly IRequestDao _requestDao;
     private readonly ITeachersDao _teachersDao;
     private readonly ITeacherLogic _teachersLogic;
-    private readonly IDisciplineLogic _disciplineLogic;
     private readonly ITransactionManager _transactionManager;
-    
+    private readonly IParsedRequestProcessor _parsedRequestProcessor;
+
     public RequestEditor(
         IExcelParser excelParser,
         IFilesStorageDao filesStorage,
@@ -29,8 +28,8 @@ public class RequestEditor : IRequestEditor
         IRequestDao requestDao,
         ITeachersDao teachersDao,
         ITeacherLogic teachersLogic,
-        IDisciplineLogic disciplineLogic,
-        ITransactionManager transactionManager)
+        ITransactionManager transactionManager,
+        IParsedRequestProcessor parsedRequestProcessor)
     {
         _excelParser = excelParser;
         _filesStorage = filesStorage;
@@ -38,16 +37,16 @@ public class RequestEditor : IRequestEditor
         _requestDao = requestDao;
         _teachersDao = teachersDao;
         _teachersLogic = teachersLogic;
-        _disciplineLogic = disciplineLogic;
         _transactionManager = transactionManager;
+        _parsedRequestProcessor = parsedRequestProcessor;
     }
 
     public async Task<Guid> UploadFromStream(string fileName, Stream stream)
     {
         var bytes = await stream.ReadAllBytesAsync();
-        
-        var requests = ProcessRequests(_excelParser.Parse<List<ParsedRequest>>(bytes));
-        //var requests = _excelParser.Parse<List<ParsedRequest>>(bytes);
+
+        var parseResult = _excelParser.Parse<List<ParsedRequest>>(bytes);
+        var requests = _parsedRequestProcessor.Process(parseResult.Value);
         var fileKey = Guid.NewGuid().ToString();
         var applicationFormId = Guid.NewGuid();
 
@@ -57,101 +56,8 @@ public class RequestEditor : IRequestEditor
             _applicationFormDao.Add(applicationFormId, DateTimeOffset.Now.UtcDateTime, fileKey);
             _requestDao.AddRange(requests, applicationFormId);
         });
-        
+
         return applicationFormId;
-    }
-
-    private List<RequestSaveItem> ProcessRequests(ParseResult<List<ParsedRequest>> parsed)
-    {
-        return parsed.Value.GroupBy(request => new { request.NameDiscipline, request.Semester })
-            .SelectMany(ProcessRequest).ToList();
-    }
-
-    private List<RequestSaveItem> ProcessRequest(IEnumerable<ParsedRequest> requests)
-    {
-        requests = requests.ToList();
-        
-        var result = new List<RequestSaveItem>();
-        var disciplineId = _disciplineLogic.GetOrCreateDisciplineId(requests.First().NameDiscipline);
-
-        result.AddRange(GetLectures(requests, disciplineId));
-        result.AddRange(GetPracticals(requests, disciplineId));
-        result.AddRange(GetLaboratories(requests, disciplineId));
-
-        return result;
-    }
-
-    private static List<RequestSaveItem> GetLectures(IEnumerable<ParsedRequest> requests, long disciplineId)
-    {
-        return requests.Where(x => x.LectureHours != 0)
-            .Select(lecture => new RequestSaveItem
-            {
-                DisciplineId = disciplineId,
-                Direction = lecture.Direction,
-                Semester = lecture.Semester,
-                BudgetCount = lecture.BudgetCount,
-                CommercialCount = lecture.CommercialCount,
-                GroupNumber = lecture.GroupNumber,
-                GroupForm = lecture.GroupForm,
-                LessonHours = lecture.LectureHours,
-                ControlOfIndependentWorkHours = CalculateControlOfIndependentWorkHours(lecture), // TODO:
-                PreExamConsultationHours = 0, // TODO
-                CheckingTestPaperHours = 0, // TODO
-                ExamHours = 0, // TODO
-                //TotalHours = 0, // TODO:
-                IndependentWorkHours = lecture.IndependentWorkHours,
-                LessonForm = LessonForm.Lecture,
-                Reporting = lecture.Reporting,
-                Note = lecture.Note
-            }).ToList();
-    }
-
-    private static double? CalculateControlOfIndependentWorkHours(ParsedRequest request)
-    {
-        return null;
-        //return request.IndependentWorkHours * request.Co
-    }
-
-    private IEnumerable<RequestSaveItem> GetPracticals(IEnumerable<ParsedRequest> requests, long disciplineId)
-    {
-        return requests.Where(x => x.PracticalHours != 0)
-            .Select(lecture => new RequestSaveItem
-            {
-                DisciplineId = disciplineId,
-                Direction = lecture.Direction,
-                Semester = lecture.Semester,
-                BudgetCount = lecture.BudgetCount,
-                CommercialCount = lecture.CommercialCount,
-                GroupNumber = lecture.GroupNumber,
-                GroupForm = lecture.GroupForm,
-                LessonHours = lecture.PracticalHours,
-                TotalHours = 0, // TODO:
-                IndependentWorkHours = lecture.IndependentWorkHours,
-                LessonForm = LessonForm.Practical,
-                Reporting = lecture.Reporting,
-                Note = lecture.Note
-            }).ToList();
-    }
-
-    private IEnumerable<RequestSaveItem> GetLaboratories(IEnumerable<ParsedRequest> requests, long disciplineId)
-    {
-        return requests.Where(x => x.LaboratoryHours != 0)
-            .Select(lecture => new RequestSaveItem
-            {
-                DisciplineId = disciplineId,
-                Direction = lecture.Direction,
-                Semester = lecture.Semester,
-                BudgetCount = lecture.BudgetCount,
-                CommercialCount = lecture.CommercialCount,
-                GroupNumber = lecture.GroupNumber,
-                GroupForm = lecture.GroupForm,
-                LessonHours = lecture.LaboratoryHours,
-                TotalHours = 0, // TODO:
-                IndependentWorkHours = lecture.IndependentWorkHours,
-                LessonForm = LessonForm.Laboratory,
-                Reporting = lecture.Reporting,
-                Note = lecture.Note
-            }).ToList();
     }
 
     public async Task<bool> DeleteAsync(Guid appFormId)
@@ -179,38 +85,57 @@ public class RequestEditor : IRequestEditor
         _applicationFormDao.SetFacultyId(appFormId, facultyId);
     }
 
-    public string? CreateTeacherLink(int requestId, long? teacherId)
+    public CreateTeacherLinkResponse CreateTeacherLink(int requestId, long? teacherId)
     {
         if (!teacherId.HasValue)
         {
             _requestDao.SetTeacherId(requestId, teacherId);
-            return null;
+            return new CreateTeacherLinkResponse
+            {
+                Type = CreateTeacherLinkResponse.ResponseType.Success,
+                Message = "Назначение успешно удалено!"
+            };
         }
-        
+
         var teacher = _teachersDao.GetById(teacherId.Value);
         var request = _requestDao.GetById(requestId);
 
         var allocatedTeacherHours = teacher.Requests
             //.Where(semesterId)
             .Sum(r => r.TotalHours);
-        var totalTeacherHours = teacher.Capacities
-            ?.FirstOrDefault() //Where(semesterId)
-            ?.Hours ?? 0;
+        var totalTeacherUpperHours = teacher.Bounds.Upper;
+        var totalTeacherLowerHours = teacher.Bounds.Lower;
 
-        if (request.TotalHours + allocatedTeacherHours > totalTeacherHours)
+        if (request.TotalHours + allocatedTeacherHours > totalTeacherUpperHours)
         {
-            return
-                $"Для назначения на данную дисциплину требуется {request.TotalHours} а.ч., " +
-                $"преподаватель \"{teacher.ToViewItem()}\" имеет {totalTeacherHours - allocatedTeacherHours} свободных а.ч.";
+            return new CreateTeacherLinkResponse
+            {
+                Type = CreateTeacherLinkResponse.ResponseType.Error,
+                Message = $"Чтобы назначить преподавателя на дисциплину требуется {request.TotalHours} свободных ч." +
+                          $"преподаватель \"{teacher.ToViewItem()}\" имеет {Math.Round(totalTeacherUpperHours - allocatedTeacherHours, 1)} свободных а.ч."
+            };
         }
         
         _requestDao.SetTeacherId(requestId, teacherId);
-        return null;
+        if (request.TotalHours + allocatedTeacherHours > totalTeacherLowerHours)
+        {
+            return new CreateTeacherLinkResponse
+            {
+                Type = CreateTeacherLinkResponse.ResponseType.Warning,
+                Message = $"Для преподавателя \"{teacher.ToViewItem()}\" была превышена нижняя граница часов!"
+            };
+        }
+
+        return new CreateTeacherLinkResponse
+        {
+            Type = CreateTeacherLinkResponse.ResponseType.Success,
+            Message = $"Преподаватель \"{teacher.ToViewItem()}\" успешно назначен на дисциплину!"
+        };
     }
 
     public void AssignTeachers(HashSet<Guid> appFromIds)
     {
-        var requests = _requestDao.GetAll(request 
+        var requests = _requestDao.GetAll(request
                 => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
             .Select(RequestConverter.MapToRequestViewItem)
             .OrderByDescending(request => request.TotalHours)
@@ -229,7 +154,7 @@ public class RequestEditor : IRequestEditor
         {
             var teacherId = freeHoursByTeacherId
                 .OrderBy(x => x.Value)
-                .Cast<KeyValuePair<long, float?>?>()
+                .Cast<KeyValuePair<long, double?>?>()
                 .FirstOrDefault(x =>
                     request.AvailableTeacherIds.Contains(x?.Key ?? -1)
                     && request.TotalHours <= x?.Value)
@@ -241,6 +166,5 @@ public class RequestEditor : IRequestEditor
                 freeHoursByTeacherId[teacherId.Value] -= request.TotalHours;
             }
         }
-        
     }
 }

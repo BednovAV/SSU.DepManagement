@@ -31,7 +31,7 @@ public class RequestAccessor : IRequestAccessor
     public IReadOnlyList<ApplicationFormViewItem> GetApplicationForms()
     {
         var applicationForms = _applicationFormDao.GetAll();
-        return applicationForms.Select(ConvertToViewItem).ToList();
+        return applicationForms.Select(ConvertToViewItem).OrderByDescending(x => x.DateCreated).ToList();
     }
     
     private ApplicationFormViewItem ConvertToViewItem(ApplicationForm appForm) =>
@@ -49,23 +49,23 @@ public class RequestAccessor : IRequestAccessor
     {
         return appFormRequests.GroupBy(x => new
             {
-                x.Discipline.Name, x.Semester
+                x.Discipline.Name
             })
             .Select(x => new AppFormDisciplineViewItem
             {
                 Name = x.Key.Name,
-                Semester = x.Key.Semester,
                 Groups = GetGroups(x),
+                Semester = x.First().YearSemester,
                 TotalHours = GetTotalHours(x),
                 Requests = GetRequests(x)
             })
+            .OrderBy(x => x.Name)
             .ToList();
     }
 
     private IReadOnlyList<int> GetGroups(IEnumerable<Request> requests)
     {
-        return new[] { 111, 222 };
-        throw new NotImplementedException();
+        return requests.SelectMany(x => x.GroupNumber).Distinct().Order().ToList();
     }
 
     private double GetTotalHours(IEnumerable<Request> requests)
@@ -77,8 +77,7 @@ public class RequestAccessor : IRequestAccessor
     {
         return requests
             .OrderBy(x => x.LessonForm)
-            .ThenBy(x => x.Semester)
-            .ThenBy(x => x.GroupNumber)
+            .ThenBy(x => x.GroupNumberString)
             .Select(RequestConverter.MapToRequestViewItem)
             .ToList();
     }

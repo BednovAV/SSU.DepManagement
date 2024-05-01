@@ -8,8 +8,6 @@ public class Semester
 
     public string Name { get; set; }
     
-    public virtual List<TeacherCapacity> Capacities { get; set; }
-
     public SemesterViewItem ToViewItem()
     {
         return new SemesterViewItem

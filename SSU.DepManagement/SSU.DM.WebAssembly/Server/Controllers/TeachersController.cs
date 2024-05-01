@@ -32,13 +32,6 @@ public class TeachersController : ControllerBase
         return Ok(_teacherLogic.GetTeacherCapacities());
     }
     
-    [HttpPut(RouteConstants.TEACHER_CAPACITY)]
-    public ActionResult GetTeacherCapacities([FromBody]UpdateTeacherCapacityRequest request)
-    {
-        _teacherLogic.UpdateCapacities(request.TeacherId, request.TotalHoursBySemester);
-        return Ok(_teacherLogic.GetTeacherCapacities());
-    }
-    
     [HttpPost(RouteConstants.TEACHER)]
     public ActionResult CreateTeacher([FromBody]TeacherViewItem request)
     {

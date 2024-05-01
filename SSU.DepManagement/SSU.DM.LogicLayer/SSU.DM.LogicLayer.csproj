@@ -10,6 +10,7 @@
       <ProjectReference Include="..\SSU.DM.DataAccessLayer\SSU.DM.DataAccessLayer.csproj" />
       <ProjectReference Include="..\SSU.DM.LogicLayer.Interfaces\SSU.DM.LogicLayer.Interfaces.csproj" />
       <ProjectReference Include="..\SSU.DM.Tools.Interface\SSU.DM.Tools.Interface.csproj" />
+      <ProjectReference Include="..\SSU.DM.WebAssembly\Shared\SSU.DM.WebAssembly.Shared.csproj" />
     </ItemGroup>
 
 </Project>

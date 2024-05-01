@@ -48,11 +48,16 @@ public class DistributionReportBuilder : IDistributionReportBuilder, IEqualityCo
             BudgetForm = "Бюджетная",
             JobTitle = teacher.JobTitle?.Name ?? string.Empty,
             Rate = teacher.Rate?.ToString() ?? string.Empty,
-            FirstSemester = requests.GroupBy(x => x.ApplicationForm.Faculty, this)
-                .Select(FacultyDataBuilder.Build)
-                .ToList(),
-            SecondSemester = new List<FacultyData>() // TODO
+            FirstSemester = BuildSemesterData(requests.Where(x => x.YearSemester == 1)),
+            SecondSemester =  BuildSemesterData(requests.Where(x => x.YearSemester == 2))
         };
+    }
+
+    private List<FacultyData> BuildSemesterData(IEnumerable<Request> requests)
+    {
+        return requests.GroupBy(x => x.ApplicationForm.Faculty, this)
+            .Select(FacultyDataBuilder.Build)
+            .ToList();
     }
 
     public bool Equals(Faculty? x, Faculty? y)

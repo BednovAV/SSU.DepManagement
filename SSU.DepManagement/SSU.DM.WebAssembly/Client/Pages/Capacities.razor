@@ -32,12 +32,12 @@
             <Columns>
                 <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Title="Нижняя" TextAlign="TextAlign.Center">
                     <Template Context="data">
-                        @(data.Teacher.JobTitle?.LowerBoundHours.ToString() ?? "-")
+                        @(data.Teacher.Bounds.Lower)
                     </Template>
                 </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="TeacherCapacitiesViewItem" Title="Верхняя" TextAlign="TextAlign.Center">
                     <Template Context="data">
-                        @(data.Teacher.JobTitle?.UpperBoundHours.ToString() ?? "-")
+                        @(data.Teacher.Bounds.Upper)
                     </Template>
                 </RadzenDataGridColumn>
             </Columns>

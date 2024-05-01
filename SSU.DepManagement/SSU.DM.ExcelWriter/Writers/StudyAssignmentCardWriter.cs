@@ -1,4 +1,5 @@
 ﻿using Models.Request;
+using OfficeOpenXml.Style;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ExcelUtils;
 using SSU.DM.ExcelWriter.Abstract;
@@ -24,27 +25,30 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         foreach (var teacher in data.Teachers)
         {
             FillTeacher(tmpWorksheet, teacher, ref currentRow);
-            teacherSumRows.Add(currentRow);
+            teacherSumRows.Add(currentRow - 1);
         }
         tmpWorksheet.SetValue($"A{currentRow}", "Итого по кафедре", bold: true);
         for (var currentColumn = 'C'; currentColumn <= 'T'; currentColumn++)
         {
-            tmpWorksheet.SetFormula($"{currentColumn}{currentRow}", string.Join('+', teacherSumRows));
+            tmpWorksheet.SetFormula($"{currentColumn}{currentRow}",
+                string.Join('+', teacherSumRows.Select(x =>$"{currentColumn}{x}")),
+                horizontalAlignment: ExcelHorizontalAlignment.Left);
         }
+        tmpWorksheet.SetBorders(ExcelBorderStyle.Thin);
 
-        using var templateDoc = _filesStorage.ReadExcel("???"); // TODO
+        using var templateDoc = _filesStorage.ReadExcel("STUDY_ASSIGNMENT_REPORT_TEMPLATE");
         var template = templateDoc.GetFirstWorksheetEditor();
 
         template.ReplacePlaceholders(BuildPlaceholders(data));
-
-        const string hoursMark = "???";
+        
+        const string hoursMark = "insertHours";
         var hoursRow = template.GetRowByMark(hoursMark);
         if (hoursRow.HasValue)
         {
             var hoursRowsCount = currentRow;
             if (currentRow > 1)
             {
-                template.InsertEmptyRows(hoursRow.Value, hoursRowsCount);
+                template.InsertEmptyRows(hoursRow.Value, hoursRowsCount - 1);
             }
             template.CopyFrom(tmpWorksheet, $"A{hoursRow}");
         }
@@ -60,7 +64,7 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         var teacherFirstRow = currentRow;
 
         var studyFormCount = teacher.HoursByStudyForm.Count;
-        template.Merge($"A{currentRow}:A{currentRow + studyFormCount}", teacher.FioWithJobTitle);
+        template.Merge($"A{currentRow}:A{currentRow + studyFormCount - 1}", teacher.FioWithJobTitle);
         foreach (var studyForm in teacher.HoursByStudyForm)
         {
             template.SetValue($"B{currentRow}", studyForm.Key);
@@ -71,7 +75,9 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         for (var currentColumn = 'C'; currentColumn <= 'T'; currentColumn++)
         {
             template.SetFormula($"{currentColumn}{currentRow}",
-                $"SUM({currentColumn}{teacherFirstRow}:{currentColumn}{currentColumn - 1})", bold: true);
+                $"SUM({currentColumn}{teacherFirstRow}:{currentColumn}{currentRow - 1})",
+                bold: true,
+                horizontalAlignment: ExcelHorizontalAlignment.Left);
         }
         currentRow++;
     }
@@ -98,7 +104,8 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         template.SetValue($"Q{currentRow}", studyFormHours.MasterManagement);
         template.SetValue($"R{currentRow}", studyFormHours.ExtracurricularActivity);
 
-        template.SetFormula($"T{currentRow}", $"SUM(C{currentRow}: S{currentRow})");
+        template.SetFormula($"T{currentRow}", $"SUM(C{currentRow}: S{currentRow})",
+            horizontalAlignment: ExcelHorizontalAlignment.Left);
     }
 
     private IDictionary<string, string> BuildPlaceholders(StudyAssignmentCardData data)
