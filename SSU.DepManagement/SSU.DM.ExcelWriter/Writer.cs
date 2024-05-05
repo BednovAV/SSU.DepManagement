@@ -1,4 +1,5 @@
-﻿using SSU.DM.ExcelWriter.Abstract;
+﻿using OfficeOpenXml;
+using SSU.DM.ExcelWriter.Abstract;
 using SSU.DM.Tools.Interface;
 using SSU.DM.Tools.Interface.Models;
 
@@ -24,12 +25,17 @@ public class Writer : IExcelWriter
             };
         }
 
-        var bytes = (writer as IWriter<T>).GetExcel(data);
+        using var package = (writer as IWriter<T>).GetExcel(data);
+        var resultPackage = new ExcelPackage();
+        foreach (var worksheet in package.Workbook.Worksheets)
+        {
+            resultPackage.Workbook.Worksheets.Add(worksheet.Name, worksheet);
+        }
         
         return new WriteResult
         {
             IsSucceeded = true,
-            FileBytes = bytes
+            FileBytes = resultPackage.GetAsByteArray()
         } ;
     }
 }

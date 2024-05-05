@@ -22,7 +22,9 @@ public class RequestSaveItem
 
     public int LessonHours { get; set; }
     
-    public double ReportingHours { get; set; }
+    public double TestHours { get; set; }
+    
+    public double ExamHours { get; set; }
     
     public bool HasTestPaper { get; set; }
     

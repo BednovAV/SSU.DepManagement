@@ -121,17 +121,20 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
         saveItem.ControlOfIndependentWork = CalculateControlOfIndependentWork(saveItem);
         var reportingHours = CalculateReportingHours(saveItem);
         saveItem.PreExamConsultation = reportingHours.PreExamConsultation;
-        saveItem.ReportingHours = reportingHours.ReportingHours;
+        saveItem.TestHours = reportingHours.TestHours;
+        saveItem.ExamHours = reportingHours.ExamHours;
 
         //saveItem.CheckingTestPaperHours = Math.Round(parsedRequest.StudentsCount / 3d, 1);
                 
         return saveItem;
     }
 
-    private (double PreExamConsultation, double ReportingHours) CalculateReportingHours(RequestSaveItem saveItem)
+    private (double PreExamConsultation, double TestHours, double ExamHours) CalculateReportingHours(
+        RequestSaveItem saveItem)
     {
         var preExamConsultation = 0d;
-        var reportingHours = 0d;
+        var testHours = 0d;
+        var examHours = 0d;
         
         for (var i = 0; i < saveItem.Direction.Count; i++)
         {
@@ -142,14 +145,14 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
             if (reportingForm == ReportingForm.Exam)
             {
                 preExamConsultation += 2;
-                reportingHours += Math.Round((budgetCount + commercialCount) / 2d, 1);
+                examHours += Math.Round((budgetCount + commercialCount) / 2d, 1);
             }
             else
             {
-                reportingHours += Math.Round((budgetCount + commercialCount) / 3d, 1);
+                testHours += Math.Round((budgetCount + commercialCount) / 3d, 1);
             }
         }
-        return (preExamConsultation, reportingHours);
+        return (preExamConsultation, testHours, examHours);
     }
 
     private RequestSaveItem BuildCommonFields(long disciplineId, ParsedRequest parsedRequest)

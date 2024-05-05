@@ -1,4 +1,6 @@
-﻿namespace Models.Request;
+﻿using System.Security.AccessControl;
+
+namespace Models.Request;
 
 public class CalculationOfHoursData
 {
@@ -19,6 +21,12 @@ public class RequestReportData
     public int Id { get; set; }
     
     public ReportingForm ReportingForm { get; set; }
+    
+    public double PreExamConsultation { get; set; }
+    
+    public double ExamHours { get; set; }
+    
+    public double TestHours { get; set; }
     
     public string DisciplineName { get; set; }
 
@@ -46,6 +54,9 @@ public class HoursCount
     public int? Lectures { get; set; }
     public int Practices { get; set; }
     public int Laboratory { get; set; }
+
+    public double ControlOfIndependentWork { get; set; }
+    
     public int PracticeManagement { get; set; }
     public int CourseWorks { get; set; }
     public int QualificationWorks { get; set; }

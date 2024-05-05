@@ -49,7 +49,9 @@ public class Request
 
     public double PreExamConsultation { get; set; }
     
-    public double ReportingHours { get; set; }
+    public double TestHours { get; set; }
+    
+    public double ExamHours { get; set; }
     
     public double PracticeManagement { get; set; }
     
@@ -85,7 +87,7 @@ public class Request
     public virtual Discipline Discipline { get; set; }
 
     public double TotalHours => Math.Round(LessonHours + ControlOfIndependentWork + PreExamConsultation
-                                + ReportingHours + PracticeManagement + CourseWork + DiplomaWork + Gac
+                                + TestHours + ExamHours + PracticeManagement + CourseWork + DiplomaWork + Gac
                                 + CheckingTestPaperHours + AspirantManagement + ApplicantManagement 
                                 + ExtracurricularActivity + MasterManagement, 1);
 }

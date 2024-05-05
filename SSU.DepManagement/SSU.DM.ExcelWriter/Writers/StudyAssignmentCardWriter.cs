@@ -1,4 +1,5 @@
 ﻿using Models.Request;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ExcelUtils;
@@ -17,7 +18,7 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         _filesStorage = filesStorageDao;
     }
     
-    public byte[] GetExcel(StudyAssignmentCardData data)
+    public ExcelPackage GetExcel(StudyAssignmentCardData data)
     {
         var tmpWorksheet = WorksheetTools.CreateTmpWorksheet();
         var currentRow = 1;
@@ -36,9 +37,11 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         }
         tmpWorksheet.SetBorders(ExcelBorderStyle.Thin);
 
-        using var templateDoc = _filesStorage.ReadExcel("STUDY_ASSIGNMENT_REPORT_TEMPLATE");
+        var templateDoc = _filesStorage.ReadExcel("STUDY_ASSIGNMENT_REPORT_TEMPLATE");
         var template = templateDoc.GetFirstWorksheetEditor();
 
+        var columnWidth = templateDoc.Workbook.Worksheets.First().Column(1).Width; //24.75
+        
         template.ReplacePlaceholders(BuildPlaceholders(data));
         
         const string hoursMark = "insertHours";
@@ -53,7 +56,7 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
             template.CopyFrom(tmpWorksheet, $"A{hoursRow}");
         }
 
-        return templateDoc.GetAsByteArray();
+        return templateDoc;
     }
 
     private void FillTeacher(

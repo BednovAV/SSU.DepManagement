@@ -1,4 +1,5 @@
-﻿using Models.Request;
+﻿using Microsoft.VisualBasic;
+using Models.Request;
 using OfficeOpenXml;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ExcelUtils;
@@ -17,9 +18,9 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
         _filesStorage = filesStorageDao;
     }
 
-    public byte[] GetExcel(DistributionReportData data)
+    public ExcelPackage GetExcel(DistributionReportData data)
     {
-        using var excelPackage = new ExcelPackage();
+        var excelPackage = new ExcelPackage();
         excelPackage.Workbook.Worksheets.Add("c1");
         var worksheetEditor = excelPackage.GetFirstWorksheetEditor();
         
@@ -29,7 +30,7 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
             FillTeacher(worksheetEditor, teacher, ref currentRow);
         }
         
-        return excelPackage.GetAsByteArray();
+        return excelPackage;
     }
 
     private void FillTeacher(
@@ -55,7 +56,7 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
     {
         var tmpWorksheet = WorksheetTools.CreateTmpWorksheet();
         var tmpCurrentRow = 1;
-        FacultyFiller.FillFaculties(tmpWorksheet, semesterData, ref tmpCurrentRow);
+        var map = FacultyFiller.FillFaculties(tmpWorksheet, semesterData, ref tmpCurrentRow);
         var firstSemesterRow = worksheet.GetRowByMark(semesterMark);
         if (firstSemesterRow.HasValue)
         {
@@ -65,7 +66,14 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
                 worksheet.InsertEmptyRows(firstSemesterRow.Value, facultiesRows);
             }
             worksheet.CopyFrom(tmpWorksheet, $"A{firstSemesterRow}");
+            for (var i = 'I'; i <= 'Z'; i++)
+            {
+                worksheet.SetFormula($"{i}{firstSemesterRow + facultiesRows + 1}",
+                    string.Join(" + ", map.FacultyTotalRows.Select(x => $"{i}{x + firstSemesterRow - 1}")));
+            }
         }
+        
+
     }
 
     private IDictionary<string, string> BuildPlaceholders(TeacherData teacherData)

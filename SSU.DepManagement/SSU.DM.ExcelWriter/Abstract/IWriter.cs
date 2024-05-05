@@ -1,6 +1,8 @@
-﻿namespace SSU.DM.ExcelWriter.Abstract;
+﻿using OfficeOpenXml;
+
+namespace SSU.DM.ExcelWriter.Abstract;
 
 internal interface IWriter<in TData>
 {
-    byte[] GetExcel(TData data);
+    ExcelPackage GetExcel(TData data);
 }

@@ -1,4 +1,5 @@
 ﻿using Models.Request;
+using OfficeOpenXml;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ExcelUtils;
 using SSU.DM.ExcelWriter.Abstract;
@@ -18,13 +19,13 @@ public class CalculationOfHoursWriter : IWriter<CalculationOfHoursData>
         _filesStorageDao = filesStorageDao;
     }
 
-    public byte[] GetExcel(CalculationOfHoursData data)
+    public ExcelPackage GetExcel(CalculationOfHoursData data)
     {
-        using var excelDoc = _filesStorageDao.ReadExcel(TEMPLATE_KEY);
+        var excelDoc = _filesStorageDao.ReadExcel(TEMPLATE_KEY);
         var firstWorksheet = excelDoc.GetFirstWorksheetEditor();
         var currentRow = 11;
         FacultyFiller.FillFaculties(firstWorksheet, data.Faculties, ref currentRow);
 
-        return excelDoc.GetAsByteArray();
+        return excelDoc;
     }
 }

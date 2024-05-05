@@ -66,6 +66,9 @@ public class FacultyDataBuilder
             yield return new RequestReportData
             {
                 ReportingForm = reportingForm,
+                TestHours = mainRequest.TestHours,
+                ExamHours = mainRequest.ExamHours,
+                PreExamConsultation = mainRequest.PreExamConsultation,
                 DisciplineName = mainRequest.Discipline.Name,
                 DirectionName = mainRequest.Direction[i],
                 CourseNumber = (mainDirectionGroup / 100).ToString(),

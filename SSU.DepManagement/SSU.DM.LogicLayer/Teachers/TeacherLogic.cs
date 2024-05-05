@@ -44,9 +44,9 @@ public class TeacherLogic : ITeacherLogic
                 semester => semester.Id,
                 semester =>
                 {
-                    return teacher.Requests
+                    return Math.Round(teacher.Requests
                             //.Where(request => request.SemesterId == semester.Id)
-                            .Sum(request => request.TotalHours);
+                            .Sum(request => request.TotalHours), 1);
                 })
         };
     }

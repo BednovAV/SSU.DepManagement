@@ -5,18 +5,24 @@ namespace SSU.DM.ExcelWriter.Writers;
 
 public static class FacultyFiller
 {
-    public static void FillFaculties(
+    public static FilledFacultiesMap FillFaculties(
         ExcelWorksheetEditor worksheet,
         IReadOnlyList<FacultyData> faculties,
         ref int currentRow)
     {
+        var resultMap = new FilledFacultiesMap();
         worksheet.Merge($"A{currentRow}:Z{currentRow}", "Очная форма обучения", italic: true);
         currentRow++;
 
         foreach (var faculty in faculties)
         {
             FillFaculty(worksheet, faculty, ref currentRow);
+            resultMap.FacultyTotalRows.Add(currentRow - 1);
         }
+        
+        // TODO: add study form total and fill result
+        
+        return resultMap;
     }
     
     private static void FillFaculty(
@@ -97,13 +103,12 @@ public static class FacultyFiller
         worksheet.SetFormula($"L{row}", $"ROUND(H{row}*F{row}*5%;1)");
         if (request.ReportingForm is ReportingForm.Exam)
         {
-            worksheet.SetFormula($"M{row}", $"2*F{row}");
-            worksheet.SetFormula($"N{row}", $"ROUND(E{row}/2;1)");
+            worksheet.SetValueRightAlignment($"M{row}", request.PreExamConsultation);
         }
-        else if (request.ReportingForm == ReportingForm.Test)
-        {
-            worksheet.SetFormula($"O{row}", $"ROUND(E{row}/3;1)");
-        }
+        
+        worksheet.SetValueRightAlignment($"N{row}", request.ExamHours);
+        worksheet.SetValueRightAlignment($"O{row}", request.TestHours);
+        
         // worksheet.SetFormula($"P{row}", $"E{row}*{hourCounts.PracticeManagement}");
         // worksheet.SetFormula($"Q{row}", $"E{row}*{hourCounts.CourseWorks}");
         // worksheet.SetFormula($"R{row}", $"E{row}*{hourCounts.QualificationWorks}");
@@ -120,4 +125,11 @@ public static class FacultyFiller
         
         worksheet.SetFormula($"Z{row}", $"SUM(I{row}:Y{row})");
     }
+}
+
+public class FilledFacultiesMap
+{
+    public List<int> FacultyTotalRows { get; set; } = new();
+    
+    public List<int> StudyFormTotalRows { get; set; } = new();
 }
