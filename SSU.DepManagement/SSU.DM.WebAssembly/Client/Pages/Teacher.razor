@@ -1,7 +1,9 @@
 ﻿@page "/teachers"
+@attribute [Authorize(Roles = Roles.ADMIN)]
 @using Models.View
 @using SSU.DM.WebAssembly.Client.Cards
 @using SSU.DM.WebAssembly.Client.Extensions
+@using Microsoft.AspNetCore.Authorization
 
 @inject HttpClient Http
 @inject DialogService DialogService

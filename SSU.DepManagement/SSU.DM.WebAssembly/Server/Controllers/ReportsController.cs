@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SSU.DM.LogicLayer.Interfaces.Reports;
 using SSU.DM.WebAssembly.Shared;
 using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.WebAssembly.Server.Controllers;
 
+[Authorize(Roles = Roles.ADMIN)]
 public class ReportsController : ControllerBase
 {
     private readonly ICalculationOfHoursBuilder _calculationOfHoursBuilder;

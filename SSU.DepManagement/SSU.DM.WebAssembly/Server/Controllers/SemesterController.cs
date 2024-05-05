@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.View;
 using SSU.DM.LogicLayer.Interfaces.Faculty;
 using SSU.DM.LogicLayer.Interfaces.Semesters;
@@ -6,6 +7,7 @@ using SSU.DM.WebAssembly.Shared;
 
 namespace SSU.DM.WebAssembly.Server.Controllers;
 
+[Authorize(Roles = Roles.ADMIN)]
 public class SemesterController : ControllerBase
 {
     private readonly ISemesterLogic _semesterLogic;

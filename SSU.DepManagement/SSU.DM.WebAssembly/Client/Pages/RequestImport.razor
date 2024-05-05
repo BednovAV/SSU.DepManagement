@@ -1,8 +1,10 @@
 ﻿@page "/importrequest"
+@attribute [Authorize(Roles = Roles.ADMIN)]
 @using Models.View
 @using SSU.DM.WebAssembly.Client.Extensions
 @using SSU.DM.WebAssembly.Shared.Models
 @using System.Net
+@using Microsoft.AspNetCore.Authorization
 
 @inject HttpClient Http
 @inject DialogService DialogService

@@ -15,6 +15,16 @@ public class Program
 
         // Add services to the container.
 
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.HttpOnly = true;
+            options.Events.OnRedirectToLogin = context =>
+            {
+                context.Response.StatusCode = 401;
+                return Task.CompletedTask;
+            };
+        });
+        
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 
@@ -22,7 +32,7 @@ public class Program
         var dataConfiguration = config.GetSection<DataConfigurationConfigSection>();
         var connectionString = config.GetConnectionString(dataConfiguration.SelectedConnection);
         builder.Services.RegisterApplicationDependencies(connectionString);
-        builder.Services.AddHostedService<WarmUpHostedService>();
+        builder.Services.AddHostedService<InitializeDataHostedService>();
         ServiceFactory.Provider = builder.Services.BuildServiceProvider();
         
         var app = builder.Build();
@@ -45,7 +55,8 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
-
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.MapRazorPages();
         app.MapControllers();

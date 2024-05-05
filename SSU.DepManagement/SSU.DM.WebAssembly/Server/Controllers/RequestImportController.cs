@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SSU.DM.LogicLayer.Interfaces.Request;
 using SSU.DM.WebAssembly.Shared;
 using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.WebAssembly.Server.Controllers;
 
+[Authorize(Roles = Roles.ADMIN)]
 public class RequestImportController : ControllerBase
 {
     private readonly IRequestAccessor _requestAccessor;

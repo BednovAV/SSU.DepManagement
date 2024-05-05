@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SSU.DM.Authorization\SSU.DM.Authorization.csproj" />
     <ProjectReference Include="..\..\SSU.DM.DataAccessLayer\SSU.DM.DataAccessLayer.csproj" />
     <ProjectReference Include="..\..\SSU.DM.ExcelParser\SSU.DM.ExcelParser.csproj" />
     <ProjectReference Include="..\..\SSU.DM.ExcelWriter\SSU.DM.ExcelWriter.csproj" />

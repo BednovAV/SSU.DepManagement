@@ -1,5 +1,7 @@
-﻿@inherits LayoutComponentBase
-
+﻿@using SSU.DM.WebAssembly.Client.Services.Impl
+@inherits LayoutComponentBase
+@inject IdentityAuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
 
 
 <RadzenLayout class="rz-shadow-3">
@@ -7,6 +9,7 @@
         <div class="d-flex align-items-center">
             <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" />
             <RadzenLabel Text="Формирование нагрузки кафедры" />
+            <RadzenButton class="float-right" Text="Выйти" ButtonStyle="ButtonStyle.Info" Variant="Variant.Text" Size="ButtonSize.Medium" Click="@LogoutClick"></RadzenButton>
         </div>
     </RadzenHeader>
     <NavigationMenu SidebarExpanded=@sidebarExpanded />
@@ -29,4 +32,11 @@
 @code {
     bool sidebarExpanded = true;
     string footer = string.Empty;
+
+    private async Task LogoutClick()
+    {
+        await AuthStateProvider.Logout();
+        NavigationManager.NavigateTo("/login");
+    }
+
 }

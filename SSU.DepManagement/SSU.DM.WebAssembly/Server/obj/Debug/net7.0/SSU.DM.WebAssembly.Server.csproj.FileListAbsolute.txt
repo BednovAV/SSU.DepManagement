@@ -394,3 +394,9 @@ C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Serv
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Syncfusion.Blazor.Spinner.dll
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Syncfusion.Blazor.SplitButtons.dll
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Syncfusion.Licensing.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\SSU.DM.Authorization.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\SSU.DM.Authorization.pdb
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Server\obj\Debug\net7.0\SSU.DM.WebAssembly.Server.MvcApplicationPartsAssemblyInfo.cs

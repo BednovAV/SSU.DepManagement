@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Models.View;
 using SSU.DM.LogicLayer.Interfaces.Competencies;
 using SSU.DM.LogicLayer.Interfaces.Teachers;
@@ -7,6 +8,7 @@ using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.WebAssembly.Server.Controllers;
 
+[Authorize(Roles = Roles.ADMIN)]
 public class TeachersController : ControllerBase
 {
     private readonly ITeacherLogic _teacherLogic;

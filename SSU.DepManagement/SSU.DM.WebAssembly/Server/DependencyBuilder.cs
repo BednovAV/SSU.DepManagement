@@ -3,6 +3,7 @@ using SSU.DM.DataAccessLayer.Core.Interface;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.DataAccessLayer.DataAccessObjects.Impl;
 using Microsoft.EntityFrameworkCore;
+using SSU.DM.Authorization;
 using SSU.DM.LogicLayer.Interfaces.Request;
 using SSU.DM.Tools.Interface;
 using SSU.DM.ExcelParser;
@@ -33,6 +34,7 @@ public static class DependencyBuilder
             .AddDbContext<ApplicationContext>(options => options
                 .UseLazyLoadingProxies()
                 .UseNpgsql(connectionString))
+            .AddAuthorizationServices(connectionString)
             .RegisterParserDependencies()
             .RegisterWriterDependencies()
             .RegisterLogicLayerDependencies()

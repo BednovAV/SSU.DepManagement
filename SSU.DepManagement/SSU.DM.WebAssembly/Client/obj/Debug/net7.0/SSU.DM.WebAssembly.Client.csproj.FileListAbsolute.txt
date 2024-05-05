@@ -2368,9 +2368,6 @@ C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Clie
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\refint\SSU.DM.WebAssembly.Client.dll
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\SSU.DM.WebAssembly.Client.pdb
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\ref\SSU.DM.WebAssembly.Client.dll
-C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\iQa88wZg.gz
-C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\1qsT+Vjw.gz
-C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\fWChHRNf.gz
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\7o+0S+P4.gz
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\Ro5LxZXO.gz
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\Xc8uW+bT.gz
@@ -2623,3 +2620,10 @@ C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Clie
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\S98dV8UK.gz
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\1mezRciR.gz
 C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\FDnuj4Y0.gz
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\bin\Debug\net7.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\bin\Debug\net7.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.dll.gz
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\bin\Debug\net7.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\lNsYhvmv.gz
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\UlFGDvfz.gz
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\FLa338Ko.gz
+C:\Users\droll\Desktop\DiplomFiles\src\SSU.DepManagement\SSU.DM.WebAssembly\Client\obj\Debug\net7.0\build-gz\TkhxBhkg.gz

@@ -1,6 +1,8 @@
 ﻿@page "/capacities"
+@attribute [Authorize(Roles = Roles.ADMIN)]
 @using Models.View
 @using SSU.DM.WebAssembly.Client.Extensions
+@using Microsoft.AspNetCore.Authorization
 
 @inject HttpClient Http
 
