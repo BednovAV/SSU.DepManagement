@@ -1,43 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.Request;
 using SSU.DM.LogicLayer.Interfaces.Reports;
 using SSU.DM.WebAssembly.Shared;
-using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.WebAssembly.Server.Controllers;
 
 [Authorize(Roles = Roles.ADMIN)]
 public class ReportsController : ControllerBase
 {
-    private readonly ICalculationOfHoursBuilder _calculationOfHoursBuilder;
-    private readonly IDistributionReportBuilder _distributionReportBuilder;
-    private readonly IStudyAssignmentReportBuilder _studyAssignmentReportBuilder;
+    private readonly IReportBuilder _reportBuilder;
 
     public ReportsController(
-        ICalculationOfHoursBuilder calculationOfHoursBuilder,
-        IDistributionReportBuilder distributionReportBuilder,
-        IStudyAssignmentReportBuilder studyAssignmentReportBuilder)
+        IReportBuilder reportBuilder)
     {
-        _calculationOfHoursBuilder = calculationOfHoursBuilder;
-        _distributionReportBuilder = distributionReportBuilder;
-        _studyAssignmentReportBuilder = studyAssignmentReportBuilder;
+        _reportBuilder = reportBuilder;
     }
 
-    [HttpGet(RouteConstants.REPORTS_CALCULATION_OF_HOURS)]
-    public ActionResult GetCalculationOfHoursReport(HashSet<Guid> appFormIds)
+    [HttpGet(RouteConstants.REPORTS_GENERATE)]
+    public ActionResult GenerateReports(GenerateReportsRequest request)
     {
-        return File(_calculationOfHoursBuilder.BuildReport(appFormIds), "application/octet-stream", "Общий расчет часов.xlsx");
-    }
-    
-    [HttpGet(RouteConstants.REPORTS_DISTRIBUTION)]
-    public ActionResult GetDistributionReport(HashSet<Guid> appFormIds)
-    {
-        return File(_distributionReportBuilder.BuildReport(appFormIds), "application/octet-stream", "карточки учебных поручений.xlsx");
-    }
-    
-    [HttpGet(RouteConstants.REPORTS_STUDY_ASSIGNMENT)]
-    public ActionResult GetStudyAssignmentReport(HashSet<Guid> appFormIds)
-    {
-        return File(_studyAssignmentReportBuilder.BuildReport(appFormIds), "application/octet-stream", "отчет о распределении учебных поручений.xlsx");
+        return File(_reportBuilder
+            .BuildReport(request), "application/octet-stream", "нагрузка кафедры.xlsx");
     }
 }

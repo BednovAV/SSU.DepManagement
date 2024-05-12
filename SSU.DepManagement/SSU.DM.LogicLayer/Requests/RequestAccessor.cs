@@ -49,18 +49,31 @@ public class RequestAccessor : IRequestAccessor
     {
         return appFormRequests.GroupBy(x => new
             {
-                x.Discipline.Name
+                x.Discipline.Name, x.StudyForm
             })
+            .OrderBy(x => x.Key.StudyForm)
+            .ThenBy(x => x.Key.Name)
             .Select(x => new AppFormDisciplineViewItem
             {
                 Name = x.Key.Name,
                 Groups = GetGroups(x),
                 Semester = x.First().YearSemester,
                 TotalHours = GetTotalHours(x),
-                Requests = GetRequests(x)
+                Requests = GetRequests(x),
+                StudyForm = GetStudyFormString(x.Key.StudyForm)
             })
-            .OrderBy(x => x.Name)
             .ToList();
+    }
+
+    private string GetStudyFormString(StudyForm studyForm)
+    {
+        return studyForm switch
+        {
+            StudyForm.FullTime => "очн",
+            StudyForm.Extramural => "очн-заоч",
+            StudyForm.PartTime => "заоч",
+            _ => throw new ArgumentOutOfRangeException(nameof(studyForm), studyForm, null)
+        };
     }
 
     private IReadOnlyList<int> GetGroups(IEnumerable<Request> requests)

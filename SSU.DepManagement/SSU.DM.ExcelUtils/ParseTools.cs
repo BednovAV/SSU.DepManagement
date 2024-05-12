@@ -16,7 +16,7 @@ public static class ParseTools
     {
         if (worksheet.Dimension == null)
         {
-            return 0;
+            return 1;
         }
 
         var row = worksheet.Dimension.End.Row;
@@ -38,7 +38,7 @@ public static class ParseTools
     {
         if (worksheet.Dimension == null)
         {
-            return 0;
+            return 1;
         }
 
         var column = worksheet.Dimension.End.Column;
@@ -54,5 +54,19 @@ public static class ParseTools
         }
 
         return column;
+    }
+    
+    public static int? GetRowByText(this ExcelWorksheet worksheet, string text)
+    {
+        var trimmedText = text.Trim();
+        foreach (var cell in worksheet.Cells)
+        {
+            if (cell.Text.Trim().Equals(trimmedText, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return int.Parse(GetAddress(cell).row);
+            }
+        }
+
+        return null;
     }
 }

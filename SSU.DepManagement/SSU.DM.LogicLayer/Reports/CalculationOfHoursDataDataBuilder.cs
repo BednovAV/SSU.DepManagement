@@ -6,28 +6,27 @@ using SSU.DM.Tools.Interface;
 
 namespace SSU.DM.LogicLayer.Reports;
 
-public class CalculationOfHoursBuilder : ICalculationOfHoursBuilder, IEqualityComparer<Faculty>
+public class CalculationOfHoursDataDataBuilder : ICalculationOfHoursDataBuilder, IEqualityComparer<Faculty>
 {
-    private readonly IExcelWriter _excelWriter;
     private readonly IApplicationFormDao _applicationFormDao;
 
-    public CalculationOfHoursBuilder(
-        IExcelWriter excelWriter,
+    public CalculationOfHoursDataDataBuilder(
         IApplicationFormDao applicationFormDao)
     {
-        _excelWriter = excelWriter;
         _applicationFormDao = applicationFormDao;
     }
 
-    public byte[] BuildReport(ISet<Guid> appFormIds)
+    public CalculationOfHoursData BuildData(ISet<Guid> appFormIds)
     {
         var appForms = _applicationFormDao.GetAll(x => appFormIds.Contains(x.ApplicationFormId));
-        var faculties = appForms
-            .GroupBy(x => x.Faculty, x => x.Requests, this)
-            .Select(FacultyDataBuilder.Build).ToList();
+        var studyForms = StudyFormDataBuilder.Build(appForms.SelectMany(x => x.Requests)).ToList();
         
-        var data = new CalculationOfHoursData { Faculties = faculties };
-        return _excelWriter.Write(data).FileBytes;
+        var data = new CalculationOfHoursData
+        {
+            StudyForms = studyForms,
+            StudyYear = "2024/2025"
+        };
+        return data;
     }
 
     

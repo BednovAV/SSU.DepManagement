@@ -5,12 +5,13 @@
 @using SSU.DM.WebAssembly.Shared.Models
 @using System.Net
 @using Microsoft.AspNetCore.Authorization
+@using Models.Request
 
 @inject HttpClient Http
 @inject DialogService DialogService
 @inject NotificationService NotificationService
 
-<h3 xmlns="http://www.w3.org/1999/html">Импорт заявки</h3>
+<h3 xmlns="http://www.w3.org/1999/html">Заявки</h3>
 
 <RadzenCard>
     <DownloadButton Text="Скачать шаблон"
@@ -18,25 +19,15 @@
                     BusyLength="1"
                     FileLink="@fileUrl"/>
     <RadzenUpload ChooseText="Загрузить заявку" Url="@uploadUrl" Progress=@TrackUploadProgress Complete=@CompleteUpload/>
-    <DownloadButton Text="Сформировать общий расчет часов"
-                    FileName="общий расчет часов.xlsx"
+    <DownloadButton Text="Сформировать отчет"
+                    FileName="отчет о нагрузке кафедры.xlsx"
                     BusyLength="1"
-                    FileLink="@GetCalculationOfHoursReportUrl()"
-                    Disabled="@(selectedAppForms?.Any() != true)"/>
-    <DownloadButton Text="Сформировать карточки учебных поручений"
-                    FileName="карточки учебных поручений.xlsx"
-                    BusyLength="1"
-                    FileLink="@GetDistributionReportUrl()"
-                    Disabled="@(selectedAppForms?.Any() != true)"/>
-    <DownloadButton Text="Сформировать отчет о распределении учебных поручений"
-                    FileName="отчет о распределении учебных поручений.xlsx"
-                    BusyLength="1"
-                    FileLink="@GetStudyAssignmentReportUrl()"
+                    FileLink="@GetGenerateReportUrl()"
                     Disabled="@(selectedAppForms?.Any() != true)"/>
     <RadzenButton
         Click="@(async (args) => await AssignTeachers())"
         Text="Распределить преподавателей"
-        Disabled="@(selectedAppForms?.Any() != true)" />
+        Disabled="@(selectedAppForms?.Any() != true)"/>
 </RadzenCard>
 
 <RadzenDataGrid @ref="grid" LoadData="@LoadData" Count="@dataCount" IsLoading="@isDataGridLoading" Data="@appForms"
@@ -75,6 +66,7 @@
             </Template>
             <Columns>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Name" Title="Название дисциплины"/>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="StudyForm" Title="Форма обучения"/>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Semester" Title="Семестр"/>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Title="Группы">
                     <Template Context="discipline">
@@ -134,9 +126,7 @@
 @code {
     string fileUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_GET_FILE);
     string uploadUrl => Http.GetUrl(RouteConstants.IMPORT_REQUEST_UPLOAD_REQUEST);
-    string calculationOfHoursReportUrl => Http.GetUrl(RouteConstants.REPORTS_CALCULATION_OF_HOURS);
-    string distributionReportUrl => Http.GetUrl(RouteConstants.REPORTS_DISTRIBUTION);
-    string studyAssignmentReportUrl => Http.GetUrl(RouteConstants.REPORTS_STUDY_ASSIGNMENT);
+    string generateReportUrl => Http.GetUrl(RouteConstants.REPORTS_GENERATE);
     long emptyTeacherId = -1;
 
     RadzenDataGrid<ApplicationFormViewItem> grid;
@@ -228,7 +218,6 @@
                 .Where(x => expandedDisciplineIds.Contains(GetDisciplineId(x.appForm, x.discipline)))
                 .Select(x => x.discipline));
         });
-
     }
 
     int progress;
@@ -244,10 +233,10 @@
         showComplete = false;
         progress = args.Progress;
 
-        // cancel upload
+    // cancel upload
         args.Cancel = cancelUpload;
 
-        // reset cancel flag
+    // reset cancel flag
         cancelUpload = false;
     }
 
@@ -262,22 +251,17 @@
         StateHasChanged();
     }
 
-    string GetCalculationOfHoursReportUrl()
+    string GetGenerateReportUrl()
     {
-        return calculationOfHoursReportUrl
-            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
-    }
-    
-    string GetDistributionReportUrl()
-    {
-        return distributionReportUrl
-            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
-    }
-    
-    string GetStudyAssignmentReportUrl()
-    {
-        return studyAssignmentReportUrl
-            .AddParameter("appFormIds", selectedAppForms?.Select(x => x.Id.ToString()));
+        if (selectedAppForms == null)
+        {
+            return string.Empty;
+        }
+        return generateReportUrl
+            .AddParameter(nameof(GenerateReportsRequest.AppFormIds), selectedAppForms.Select(item => item.Id.ToString()))
+            .AddParameter(nameof(GenerateReportsRequest.CalculationOfHours), true)
+            .AddParameter(nameof(GenerateReportsRequest.DistributionReport), true)
+            .AddParameter(nameof(GenerateReportsRequest.StudyAssignmentCard), true);
     }
 
     bool updateFacultyDisabled = false;
@@ -292,7 +276,7 @@
 
         var response = await Http.CreateAppFormFacultyLinkAsync(new CreateAppFormFacultyLinkRequest(appForm.Id, faculty.Id));
         updateFacultyDisabled = false;
-        
+
         await grid.RefreshDataAsync();
         return response;
     }
@@ -314,7 +298,7 @@
         var teacherId = teacher.Id == -1 ? (long?)null : teacher.Id;
         var response = await Http.CreateRequestTeacherLinkAsync(
             new CreateRequestTeacherLinkRequest(request.Id, teacherId));
-        
+
         if (response.Type == CreateTeacherLinkResponse.ResponseType.Error)
         {
             var message = new NotificationMessage
@@ -339,7 +323,7 @@
                 };
                 NotificationService.Notify(message);
             }
-            else if(response.Type == CreateTeacherLinkResponse.ResponseType.Success)
+            else if (response.Type == CreateTeacherLinkResponse.ResponseType.Success)
             {
                 var message = new NotificationMessage
                 {
@@ -352,7 +336,7 @@
             }
             request.Teacher = teacher;
         }
-        
+
         await grid.RefreshDataAsync();
         updateTeacherDisabled = false;
     }
@@ -365,9 +349,9 @@
 
     private void OnRender(DataGridRenderEventArgs<RequestViewItem> args)
     {
-        if(args.FirstRender)
+        if (args.FirstRender)
         {
-            args.Grid.Groups.Add(new GroupDescriptor(){ Property = "LessonForm", SortOrder = SortOrder.Descending });
+            args.Grid.Groups.Add(new GroupDescriptor() { Property = "LessonForm", SortOrder = SortOrder.Descending });
             StateHasChanged();
         }
     }

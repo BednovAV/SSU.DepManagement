@@ -4,6 +4,15 @@ namespace Models.Request;
 
 public class CalculationOfHoursData
 {
+    public IReadOnlyList<StudyFormData> StudyForms { get; set; }
+    
+    public string StudyYear { get; set; }
+}
+
+public class StudyFormData
+{
+    public StudyForm StudyForm { get; set; }
+    
     public IReadOnlyList<FacultyData> Faculties { get; set; }
 }
 
@@ -13,7 +22,7 @@ public class FacultyData
     
     public string NameDative { get; set; }
     
-    public IReadOnlyList<RequestReportData> Requests { get; set; }
+    public List<RequestReportData> Requests { get; set; }
 }
 
 public class RequestReportData

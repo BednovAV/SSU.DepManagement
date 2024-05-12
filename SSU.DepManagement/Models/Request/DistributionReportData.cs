@@ -17,7 +17,7 @@ public class TeacherData
     
     public string Rate { get; set; }
 
-    public List<FacultyData> FirstSemester { get; set; }
+    public List<StudyFormData> FirstSemester { get; set; }
     
-    public List<FacultyData> SecondSemester { get; set; }
+    public List<StudyFormData> SecondSemester { get; set; }
 }

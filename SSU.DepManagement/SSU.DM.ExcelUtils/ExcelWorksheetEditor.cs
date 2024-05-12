@@ -114,27 +114,31 @@ public class ExcelWorksheetEditor
     public void CopyFrom(
         ExcelWorksheetEditor sourceWorksheet,
         string destination,
+        bool withSizes = false,
         params ExcelRangeCopyOptionFlags[] excelRangeCopyOptionFlags)
     {
-        CopyFrom(sourceWorksheet._worksheet, destination, excelRangeCopyOptionFlags);
+        CopyFrom(sourceWorksheet._worksheet, destination, withSizes, excelRangeCopyOptionFlags);
     }
     
     public void CopyFrom(
         ExcelWorksheet sourceWorksheet,
         string destination,
+        bool withSizes = false,
         params ExcelRangeCopyOptionFlags[] excelRangeCopyOptionFlags)
     {
         sourceWorksheet.Cells[1, 1, sourceWorksheet.GetLastUsedRow(), sourceWorksheet.GetLastUsedColumn()]
             .Copy(_worksheet.Cells[destination], excelRangeCopyOptionFlags);
+        if (withSizes)
+        {
+            for (int i = 1; i < sourceWorksheet.GetLastUsedColumn() + 1; i++)
+            {
+                _worksheet.Columns[i].Width = sourceWorksheet.Columns[i].Width;
+            }
 
-        for (int i = 1; i < sourceWorksheet.GetLastUsedColumn() + 1; i++)
-        {
-            _worksheet.Columns[i].Width = sourceWorksheet.Columns[i].Width;
-        }
-        
-        for (int i = 1; i < sourceWorksheet.GetLastUsedRow() + 1; i++)
-        {
-            _worksheet.Rows[i].Height = sourceWorksheet.Rows[i].Height;
+            for (int i = 1; i < sourceWorksheet.GetLastUsedRow() + 1; i++)
+            {
+                _worksheet.Rows[i].Height = sourceWorksheet.Rows[i].Height;
+            }
         }
     }
     
@@ -175,5 +179,15 @@ public class ExcelWorksheetEditor
     public int FilledRowsCount()
     {
         return _worksheet.GetLastUsedRow();
+    }
+
+    public void SetColumnWidth(int columnIndex, double width)
+    {
+        _worksheet.Column(columnIndex).Width = width;
+    }
+
+    public void RenameSheet(string name)
+    {
+        _worksheet.Name = name;
     }
 }

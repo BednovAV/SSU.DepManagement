@@ -4,6 +4,8 @@ namespace SSU.DM.Tools.Interface;
 
 public interface IExcelWriter
 {
-    WriteResult Write<T>(T data)
-        where T: new();
+    // WriteResult Write<T>(T data)
+    //     where T: new();
+
+    WriteResult Write(params object[] datas);
 }

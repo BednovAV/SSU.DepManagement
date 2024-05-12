@@ -1,6 +1,7 @@
 ﻿using Models.Request;
 using OfficeOpenXml;
 using SSU.DM.ExcelParser.Abstract;
+using SSU.DM.ExcelUtils;
 
 namespace SSU.DM.ExcelParser.Parsers;
 
@@ -8,15 +9,45 @@ internal class RequestParser : AbstractParserLite<List<ParsedRequest>>
 {
     protected override List<ParsedRequest>? MapToResult(ExcelWorkbook workBook)
     {
-        var workSheet = workBook.Worksheets.FirstOrDefault();
-        var endRow = 5;
-        while (workSheet?.GetValue<string>(endRow, 1) != default)
-            endRow++;
+        var workSheet = workBook.Worksheets.First();
         
-        return Enumerable.Range(5, endRow - 5).Select(x => ReadRow(workSheet, x)).ToList();
+        var fullTimeStartRow = workSheet.GetRowByText("Очная форма");
+        var extramuralStartRow = workSheet.GetRowByText("Очно-заочная (вечерняя) форма");
+        var partTimeStartRow = workSheet.GetRowByText("Заочная форма");
+        
+        var endRow = workSheet.GetLastUsedRow() + 1;
+        var fullTimeEndRow = extramuralStartRow ?? partTimeStartRow ?? endRow;
+        var extramuralEndRow = partTimeStartRow ?? endRow;
+        var partTimeEndRow = endRow;
+        
+
+        var result = new List<ParsedRequest>();
+        if (fullTimeStartRow.HasValue)
+        {
+            for (var i = fullTimeStartRow.Value + 1; i < fullTimeEndRow; i++)
+            {
+                result.Add(ReadRow(workSheet, i, StudyForm.FullTime));
+            }
+        }
+        if (extramuralStartRow.HasValue)
+        {
+            for (var i = extramuralStartRow.Value + 1; i < extramuralEndRow; i++)
+            {
+                result.Add(ReadRow(workSheet, i, StudyForm.Extramural));
+            }
+        }
+        if (partTimeStartRow.HasValue)
+        {
+            for (var i = partTimeStartRow.Value + 1; i < partTimeEndRow; i++)
+            {
+                result.Add(ReadRow(workSheet, i, StudyForm.PartTime));
+            }
+        }
+        
+        return result;
     }
 
-    private ParsedRequest ReadRow(ExcelWorksheet workSheet, int rowNumber)
+    private ParsedRequest ReadRow(ExcelWorksheet workSheet, int rowNumber, StudyForm studyForm)
     {
         return new()
         {
@@ -34,6 +65,7 @@ internal class RequestParser : AbstractParserLite<List<ParsedRequest>>
             IndependentWorkHours = GetField<string>(workSheet.Cells[rowNumber, 12]),
             Reporting = GetField<string>(workSheet.Cells[rowNumber, 13]),
             Note = GetField<string>(workSheet.Cells[rowNumber, 14]),
+            StudyForm = studyForm
         };
     }
 }

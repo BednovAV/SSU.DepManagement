@@ -6,6 +6,10 @@ public static class StringExtensions
 {
     public static List<int> SplitAndParseToInt(this string source)
     {
+        if (string.IsNullOrWhiteSpace(source))
+        {
+            return new List<int>();
+        }
         return source.Split(',', StringSplitOptions.TrimEntries).Select(int.Parse).ToList();
     }
     

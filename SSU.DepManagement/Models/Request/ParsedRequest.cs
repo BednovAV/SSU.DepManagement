@@ -49,7 +49,7 @@ public enum StudyForm
 {
     [Description("Очная форма")]
     FullTime,
-    [Description("Заочная форма")]
+    [Description("Очно-заочная (вечерняя) форма")]
     Extramural,
     [Description("Заочная форма")]
     PartTime
@@ -60,5 +60,19 @@ public enum LessonForm
     Lecture,
     Practical,
     Laboratory,
-    Gac
+    Gac,
+    Gec,
+    CourseWork,
+    Nir,
+    Vcr,
+    MasterManagement,
+    ComputingPractice,
+    TechnologicalPractice,
+    ProductionPractice,
+    PreGraduatePractice,
+    PedagogicalProductionPractice,
+    PedagogicalGraduatePractice,
+    ResearchPractice,
+    ProductionPedagogicalPractice,
+    Other,
 }

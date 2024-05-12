@@ -12,7 +12,7 @@ public class RequestConverter
             Id = request.Id,
             Direction = string.Join(", ", request.Direction),
             GroupNumber = request.GroupNumberString,
-            TotalHours = request.TotalHours,// TODO
+            TotalHours = request.TotalHours,
             LessonForm = GetLessonFromName(request.LessonForm!.Value),
             Teacher = request.Teacher?.ToViewItem(),
             AvailableTeacherIds = request.Discipline.Competencies
@@ -29,7 +29,7 @@ public class RequestConverter
             LessonForm.Lecture => "Лекции",
             LessonForm.Practical => "Практики",
             LessonForm.Laboratory => "Лабораторные",
-            _ => throw new ArgumentOutOfRangeException()
+            _ => string.Empty
         };
     }
 }

@@ -3,28 +3,64 @@ using SSU.DM.ExcelUtils;
 
 namespace SSU.DM.ExcelWriter.Writers;
 
-public static class FacultyFiller
+public static class StudyFormFiller
 {
-    public static FilledFacultiesMap FillFaculties(
+    public static FilledFacultiesMap FillStudyForms(
         ExcelWorksheetEditor worksheet,
-        IReadOnlyList<FacultyData> faculties,
+        IReadOnlyList<StudyFormData> studyForms,
         ref int currentRow)
     {
         var resultMap = new FilledFacultiesMap();
-        worksheet.Merge($"A{currentRow}:Z{currentRow}", "Очная форма обучения", italic: true);
-        currentRow++;
 
-        foreach (var faculty in faculties)
+        foreach (var studyForm in studyForms)
         {
-            FillFaculty(worksheet, faculty, ref currentRow);
-            resultMap.FacultyTotalRows.Add(currentRow - 1);
+            worksheet.Merge($"A{currentRow}:Z{currentRow}", GetStudyFormString(studyForm.StudyForm), italic: true);
+            currentRow++;
+
+            var facultyTotalRows = new List<int>();
+            foreach (var faculty in studyForm.Faculties)
+            {
+                FillFaculty(worksheet, faculty, ref currentRow);
+                facultyTotalRows.Add(currentRow - 1);
+            }
+            
+            worksheet.SetValue($"A{currentRow}", GetStudyFormTotalString(studyForm.StudyForm), bold: true, italic: true);
+            for (var i = 'I'; i <= 'Z'; i++)
+            {
+                worksheet.SetFormula($"{i}{currentRow}",
+                    string.Join(" + ", facultyTotalRows.Select(x => $"{i}{x}")),
+                    bold: true,
+                    italic: true);
+            }
+
+            resultMap.StudyFormTotalRows.Add(currentRow++);
         }
-        
-        // TODO: add study form total and fill result
         
         return resultMap;
     }
-    
+
+    private static string? GetStudyFormString(StudyForm studyForm)
+    {
+        return studyForm switch
+        {
+            StudyForm.FullTime => "Очная форма обучения",
+            StudyForm.Extramural => "Очно-заочная форма",
+            StudyForm.PartTime => "Заочная форма",
+            _ => throw new ArgumentOutOfRangeException(nameof(studyForm), studyForm, null)
+        };
+    }
+
+    private static object? GetStudyFormTotalString(StudyForm studyForm)
+    {
+        return studyForm switch
+        {
+            StudyForm.FullTime => "Итого по очной форме",
+            StudyForm.Extramural => "Итого по очно-заочной форме",
+            StudyForm.PartTime => "Итого по заочной форме",
+            _ => throw new ArgumentOutOfRangeException(nameof(studyForm), studyForm, null)
+        };
+    }
+
     private static void FillFaculty(
         ExcelWorksheetEditor worksheet,
         FacultyData faculty,
@@ -105,9 +141,16 @@ public static class FacultyFiller
         {
             worksheet.SetValueRightAlignment($"M{row}", request.PreExamConsultation);
         }
-        
-        worksheet.SetValueRightAlignment($"N{row}", request.ExamHours);
-        worksheet.SetValueRightAlignment($"O{row}", request.TestHours);
+
+        if (Math.Abs(request.ExamHours - default(double)) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"N{row}", request.ExamHours);
+        }
+
+        if (Math.Abs(request.TestHours - default(double)) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"O{row}", request.TestHours);
+        }
         
         // worksheet.SetFormula($"P{row}", $"E{row}*{hourCounts.PracticeManagement}");
         // worksheet.SetFormula($"Q{row}", $"E{row}*{hourCounts.CourseWorks}");
@@ -129,7 +172,5 @@ public static class FacultyFiller
 
 public class FilledFacultiesMap
 {
-    public List<int> FacultyTotalRows { get; set; } = new();
-    
     public List<int> StudyFormTotalRows { get; set; } = new();
 }

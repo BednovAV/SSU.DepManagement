@@ -6,20 +6,17 @@ using SSU.DM.Tools.Interface;
 
 namespace SSU.DM.LogicLayer.Reports;
 
-public class StudyAssignmentReportBuilder : IStudyAssignmentReportBuilder
+public class StudyAssignmentReportDataBuilder : IStudyAssignmentReportDataBuilder
 {
-    private readonly IExcelWriter _excelWriter;
     private readonly IApplicationFormDao _applicationFormDao;
 
-    public StudyAssignmentReportBuilder(
-        IExcelWriter excelWriter,
+    public StudyAssignmentReportDataBuilder(
         IApplicationFormDao applicationFormDao)
     {
-        _excelWriter = excelWriter;
         _applicationFormDao = applicationFormDao;
     }
 
-    public byte[] BuildReport(ISet<Guid> appFormIds)
+    public StudyAssignmentCardData BuildData(ISet<Guid> appFormIds)
     {
         var appForms = _applicationFormDao.GetAll(x => appFormIds.Contains(x.ApplicationFormId));
 
@@ -35,7 +32,7 @@ public class StudyAssignmentReportBuilder : IStudyAssignmentReportBuilder
             Teachers = teachersData
         };
         
-        return _excelWriter.Write(data).FileBytes;
+        return data;
     }
 
     private StudyAssignmentTeacherData BuildStudyAssignmentTeacherData(List<Request> requests)

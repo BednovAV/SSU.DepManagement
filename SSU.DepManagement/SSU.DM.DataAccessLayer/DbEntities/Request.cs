@@ -14,7 +14,9 @@ public class Request
 
     public List<int> Semester { get; set; }
 
-    public int YearSemester => Semester[0] % 2 == 0 ? 2 : 1;
+    public int YearSemester => Semester.Any()
+        ? Semester[0] % 2 == 0 ? 2 : 1
+        : 1;
     
     public List<int> BudgetCount { get; set; }
     

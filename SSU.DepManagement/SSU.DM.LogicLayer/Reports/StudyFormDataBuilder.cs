@@ -4,29 +4,37 @@ using SSU.DM.DataAccessLayer.DbEntities;
 
 namespace SSU.DM.LogicLayer.Reports;
 
-public class FacultyDataBuilder
+public class StudyFormDataBuilder
 {
-    public static FacultyData Build(IGrouping<Faculty, List<Request>> grouping)
+    public static List<StudyFormData> Build(IEnumerable<Request> requests)
     {
-        return Build(grouping.Key, grouping.SelectMany(x => x).ToList());
+        return requests.GroupBy(x => x.StudyForm)
+            .Select(x => Build(x.Key, x.ToList()))
+            .ToList();
+    }
+
+    private static StudyFormData Build(StudyForm studyForm, List<Request> requests)
+    {
+        return new StudyFormData
+        {
+            StudyForm = studyForm,
+            Faculties = requests.GroupBy(x => x.ApplicationForm.Faculty, new FacultyComparer())
+                .Select(x => Build(x.Key, x.ToList()))
+                .ToList()
+        };
     }
     
-    public static FacultyData Build(IGrouping<Faculty, Request> grouping)
-    {
-        return Build(grouping.Key, grouping.ToList());
-    }
-    
-    public static FacultyData Build(Faculty faculty, List<Request> requests)
+    private static FacultyData Build(Faculty faculty, List<Request> requests)
     {
         return new FacultyData
         {
             Name = faculty.Name ?? "Неизвестный факультет",
             NameDative = faculty.NameDat ?? "неизвестному факультету",
-            Requests = BuildAggregatedRequests(requests),
+            Requests = BuildAggregatedRequests(requests)
         };
     }
 
-    private static IReadOnlyList<RequestReportData> BuildAggregatedRequests(List<Request> requests)
+    private static List<RequestReportData> BuildAggregatedRequests(List<Request> requests)
     {
         var otherRequests = requests.ToList();
         var result = new List<RequestReportData>();
@@ -85,6 +93,23 @@ public class FacultyDataBuilder
                     Laboratory = subRequests.Append(mainRequest).Where(x => x.LessonForm == LessonForm.Laboratory).Sum(x => x.LessonHours),
                 }
             };
+        }
+    }
+
+    class FacultyComparer : IEqualityComparer<Faculty?>
+    {
+        public bool Equals(Faculty? x, Faculty? y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, null)) return false;
+            if (ReferenceEquals(y, null)) return false;
+            if (x.GetType() != y.GetType()) return false;
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(Faculty obj)
+        {
+            return HashCode.Combine(obj.Id, obj.Name, obj.NameDat, obj.Competencies);
         }
     }
 }

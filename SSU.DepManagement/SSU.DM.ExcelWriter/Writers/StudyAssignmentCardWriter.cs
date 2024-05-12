@@ -33,15 +33,14 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
         {
             tmpWorksheet.SetFormula($"{currentColumn}{currentRow}",
                 string.Join('+', teacherSumRows.Select(x =>$"{currentColumn}{x}")),
-                horizontalAlignment: ExcelHorizontalAlignment.Left);
+                horizontalAlignment: ExcelHorizontalAlignment.Left,
+                bold: true);
         }
         tmpWorksheet.SetBorders(ExcelBorderStyle.Thin);
 
         var templateDoc = _filesStorage.ReadExcel("STUDY_ASSIGNMENT_REPORT_TEMPLATE");
         var template = templateDoc.GetFirstWorksheetEditor();
-
-        var columnWidth = templateDoc.Workbook.Worksheets.First().Column(1).Width; //24.75
-        
+        template.RenameSheet("o1");
         template.ReplacePlaceholders(BuildPlaceholders(data));
         
         const string hoursMark = "insertHours";
@@ -56,7 +55,20 @@ public class StudyAssignmentCardWriter : IWriter<StudyAssignmentCardData>
             template.CopyFrom(tmpWorksheet, $"A{hoursRow}");
         }
 
+        SetColumnsWidth(template);
+        
         return templateDoc;
+    }
+
+    private void SetColumnsWidth(ExcelWorksheetEditor excelWorksheetEditor)
+    {
+        excelWorksheetEditor.SetColumnWidth(1, 27.4d);
+        excelWorksheetEditor.SetColumnWidth(2, 10d);
+        for (int i = 3; i <= 19; i++)
+        {
+            excelWorksheetEditor.SetColumnWidth(i, 5);
+        }
+        excelWorksheetEditor.SetColumnWidth(20, 10);
     }
 
     private void FillTeacher(

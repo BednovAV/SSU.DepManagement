@@ -30,7 +30,20 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
             FillTeacher(worksheetEditor, teacher, ref currentRow);
         }
         
+        SetColumnsWidth(worksheetEditor);
+        
         return excelPackage;
+    }
+    
+    private void SetColumnsWidth(ExcelWorksheetEditor excelWorksheetEditor)
+    {
+        excelWorksheetEditor.SetColumnWidth(1, 27.4d);
+        excelWorksheetEditor.SetColumnWidth(2, 15d);
+        for (int i = 3; i <= 25; i++)
+        {
+            excelWorksheetEditor.SetColumnWidth(i, 5);
+        }
+        excelWorksheetEditor.SetColumnWidth(26, 10);
     }
 
     private void FillTeacher(
@@ -44,19 +57,19 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
         template.ReplacePlaceholders(BuildPlaceholders(teacherData));
         FillSemester(template, teacherData.FirstSemester, "facultiesFirstSemester");
         FillSemester(template, teacherData.SecondSemester, "facultiesSecondSemester");
-        worksheet.CopyFrom(template, $"A{currentRow}");
+        worksheet.CopyFrom(template, $"A{currentRow}", true);
 
         currentRow += template.FilledRowsCount() + 3;
     }
 
     private static void FillSemester(
         ExcelWorksheetEditor worksheet,
-        List<FacultyData> semesterData,
+        List<StudyFormData> semesterData,
         string semesterMark)
     {
         var tmpWorksheet = WorksheetTools.CreateTmpWorksheet();
         var tmpCurrentRow = 1;
-        var map = FacultyFiller.FillFaculties(tmpWorksheet, semesterData, ref tmpCurrentRow);
+        var map = StudyFormFiller.FillStudyForms(tmpWorksheet, semesterData, ref tmpCurrentRow);
         var firstSemesterRow = worksheet.GetRowByMark(semesterMark);
         if (firstSemesterRow.HasValue)
         {
@@ -65,11 +78,12 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
             {
                 worksheet.InsertEmptyRows(firstSemesterRow.Value, facultiesRows);
             }
-            worksheet.CopyFrom(tmpWorksheet, $"A{firstSemesterRow}");
+            worksheet.CopyFrom(tmpWorksheet, $"A{firstSemesterRow}", true);
             for (var i = 'I'; i <= 'Z'; i++)
             {
                 worksheet.SetFormula($"{i}{firstSemesterRow + facultiesRows + 1}",
-                    string.Join(" + ", map.FacultyTotalRows.Select(x => $"{i}{x + firstSemesterRow - 1}")));
+                    string.Join(" + ", map.StudyFormTotalRows.Select(x => $"{i}{x + firstSemesterRow - 1}")),
+                    bold: true);
             }
         }
         

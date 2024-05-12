@@ -13,4 +13,6 @@ public class AppFormDisciplineViewItem
     public double TotalHours { get; set; }
     
     public IReadOnlyList<RequestViewItem> Requests { get; set; }
+    
+    public string StudyForm { get; set; }
 }
