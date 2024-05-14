@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\SSU.DM.WebAssembly.Server.props" />
-</Project>
