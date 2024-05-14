@@ -3,6 +3,8 @@ using Models.Request;
 using Models.View;
 using SSU.DM.DataAccessLayer.Core.Interface;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
+using SSU.DM.DataAccessLayer.DbEntities;
+using SSU.DM.LogicLayer.Interfaces.Competencies;
 using SSU.DM.LogicLayer.Interfaces.Request;
 using SSU.DM.LogicLayer.Interfaces.Teachers;
 using SSU.DM.Tools.Interface;
@@ -20,6 +22,7 @@ public class RequestEditor : IRequestEditor
     private readonly ITeacherLogic _teachersLogic;
     private readonly ITransactionManager _transactionManager;
     private readonly IParsedRequestProcessor _parsedRequestProcessor;
+    private readonly ICompetenceDao _competenceDao;
 
     public RequestEditor(
         IExcelParser excelParser,
@@ -29,7 +32,8 @@ public class RequestEditor : IRequestEditor
         ITeachersDao teachersDao,
         ITeacherLogic teachersLogic,
         ITransactionManager transactionManager,
-        IParsedRequestProcessor parsedRequestProcessor)
+        IParsedRequestProcessor parsedRequestProcessor,
+        ICompetenceDao competenceDao)
     {
         _excelParser = excelParser;
         _filesStorage = filesStorage;
@@ -39,6 +43,7 @@ public class RequestEditor : IRequestEditor
         _teachersLogic = teachersLogic;
         _transactionManager = transactionManager;
         _parsedRequestProcessor = parsedRequestProcessor;
+        _competenceDao = competenceDao;
     }
 
     public async Task<Guid> UploadFromStream(string fileName, Stream stream)
@@ -135,11 +140,41 @@ public class RequestEditor : IRequestEditor
 
     public void AssignTeachers(HashSet<Guid> appFromIds)
     {
+            /*var requests = _requestDao.GetAll(request
+                    => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
+                .Select(RequestConverter.MapToRequestViewItem)
+                .OrderByDescending(request => request.TotalHours)
+                .ThenBy(request => request.AvailableTeacherIds.Count)
+                .ToList();
+
+            var freeHoursByTeacherId = _teachersLogic.GetTeacherCapacities().ToDictionary(
+                item => item.Teacher.Id,
+                item =>
+                {
+                    var capacity = item.CapacityBySemester.First().Value;
+                    return item.Teacher.JobTitle.UpperBoundHours * item.Teacher.Rate - capacity;
+                });
+
+            foreach (var request in requests)
+            {
+                var teacherId = freeHoursByTeacherId
+                    .OrderBy(x => x.Value)
+                    .Cast<KeyValuePair<long, double?>?>()
+                    .FirstOrDefault(x =>
+                        request.AvailableTeacherIds.Contains(x?.Key ?? -1)
+                        && request.TotalHours <= x?.Value)
+                    ?.Key;
+
+                if (teacherId.HasValue)
+                {
+                    _requestDao.SetTeacherId(request.Id, teacherId);
+                    freeHoursByTeacherId[teacherId.Value] -= request.TotalHours;
+                }
+            }*/
+            
         var requests = _requestDao.GetAll(request
                 => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
-            .Select(RequestConverter.MapToRequestViewItem)
             .OrderByDescending(request => request.TotalHours)
-            .ThenBy(request => request.AvailableTeacherIds.Count)
             .ToList();
 
         var freeHoursByTeacherId = _teachersLogic.GetTeacherCapacities().ToDictionary(
@@ -152,13 +187,7 @@ public class RequestEditor : IRequestEditor
 
         foreach (var request in requests)
         {
-            var teacherId = freeHoursByTeacherId
-                .OrderBy(x => x.Value)
-                .Cast<KeyValuePair<long, double?>?>()
-                .FirstOrDefault(x =>
-                    request.AvailableTeacherIds.Contains(x?.Key ?? -1)
-                    && request.TotalHours <= x?.Value)
-                ?.Key;
+            var teacherId = SelectTeacherIdForRequest(freeHoursByTeacherId, request);
 
             if (teacherId.HasValue)
             {
@@ -166,5 +195,36 @@ public class RequestEditor : IRequestEditor
                 freeHoursByTeacherId[teacherId.Value] -= request.TotalHours;
             }
         }
+        
+    }
+
+    private long? SelectTeacherIdForRequest(
+        Dictionary<long, double?> freeHoursByTeacherId,
+        Request request)
+    {
+        var teachersByPriority = _competenceDao.GetAll()
+            .Where(x =>
+                x.DisciplineId == request.DisciplineId
+                && x.FacultyId == request.ApplicationForm.FacultyId
+                && x.LessonForm == request.LessonForm)
+            .ToLookup(x => x.Priority, x => x.TeacherId);
+
+        foreach (var teacherIds in teachersByPriority.OrderByDescending(x => x.Key))
+        {
+            var teacherId = freeHoursByTeacherId
+                .OrderBy(x => x.Value)
+                .Cast<KeyValuePair<long, double?>?>()
+                .FirstOrDefault(x => x != null
+                                    && teacherIds.Contains(x.Value.Key)
+                                     && request.TotalHours <= x.Value.Value)
+                ?.Key;
+
+            if (teacherId.HasValue)
+            {
+                return teacherId;
+            }
+        }
+
+        return null;
     }
 }

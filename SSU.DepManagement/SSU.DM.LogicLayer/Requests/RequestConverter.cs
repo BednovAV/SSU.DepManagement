@@ -17,8 +17,9 @@ public class RequestConverter
             Teacher = request.Teacher?.ToViewItem(),
             AvailableTeacherIds = request.Discipline.Competencies
                 .Where(x => x.FacultyId == request.ApplicationForm.FacultyId && x.LessonForm == request.LessonForm)
+                .OrderByDescending(x => x.Priority)
                 .Select(x => x.TeacherId)
-                .ToHashSet()
+                .ToList()
         };
     }
     

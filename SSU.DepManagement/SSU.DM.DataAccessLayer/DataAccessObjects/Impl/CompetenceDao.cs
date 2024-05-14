@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.Request;
 using Models.View;
 using SSU.DM.DataAccessLayer.Core;
 using SSU.DM.DataAccessLayer.DbEntities;
@@ -24,12 +25,14 @@ public class CompetenceDao : BaseDao<Competence, (long, long, int)>, ICompetence
             .Select(competence => new CompetenceShortInfo(
                 competence.DisciplineId,
                 competence.FacultyId,
-                competence.LessonForm))
+                competence.LessonForm,
+                competence.Priority!.Value))
             .ToHashSet());
     }
 
-    public void SetForTeacher(long teacherId, IReadOnlyList<CompetenceShortInfo> competencies)
+    public void SetForTeacher(long teacherId, IReadOnlyList<CompetenceShortInfo> competencies, List<PriorityItem> priorityItems)
     {
+        var prioritiesByDisciplineId = priorityItems.ToLookup(x => x.DisciplineId);
         UseContext(db =>
         {
             db.Competencies.Where(competence => competence.TeacherId == teacherId).ExecuteDelete();
@@ -38,7 +41,8 @@ public class CompetenceDao : BaseDao<Competence, (long, long, int)>, ICompetence
                 TeacherId = teacherId,
                 DisciplineId = info.DisciplineId,
                 FacultyId = info.FacultyId,
-                LessonForm = info.LessonForm
+                LessonForm = info.LessonForm,
+                Priority = prioritiesByDisciplineId[info.DisciplineId].FirstOrDefault(x => x.LessonForm == info.LessonForm)?.Value,
             }));
         });
     }

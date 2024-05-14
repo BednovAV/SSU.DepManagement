@@ -65,8 +65,8 @@ public class StudyFormDataBuilder
         for (var i = 0; i < mainRequest.Direction.Count; i++)
         {
             var reportingForm = mainRequest.Reporting.GetAtOrFirst(i);
-            var directionGroups = mainRequest.GroupNumbersByDirection[i];
-            var mainDirectionGroup = directionGroups[0];
+            var directionGroups = mainRequest.GroupNumbersByDirection.GetAtOrFirst(i);
+            var mainDirectionGroup = directionGroups.GetAtOrFirst(0);
             var subRequests = requestsSet
                 .Where(x => directionGroups.Contains(x.GroupNumber[0]))
                 .ToList();
@@ -82,7 +82,7 @@ public class StudyFormDataBuilder
                 CourseNumber = (mainDirectionGroup / 100).ToString(),
                 Semester = mainRequest.Semester.GetAtOrFirst(i),
                 StudentsCount = mainRequest.BudgetCount.GetAtOrFirst(i) + mainRequest.CommercialCount.GetAtOrFirst(i),
-                TreadsCount = directionGroups.Length,
+                TreadsCount = directionGroups?.Length ?? default,
                 GroupsCount = subRequests.Count(x => x.SubgroupNumber.HasValue),
                 IndependentWorkHours = mainRequest.IndependentWorkHours?.GetAtOrFirst(i),
                 HasTestPaper = mainRequest.HasTestPaper || subRequests.Any(x => x.HasTestPaper),

@@ -4,6 +4,14 @@ namespace SSU.DM.ExcelUtils;
 
 public static class ParseTools
 {
+    public static (int row, int column) GetAddressInts(ExcelAddress cell)
+    {
+        var row = cell.Start.Row;
+        var column = cell.Start.Column;
+
+        return (row, column);
+    }
+    
     public static (string row, string column) GetAddress(ExcelAddress cell)
     {
         var row = string.Join(string.Empty, cell.Address.SkipWhile(char.IsLetter));

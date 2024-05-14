@@ -16,5 +16,5 @@ public class RequestViewItem
     
     public TeacherViewItem Teacher { get; set; }
 
-    public ISet<long> AvailableTeacherIds { get; set; }
+    public List<long> AvailableTeacherIds { get; set; }
 }

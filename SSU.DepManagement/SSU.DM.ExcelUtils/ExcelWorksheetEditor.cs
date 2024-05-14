@@ -130,14 +130,15 @@ public class ExcelWorksheetEditor
             .Copy(_worksheet.Cells[destination], excelRangeCopyOptionFlags);
         if (withSizes)
         {
+            var (rowStart, columnStart) = ParseTools.GetAddressInts(_worksheet.Cells[destination]);
             for (int i = 1; i < sourceWorksheet.GetLastUsedColumn() + 1; i++)
             {
-                _worksheet.Columns[i].Width = sourceWorksheet.Columns[i].Width;
+                _worksheet.Columns[i + columnStart - 1].Width = sourceWorksheet.Columns[i].Width;
             }
 
             for (int i = 1; i < sourceWorksheet.GetLastUsedRow() + 1; i++)
             {
-                _worksheet.Rows[i].Height = sourceWorksheet.Rows[i].Height;
+                _worksheet.Rows[i + rowStart - 1].Height = sourceWorksheet.Rows[i].Height;
             }
         }
     }

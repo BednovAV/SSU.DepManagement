@@ -18,6 +18,8 @@ public class Competence
     public virtual Faculty Faculty { get; set; }
 
     public LessonForm LessonForm { get; set; }
+
+    public int? Priority { get; set; }
 }
 
 internal class СompetenceConfiguration : IEntityTypeConfiguration<Competence>

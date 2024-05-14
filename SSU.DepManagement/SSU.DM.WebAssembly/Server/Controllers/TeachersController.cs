@@ -64,7 +64,7 @@ public class TeachersController : ControllerBase
     [HttpPost(RouteConstants.TEACHER_COMPETENCE)]
     public ActionResult SaveTeacherCompetencies([FromBody]SaveTeacherCompetenciesRequest request)
     {
-        _competenceLogic.SaveTeacherCompetencies(request.TeacherId, request.Competencies);
+        _competenceLogic.SaveTeacherCompetencies(request.TeacherId, request.Competencies, request.Priorities);
         return Ok();
     }
 }

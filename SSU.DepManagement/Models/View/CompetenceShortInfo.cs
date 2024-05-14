@@ -2,4 +2,4 @@
 
 namespace Models.View;
 
-public record CompetenceShortInfo(long DisciplineId, int FacultyId, LessonForm LessonForm);
+public record CompetenceShortInfo(long DisciplineId, int FacultyId, LessonForm LessonForm, int Priority);

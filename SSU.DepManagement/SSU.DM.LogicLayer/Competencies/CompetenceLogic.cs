@@ -3,6 +3,7 @@ using Models.View;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.DataAccessLayer.DbEntities;
 using SSU.DM.LogicLayer.Interfaces.Competencies;
+using SSU.DM.WebAssembly.Shared.Models;
 
 namespace SSU.DM.LogicLayer.Competencies;
 
@@ -45,18 +46,24 @@ public class CompetenceLogic : ICompetenceLogic
         var formResult = new List<TeacherCompetenciesViewItem>();
         foreach (var discipline in disciplines)
         {
+            var priority = teacherCompetencies.FirstOrDefault(x =>
+                                   x.DisciplineId == discipline.Id && x.LessonForm == lessonForm)
+                ?.Priority
+                ?? 0;
             var disciplineItem = new TeacherCompetenciesViewItem
             {
+                DisciplineId = discipline.Id,
                 DisciplineName = discipline.Name,
-                Faculties = new List<FacultyDisciplineViewItem>()
+                Faculties = new List<FacultyDisciplineViewItem>(),
+                Priority = priority
             };
             foreach (var faculty in faculties)
             {
                 disciplineItem.Faculties.Add(new FacultyDisciplineViewItem
                 {
-                    Competence = new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm),
+                    Competence = new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm, priority),
                     FacultyName = faculty.Name,
-                    Checked = teacherCompetencies.Contains(new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm))
+                    Checked = teacherCompetencies.Contains(new CompetenceShortInfo(discipline.Id, faculty.Id, lessonForm, priority))
                 });
             }
 
@@ -67,8 +74,11 @@ public class CompetenceLogic : ICompetenceLogic
         return formResult;
     }
 
-    public void SaveTeacherCompetencies(long teacherId, IReadOnlyList<CompetenceShortInfo> competencies)
+    public void SaveTeacherCompetencies(
+        long teacherId,
+        IReadOnlyList<CompetenceShortInfo> competencies,
+        List<PriorityItem> priorities)
     {
-        _competenceDao.SetForTeacher(teacherId, competencies);
+        _competenceDao.SetForTeacher(teacherId, competencies, priorities);
     }
 }

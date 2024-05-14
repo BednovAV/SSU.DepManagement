@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using Models.Request;
+﻿using Models.Request;
 using OfficeOpenXml;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.ExcelUtils;
@@ -23,18 +22,18 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
         var excelPackage = new ExcelPackage();
         excelPackage.Workbook.Worksheets.Add("c1");
         var worksheetEditor = excelPackage.GetFirstWorksheetEditor();
-        
+
         var currentRow = 1;
         foreach (var teacher in data.Teachers)
         {
             FillTeacher(worksheetEditor, teacher, ref currentRow);
         }
-        
+
         SetColumnsWidth(worksheetEditor);
-        
+
         return excelPackage;
     }
-    
+
     private void SetColumnsWidth(ExcelWorksheetEditor excelWorksheetEditor)
     {
         excelWorksheetEditor.SetColumnWidth(1, 27.4d);
@@ -43,6 +42,7 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
         {
             excelWorksheetEditor.SetColumnWidth(i, 5);
         }
+
         excelWorksheetEditor.SetColumnWidth(26, 10);
     }
 
@@ -53,7 +53,7 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
     {
         using var templateDoc = _filesStorage.ReadExcel("DISTRIBUTION_REPORT_TEMPLATE");
         var template = templateDoc.GetFirstWorksheetEditor();
-        
+
         template.ReplacePlaceholders(BuildPlaceholders(teacherData));
         FillSemester(template, teacherData.FirstSemester, "facultiesFirstSemester");
         FillSemester(template, teacherData.SecondSemester, "facultiesSecondSemester");
@@ -78,7 +78,8 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
             {
                 worksheet.InsertEmptyRows(firstSemesterRow.Value, facultiesRows);
             }
-            worksheet.CopyFrom(tmpWorksheet, $"A{firstSemesterRow}", true);
+
+            worksheet.CopyFrom(tmpWorksheet, $"A{firstSemesterRow}");
             for (var i = 'I'; i <= 'Z'; i++)
             {
                 worksheet.SetFormula($"{i}{firstSemesterRow + facultiesRows + 1}",
@@ -86,8 +87,6 @@ public class DistributionReportWriter : IWriter<DistributionReportData>
                     bold: true);
             }
         }
-        
-
     }
 
     private IDictionary<string, string> BuildPlaceholders(TeacherData teacherData)
