@@ -1,4 +1,5 @@
-﻿using Models.Request;
+﻿using Models.Extensions;
+using Models.Request;
 using SSU.DM.DataAccessLayer.DataAccessObjects;
 using SSU.DM.DataAccessLayer.DbEntities;
 using SSU.DM.LogicLayer.Interfaces.Reports;
@@ -68,15 +69,15 @@ public class StudyAssignmentReportDataBuilder : IStudyAssignmentReportDataBuilde
             Lectures = requests.Where(x => x.LessonForm == LessonForm.Lecture).Sum(x => x.LessonHours),
             Practicals = requests.Where(x => x.LessonForm == LessonForm.Practical).Sum(x => x.LessonHours),
             Laboratory = requests.Where(x => x.LessonForm == LessonForm.Laboratory).Sum(x => x.LessonHours),
-            ControlOfIndependentWork = requests.Sum(x => x.ControlOfIndependentWork),
-            PreExamConsultation = requests.Sum(x => x.PreExamConsultation),
-            Exam = requests.Sum(x => x.ExamHours),
-            Test = requests.Sum(x => x.TestHours),
+            ControlOfIndependentWork = requests.Sum(x => x.ControlOfIndependentWork?.Sum() ?? default),
+            PreExamConsultation = requests.Sum(x => x.PreExamConsultation?.SumWhereNotNull() ?? default),
+            Exam = requests.Sum(x => x.ExamHours.SumWhereNotNull()),
+            Test = requests.Sum(x => x.TestHours.SumWhereNotNull()),
             PracticeManagement = requests.Sum(x => x.PracticeManagement),
             CourseWork = requests.Sum(x => x.CourseWork),
             DiplomaWork = requests.Sum(x => x.DiplomaWork),
             Gac = requests.Sum(x => x.Gac),
-            CheckingTestPaperHours = requests.Sum(x => x.CheckingTestPaperHours),
+            CheckingTestPaperHours = requests.Sum(x => x.CheckingTestPaperHours?.Sum() ?? default),
             AspirantManagement = requests.Sum(x => x.AspirantManagement),
             ApplicantManagement = requests.Sum(x => x.ApplicantManagement),
             MasterManagement = requests.Sum(x => x.ApplicantManagement),

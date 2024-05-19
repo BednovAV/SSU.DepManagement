@@ -144,11 +144,6 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
         saveItem.SubgroupNumber = subGroupNumber;
         saveItem.LessonForm = LessonForm.Laboratory;
         saveItem.LessonHours = parsedRequest.LaboratoryHours;
-        // if (parsedRequest.Reporting == ReportingForm.Test)
-        // {
-        //     saveItem.Reporting = ReportingForm.Test;
-        //     saveItem.ReportingHours = Math.Round(parsedRequest.StudentsCount / 3d, 1);
-        // }
 
         return saveItem;
     }
@@ -175,19 +170,18 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
             saveItem.IndependentWorkHours = parsedRequest.IndependentWorkHours.SplitAndParseToInt();
             saveItem.ControlOfIndependentWork = CalculateControlOfIndependentWork(saveItem);
         }
-        saveItem.HasTestPaper = true;
 
         return saveItem;
     }
 
-    private static double CalculateControlOfIndependentWork(RequestSaveItem saveItem)
+    private static List<double> CalculateControlOfIndependentWork(RequestSaveItem saveItem)
     {
-        var result = 0d;
+        var result = new List<double>();
         for (var i = 0; i < saveItem.Direction.Count; i++)
         {
             var independentWorkHours = saveItem.IndependentWorkHours.GetAtOrFirst(i);
             
-            result += Math.Round(independentWorkHours * 0.05d, 1);
+            result.Add(Math.Round(independentWorkHours * 0.05d, 1));
         }
         return result;
     }
@@ -205,18 +199,29 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
         saveItem.PreExamConsultation = reportingHours.PreExamConsultation;
         saveItem.TestHours = reportingHours.TestHours;
         saveItem.ExamHours = reportingHours.ExamHours;
-
-        //saveItem.CheckingTestPaperHours = Math.Round(parsedRequest.StudentsCount / 3d, 1);
                 
         return saveItem;
     }
 
-    private (double PreExamConsultation, double TestHours, double ExamHours) CalculateReportingHours(
+    private List<double> CalculateTestPaperHours(RequestSaveItem saveItem)
+    {
+        var result = new List<double>();
+        for (var i = 0; i < saveItem.Direction.Count; i++)
+        {
+            var budgetCount = saveItem.BudgetCount.GetAtOrFirst(i);
+            var commercialCount = saveItem.CommercialCount.GetAtOrFirst(i);
+            result.Add(Math.Round((budgetCount/* + commercialCount*/) / 4d, 1));
+        }
+
+        return result;
+    }
+
+    private (List<double?> PreExamConsultation, List<double?> TestHours, List<double?> ExamHours) CalculateReportingHours(
         RequestSaveItem saveItem)
     {
-        var preExamConsultation = 0d;
-        var testHours = 0d;
-        var examHours = 0d;
+        var preExamConsultation = new List<double?>();
+        var testHours = new List<double?>();
+        var examHours = new List<double?>();
         
         for (var i = 0; i < saveItem.Direction.Count; i++)
         {
@@ -226,12 +231,15 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
             
             if (reportingForm == ReportingForm.Exam)
             {
-                preExamConsultation += 2;
-                examHours += Math.Round((budgetCount + commercialCount) / 2d, 1);
+                preExamConsultation.Add(2);
+                examHours.Add(Math.Round((budgetCount/* + commercialCount*/) / 2d, 1));
+                testHours.Add(null);
             }
             else
             {
-                testHours += Math.Round((budgetCount + commercialCount) / 3d, 1);
+                preExamConsultation.Add(null);
+                examHours.Add(null);
+                testHours.Add(Math.Round((budgetCount/* + commercialCount*/) / 3d, 1));
             }
         }
         return (preExamConsultation, testHours, examHours);
@@ -239,7 +247,7 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
 
     private RequestSaveItem BuildCommonFields(long disciplineId, ParsedRequest parsedRequest)
     {
-        return new RequestSaveItem
+        var saveItem = new RequestSaveItem
         {
             DisciplineId = disciplineId,
             Direction = parsedRequest.Direction.SplitAndTrim(),
@@ -251,6 +259,14 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
             Note = parsedRequest.Note,
             StudyForm = parsedRequest.StudyForm
         };
+        
+        if (saveItem.Reporting.Contains(ReportingForm.TestPaper))
+        {
+            saveItem.CheckingTestPaperHours = CalculateTestPaperHours(saveItem);
+            saveItem.Reporting.Remove(ReportingForm.TestPaper);
+        }
+
+        return saveItem;
     }
 
     private RequestSaveItem BuildGac(ParsedRequest parsedRequest)
@@ -380,7 +396,7 @@ public class ParsedRequestProcessor : IParsedRequestProcessor
     private RequestSaveItem BuildOther(ParsedRequest parsedRequest)
     {
         var result = BuildSpecialItem(parsedRequest, parsedRequest.NameDiscipline, LessonForm.Other);
-        result.PracticeManagement = parsedRequest.TotalHours;
+        result.Other = parsedRequest.TotalHours;
         return result;
     }
     

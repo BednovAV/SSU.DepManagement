@@ -9,14 +9,17 @@ public class TeacherLogic : ITeacherLogic
 {
     private readonly ITeachersDao _teachersDao;
     private readonly ISemesterDao _semesterDao;
+    private readonly ICompetenceDao _competenceDao;
 
 
     public TeacherLogic(
         ITeachersDao teachersDao,
-        ISemesterDao semesterDao)
+        ISemesterDao semesterDao,
+        ICompetenceDao competenceDao)
     {
         _teachersDao = teachersDao;
         _semesterDao = semesterDao;
+        _competenceDao = competenceDao;
     }
 
     public IReadOnlyList<TeacherViewItem> GetAll()
@@ -58,7 +61,7 @@ public class TeacherLogic : ITeacherLogic
             FirstName = viewItem.FirstName,
             MiddleName = viewItem.MiddleName,
             LastName = viewItem.LastName,
-            JobTitleId = viewItem.JobTitle.Id,
+            JobTitleId = viewItem.JobTitle?.Id,
             Rate = viewItem.Rate,
         });
     }
@@ -78,6 +81,7 @@ public class TeacherLogic : ITeacherLogic
 
     public void Delete(long id)
     {
+        _competenceDao.DeleteForTeacher(id);
         _teachersDao.DeleteById(id);
     }
 }

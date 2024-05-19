@@ -41,9 +41,9 @@
                 <RadzenDropDown
                     TValue="JobTitleViewItem"
                     Value=@data.JobTitle
+                    Change="@(args => UpdateTeacherJobTitle(args, data))"
                     Data=@jobTitles
-                    Style="width: 80%; max-width: 180px;"
-                    CHACHE/>
+                    Style="width: 80%; max-width: 180px;" />
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="TeacherViewItem" Property="Rate" Title="Ставка" TextAlign="TextAlign.Center">
@@ -153,6 +153,15 @@
         await DialogService.OpenAsync<TeacherCompetencies>($"Информация о преподавателе: {teacher.ToString()}",
             new Dictionary<string, object>() { { "Teacher", teacher } },
             new DialogOptions() { Width = "700px", Height = "700px" });
+    }
+
+    private async Task UpdateTeacherJobTitle(object obj, TeacherViewItem teacher)
+    {
+        if (obj is not JobTitleViewItem jobTitle)
+        {
+            return;
+        }
+        teacher.JobTitle = jobTitle;
     }
 
 }

@@ -30,7 +30,7 @@ public class StudyFormDataBuilder
         {
             Name = faculty.Name ?? "Неизвестный факультет",
             NameDative = faculty.NameDat ?? "неизвестному факультету",
-            Requests = BuildAggregatedRequests(requests)
+            Requests = BuildAggregatedRequests(requests).OrderBy(x => x.DisciplineName).ToList()
         };
     }
 
@@ -43,7 +43,8 @@ public class StudyFormDataBuilder
             var requestsSet = requests
                 .Where(x => (x.LessonForm is LessonForm.Practical or LessonForm.Laboratory)
                     && x.DisciplineId == lectureRequest.DisciplineId
-                    && lectureRequest.Direction.Contains(x.Direction[0]))
+                    && lectureRequest.Direction.Contains(x.Direction[0])
+                    && x.Semester.FirstOrDefault() == lectureRequest.Semester.FirstOrDefault())
                 .ToList();
 
             otherRequests = otherRequests.Except(requestsSet.Append(lectureRequest)).ToList();
@@ -74,23 +75,33 @@ public class StudyFormDataBuilder
             yield return new RequestReportData
             {
                 ReportingForm = reportingForm,
-                TestHours = mainRequest.TestHours,
-                ExamHours = mainRequest.ExamHours,
-                PreExamConsultation = mainRequest.PreExamConsultation,
+                TestHours = mainRequest.TestHours?.GetAtOrFirst(i) ?? default,
+                ExamHours = mainRequest.ExamHours?.GetAtOrFirst(i) ?? default,
+                PreExamConsultation = mainRequest.PreExamConsultation?.GetAtOrFirst(i) ?? default,
                 DisciplineName = mainRequest.Discipline.Name,
                 DirectionName = mainRequest.Direction[i],
                 CourseNumber = (mainDirectionGroup / 100).ToString(),
                 Semester = mainRequest.Semester.GetAtOrFirst(i),
-                StudentsCount = mainRequest.BudgetCount.GetAtOrFirst(i) + mainRequest.CommercialCount.GetAtOrFirst(i),
+                StudentsCount = mainRequest.BudgetCount.GetAtOrFirst(i)/* + mainRequest.CommercialCount.GetAtOrFirst(i)*/,
                 TreadsCount = directionGroups?.Length ?? default,
                 GroupsCount = subRequests.Count(x => x.SubgroupNumber.HasValue),
                 IndependentWorkHours = mainRequest.IndependentWorkHours?.GetAtOrFirst(i),
-                HasTestPaper = mainRequest.HasTestPaper || subRequests.Any(x => x.HasTestPaper),
+                CheckingTestPaperHours = mainRequest.CheckingTestPaperHours?.GetAtOrFirst(i) ?? default,
                 HourCounts = new HoursCount
                 {
                     Lectures = i == 0 && mainRequest.LessonForm == LessonForm.Lecture ? mainRequest.LessonHours : null,
                     Practices = subRequests.Append(mainRequest).Where(x => x.LessonForm == LessonForm.Practical).Sum(x => x.LessonHours),
                     Laboratory = subRequests.Append(mainRequest).Where(x => x.LessonForm == LessonForm.Laboratory).Sum(x => x.LessonHours),
+                    ControlOfIndependentWork = mainRequest.ControlOfIndependentWork?.GetAtOrFirst(i) ?? default,
+                    PracticeManagement = mainRequest.PracticeManagement,
+                    CourseWorks = mainRequest.CourseWork,
+                    QualificationWorks = mainRequest.DiplomaWork,
+                    MastersProgramManagement = mainRequest.MasterManagement,
+                    Gac = mainRequest.Gac,
+                    AspirantManagement = mainRequest.AspirantManagement,
+                    ApplicantManagement = mainRequest.ApplicantManagement,
+                    ExtracurricularActivity = mainRequest.ExtracurricularActivity,
+                    Other = mainRequest.Other + subRequests.Sum(x => x.Other),
                 }
             };
         }

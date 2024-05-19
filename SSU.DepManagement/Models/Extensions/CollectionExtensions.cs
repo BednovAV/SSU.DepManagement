@@ -15,4 +15,13 @@ public static class CollectionExtensions
             ? array[index]
             : array[0];
     }
+    
+    public static double SumWhereNotNull(this IEnumerable<double?>? source)
+    {
+        if (source == null)
+        {
+            return default;
+        }
+        return source.Where(x => x.HasValue).OfType<double>().Sum();
+    }
 }

@@ -8,7 +8,7 @@ public class AppFormDisciplineViewItem
     
     public IReadOnlyList<int> Groups { get; set; }
     
-    public int Semester { get; set; }
+    public string Semesters { get; set; }
     
     public double TotalHours { get; set; }
     

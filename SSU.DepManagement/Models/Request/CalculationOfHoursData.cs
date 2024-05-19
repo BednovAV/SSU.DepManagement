@@ -53,7 +53,7 @@ public class RequestReportData
 
     public double? IndependentWorkHours { get; set; }
 
-    public bool HasTestPaper { get; set; }
+    public double CheckingTestPaperHours { get; set; }
 
     public HoursCount HourCounts { get; set; }
 }
@@ -66,10 +66,16 @@ public class HoursCount
 
     public double ControlOfIndependentWork { get; set; }
     
-    public int PracticeManagement { get; set; }
-    public int CourseWorks { get; set; }
-    public int QualificationWorks { get; set; }
+    public double PracticeManagement { get; set; }
+    public double CourseWorks { get; set; }
+    public double QualificationWorks { get; set; }
 
-    public int MastersProgramManagement { get; set; }
-
+    public double MastersProgramManagement { get; set; }
+    
+    public double Gac { get; set; }
+    public double AspirantManagement { get; set; }
+    public double ApplicantManagement { get; set; }
+    public int Other { get; set; }
+    
+    public double ExtracurricularActivity { get; set; }
 }

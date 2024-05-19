@@ -10,7 +10,7 @@ public static class StringExtensions
         {
             return new List<int>();
         }
-        return source.Split(',', StringSplitOptions.TrimEntries).Select(int.Parse).ToList();
+        return source.Trim('"').Split(',', StringSplitOptions.TrimEntries).Select(int.Parse).ToList();
     }
     
     public static List<string> SplitAndTrim(this string source)

@@ -47,6 +47,7 @@
                     </GroupHeaderTemplate>
                     <Columns>
                         <RadzenDataGridColumn TItem="RequestViewItem" Property="GroupNumber" Title="Группа"/>
+                        <RadzenDataGridColumn TItem="RequestViewItem" Property="YearSemester" Title="Семестр"/>
                         <RadzenDataGridColumn TItem="RequestViewItem" Property="Direction" Title="Направление"/>
                         <RadzenDataGridColumn TItem="RequestViewItem" Property="TotalHours" Title="Часы"/>
                         <RadzenDataGridColumn TItem="RequestViewItem" Title="Преподаватель" TextAlign="TextAlign.Center">
@@ -67,7 +68,7 @@
             <Columns>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Name" Title="Название дисциплины"/>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="StudyForm" Title="Форма обучения"/>
-                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Semester" Title="Семестр"/>
+                <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Property="Semesters" Title="Семестр"/>
                 <RadzenDataGridColumn TItem="AppFormDisciplineViewItem" Title="Группы">
                     <Template Context="discipline">
                         @(string.Join(", ", discipline.Groups))

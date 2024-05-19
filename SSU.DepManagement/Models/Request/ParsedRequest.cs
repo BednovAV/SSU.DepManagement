@@ -41,6 +41,8 @@ public enum ReportingForm
     Exam,
     [Description("зач")]
     Test,
+    [Description("контр.раб")]
+    TestPaper,
     [Description("")]
     None
 }

@@ -12,13 +12,16 @@ public class RequestAccessor : IRequestAccessor
 
     private readonly IFilesStorageDao _filesStorageDao;
     private readonly IApplicationFormDao _applicationFormDao;
+    private readonly ITeachersDao _teachersDao;
 
     public RequestAccessor(
         IFilesStorageDao filesStorageDao,
-        IApplicationFormDao applicationFormDao)
+        IApplicationFormDao applicationFormDao,
+        ITeachersDao teachersDao)
     {
         _filesStorageDao = filesStorageDao;
         _applicationFormDao = applicationFormDao;
+        _teachersDao = teachersDao;
     }
 
     public (string name, byte[] bytes) GetFile(string? fileKey = null)
@@ -57,7 +60,7 @@ public class RequestAccessor : IRequestAccessor
             {
                 Name = x.Key.Name,
                 Groups = GetGroups(x),
-                Semester = x.First().YearSemester,
+                Semesters = string.Join(", ", x.Select(x => x.YearSemester).Distinct()),
                 TotalHours = GetTotalHours(x),
                 Requests = GetRequests(x),
                 StudyForm = GetStudyFormString(x.Key.StudyForm)
@@ -89,9 +92,50 @@ public class RequestAccessor : IRequestAccessor
     private IReadOnlyList<RequestViewItem> GetRequests(IEnumerable<Request> requests)
     {
         return requests
-            .OrderBy(x => x.LessonForm)
+            .OrderBy(x => x.LessonForm == LessonForm.Lecture)
+            .ThenBy(x => x.YearSemester)
             .ThenBy(x => x.GroupNumberString)
-            .Select(RequestConverter.MapToRequestViewItem)
+            .Select(MapToRequestViewItem)
             .ToList();
+    }
+    
+    private RequestViewItem MapToRequestViewItem(Request request)
+    {
+        return new RequestViewItem
+        {
+            Id = request.Id,
+            Direction = string.Join(", ", request.Direction),
+            GroupNumber = request.GroupNumberString,
+            TotalHours = request.TotalHours,
+            LessonForm = GetLessonFromName(request.LessonForm!.Value),
+            Teacher = request.Teacher?.ToViewItem(),
+            YearSemester = request.YearSemester,
+            AvailableTeacherIds = GetAvailableTeacherIds(request)
+        };
+    }
+
+    private List<long> GetAvailableTeacherIds(Request request)
+    {
+        if (request.LessonForm is not LessonForm.Lecture and not LessonForm.Practical and not LessonForm.Laboratory)
+        {
+            return _teachersDao.GetAll().Select(x => x.Id).ToList();
+        }
+        
+        return request.Discipline.Competencies
+            .Where(x => x.FacultyId == request.ApplicationForm.FacultyId && x.LessonForm == request.LessonForm)
+            .OrderByDescending(x => x.Priority)
+            .Select(x => x.TeacherId)
+            .ToList();
+    }
+
+    private static string GetLessonFromName(LessonForm lessonForm)
+    {
+        return lessonForm switch
+        {
+            LessonForm.Lecture => "Лекции",
+            LessonForm.Practical => "Практики",
+            LessonForm.Laboratory => "Лабораторные",
+            _ => string.Empty
+        };
     }
 }

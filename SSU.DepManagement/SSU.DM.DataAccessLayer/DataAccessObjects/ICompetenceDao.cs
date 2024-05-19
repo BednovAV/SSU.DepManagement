@@ -10,4 +10,6 @@ public interface ICompetenceDao : IDao<Competence, (long, long, int)>
     ISet<CompetenceShortInfo> GetTeacherCompetencies(long teacherId);
     
     void SetForTeacher(long teacherId, IReadOnlyList<CompetenceShortInfo> competencies, List<PriorityItem> priorityItems);
+
+    void DeleteForTeacher(long teacherId);
 }

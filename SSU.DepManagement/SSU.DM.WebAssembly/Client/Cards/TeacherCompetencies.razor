@@ -4,6 +4,7 @@
 @using Syncfusion.Blazor.Navigations
 @using Orientation = Radzen.Orientation
 @using Models.Request
+@using Syncfusion.Blazor.Data
 
 @inject Radzen.DialogService dialogService
 @inject HttpClient Http
@@ -80,11 +81,11 @@
         await base.OnInitializedAsync();
         var allCompetencies = await Http.GetTeacherCompetenciesAsync(Teacher.Id);
 
-        lectureCompetencies = allCompetencies[LessonForm.Lecture];
+        lectureCompetencies = allCompetencies[LessonForm.Lecture].OrderBy(x => x.DisciplineName);
         lectureCheckedValues = GetCheckedCompets(lectureCompetencies.ToList());
-        practicalCompetencies = allCompetencies[LessonForm.Practical];
+        practicalCompetencies = allCompetencies[LessonForm.Practical].OrderBy(x => x.DisciplineName);
         practicalCheckedValues = GetCheckedCompets(practicalCompetencies.ToList());
-        laboratoryCompetencies = allCompetencies[LessonForm.Laboratory];
+        laboratoryCompetencies = allCompetencies[LessonForm.Laboratory].OrderBy(x => x.DisciplineName);
         laboratoryCheckedValues = GetCheckedCompets(laboratoryCompetencies.ToList());
     }
 

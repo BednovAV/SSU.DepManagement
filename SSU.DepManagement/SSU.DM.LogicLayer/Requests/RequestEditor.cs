@@ -140,40 +140,10 @@ public class RequestEditor : IRequestEditor
 
     public void AssignTeachers(HashSet<Guid> appFromIds)
     {
-            /*var requests = _requestDao.GetAll(request
-                    => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
-                .Select(RequestConverter.MapToRequestViewItem)
-                .OrderByDescending(request => request.TotalHours)
-                .ThenBy(request => request.AvailableTeacherIds.Count)
-                .ToList();
-
-            var freeHoursByTeacherId = _teachersLogic.GetTeacherCapacities().ToDictionary(
-                item => item.Teacher.Id,
-                item =>
-                {
-                    var capacity = item.CapacityBySemester.First().Value;
-                    return item.Teacher.JobTitle.UpperBoundHours * item.Teacher.Rate - capacity;
-                });
-
-            foreach (var request in requests)
-            {
-                var teacherId = freeHoursByTeacherId
-                    .OrderBy(x => x.Value)
-                    .Cast<KeyValuePair<long, double?>?>()
-                    .FirstOrDefault(x =>
-                        request.AvailableTeacherIds.Contains(x?.Key ?? -1)
-                        && request.TotalHours <= x?.Value)
-                    ?.Key;
-
-                if (teacherId.HasValue)
-                {
-                    _requestDao.SetTeacherId(request.Id, teacherId);
-                    freeHoursByTeacherId[teacherId.Value] -= request.TotalHours;
-                }
-            }*/
-            
         var requests = _requestDao.GetAll(request
-                => !request.TeacherId.HasValue && appFromIds.Contains(request.ApplicationFormId))
+                => !request.TeacherId.HasValue 
+                   && appFromIds.Contains(request.ApplicationFormId)
+                   && request.LessonForm is LessonForm.Lecture or LessonForm.Laboratory or LessonForm.Practical)
             .OrderByDescending(request => request.TotalHours)
             .ToList();
 
@@ -212,7 +182,8 @@ public class RequestEditor : IRequestEditor
         foreach (var teacherIds in teachersByPriority.OrderByDescending(x => x.Key))
         {
             var teacherId = freeHoursByTeacherId
-                .OrderBy(x => x.Value)
+                //.OrderBy(x => x.Value)
+                .OrderByDescending(x => x.Value) // эксперимент
                 .Cast<KeyValuePair<long, double?>?>()
                 .FirstOrDefault(x => x != null
                                     && teacherIds.Contains(x.Value.Key)

@@ -46,4 +46,9 @@ public class CompetenceDao : BaseDao<Competence, (long, long, int)>, ICompetence
             }));
         });
     }
+
+    public void DeleteForTeacher(long teacherId)
+    {
+        UseContext(db => db.Competencies.Where(x => x.TeacherId == teacherId).ExecuteDelete());
+    }
 }

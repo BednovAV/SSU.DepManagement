@@ -136,8 +136,13 @@ public static class StudyFormFiller
         {
             worksheet.SetValueRightAlignment($"K{row}", hourCounts.Laboratory);
         }
-        worksheet.SetFormula($"L{row}", $"ROUND(H{row}*F{row}*5%;1)");
-        if (request.ReportingForm is ReportingForm.Exam)
+        
+        if (Math.Abs(hourCounts.ControlOfIndependentWork - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"L{row}", hourCounts.ControlOfIndependentWork);
+        }
+        
+        if (Math.Abs(request.PreExamConsultation - 0) > 0.001d)
         {
             worksheet.SetValueRightAlignment($"M{row}", request.PreExamConsultation);
         }
@@ -151,20 +156,56 @@ public static class StudyFormFiller
         {
             worksheet.SetValueRightAlignment($"O{row}", request.TestHours);
         }
-        
-        // worksheet.SetFormula($"P{row}", $"E{row}*{hourCounts.PracticeManagement}");
-        // worksheet.SetFormula($"Q{row}", $"E{row}*{hourCounts.CourseWorks}");
-        // worksheet.SetFormula($"R{row}", $"E{row}*{hourCounts.QualificationWorks}");
-        //worksheet.SetFormula($"S{row}", $"ROUND(E{row}/2;1)");
-        if (request.HasTestPaper)
+
+        if (Math.Abs(hourCounts.PracticeManagement - default(double)) > 0.001d)
         {
-            worksheet.SetFormula($"T{row}", $"ROUND(E{row}/2;1)");
+            worksheet.SetValueRightAlignment($"P{row}", hourCounts.PracticeManagement);
         }
-        worksheet.SetFormula($"U{row}", $"");
-        worksheet.SetFormula($"V{row}", $"");
-        //worksheet.SetFormula($"W{row}", $"E{row}*{hourCounts.MastersProgramManagement}");
-        worksheet.SetFormula($"X{row}", $"");
-        worksheet.SetFormula($"Y{row}", $"");
+        
+        if (Math.Abs(hourCounts.CourseWorks - default(double)) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"Q{row}", hourCounts.CourseWorks);
+        }
+        
+        if (Math.Abs(hourCounts.QualificationWorks - default(double)) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"R{row}", hourCounts.QualificationWorks);
+        }
+        
+        if (Math.Abs(hourCounts.Gac - default(double)) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"S{row}", hourCounts.Gac);
+        }
+        
+        if (Math.Abs(request.CheckingTestPaperHours - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"T{row}", request.CheckingTestPaperHours);
+        }
+        
+        if (Math.Abs(hourCounts.AspirantManagement - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"U{row}", hourCounts.AspirantManagement);
+        }
+        
+        if (Math.Abs(hourCounts.ApplicantManagement - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"V{row}", hourCounts.ApplicantManagement);
+        }
+        
+        if (Math.Abs(hourCounts.MastersProgramManagement - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"W{row}", hourCounts.MastersProgramManagement);
+        }
+        
+        if (Math.Abs(hourCounts.ExtracurricularActivity - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"X{row}", hourCounts.ExtracurricularActivity);
+        }
+        
+        if (Math.Abs(hourCounts.Other - 0) > 0.001d)
+        {
+            worksheet.SetValueRightAlignment($"Y{row}", hourCounts.Other);
+        }
         
         worksheet.SetFormula($"Z{row}", $"SUM(I{row}:Y{row})");
     }

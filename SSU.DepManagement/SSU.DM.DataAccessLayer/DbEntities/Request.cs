@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Models.Extensions;
 using Models.Request;
 
 namespace SSU.DM.DataAccessLayer.DbEntities;
@@ -41,19 +42,15 @@ public class Request
 
     public List<int> IndependentWorkHours { get; set; }
     
-    public double ControlOfIndependentWork { get; set; }
+    public List<double> ControlOfIndependentWork { get; set; }
 
-    public bool HasTestPaper { get; set; }
+    public List<double> CheckingTestPaperHours { get; set; }
 
-    public double CheckingTestPaperHours => HasTestPaper
-        ? Math.Round((BudgetCount.Sum() + CommercialCount.Sum()) / 2d, 1)
-        : 0d;
-
-    public double PreExamConsultation { get; set; }
+    public List<double?> PreExamConsultation { get; set; }
     
-    public double TestHours { get; set; }
+    public List<double?> TestHours { get; set; }
     
-    public double ExamHours { get; set; }
+    public List<double?> ExamHours { get; set; }
     
     public double PracticeManagement { get; set; }
     
@@ -70,6 +67,8 @@ public class Request
     public double ExtracurricularActivity { get; set; }
     
     public double MasterManagement { get; set; }
+    
+    public int Other { get; set; }
 
     public List<ReportingForm> Reporting { get; set; }
     
@@ -88,10 +87,24 @@ public class Request
     public long DisciplineId { get; set; }
     public virtual Discipline Discipline { get; set; }
 
-    public double TotalHours => Math.Round(LessonHours + ControlOfIndependentWork + PreExamConsultation
-                                + TestHours + ExamHours + PracticeManagement + CourseWork + DiplomaWork + Gac
-                                + CheckingTestPaperHours + AspirantManagement + ApplicantManagement 
-                                + ExtracurricularActivity + MasterManagement, 1);
+    public double TotalHours => Math.Round(
+        LessonHours
+        + (ControlOfIndependentWork?.Sum() ?? 0d)
+        + (PreExamConsultation?.SumWhereNotNull() ?? 0d)
+        + (TestHours?.SumWhereNotNull() ?? 0d)
+        + (ExamHours?.SumWhereNotNull() ?? 0d)
+        + PracticeManagement
+        + CourseWork
+        + DiplomaWork
+        + Gac
+        + (CheckingTestPaperHours?.Sum() ?? 0d)
+        + AspirantManagement
+        + ApplicantManagement
+        + ExtracurricularActivity
+        + MasterManagement
+        + Other,
+            1);
+
 }
 
 internal class RequestConfiguration : IEntityTypeConfiguration<Request>

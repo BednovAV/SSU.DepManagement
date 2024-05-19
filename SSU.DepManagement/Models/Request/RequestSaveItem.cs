@@ -12,7 +12,7 @@ public class RequestSaveItem
 
     public List<int> CommercialCount { get; init; }
 
-    public int StudentsCount => BudgetCount.Sum() + CommercialCount.Sum();
+    public int StudentsCount => BudgetCount.Sum()/* + CommercialCount.Sum()*/;
 
     public List<int> GroupNumber { get; set; }
 
@@ -22,11 +22,11 @@ public class RequestSaveItem
 
     public int LessonHours { get; set; }
     
-    public double TestHours { get; set; }
+    public List<double?> TestHours { get; set; }
     
-    public double ExamHours { get; set; }
+    public List<double?> ExamHours { get; set; }
     
-    public bool HasTestPaper { get; set; }
+    public List<double> CheckingTestPaperHours { get; set; }
     
     public double AspirantManagement { get; set; }
     
@@ -38,9 +38,9 @@ public class RequestSaveItem
     
     public List<int> IndependentWorkHours { get; set; }
     
-    public double ControlOfIndependentWork { get; set; }
+    public List<double> ControlOfIndependentWork { get; set; }
     
-    public double PreExamConsultation { get; set; }
+    public List<double?> PreExamConsultation { get; set; }
     
     public double PracticeManagement { get; set; }
     
@@ -50,6 +50,8 @@ public class RequestSaveItem
     
     public double Gac { get; set; }
     
+    public int Other { get; set; }
+
     public LessonForm LessonForm { get; set; }
     
     public List<ReportingForm> Reporting { get; set; }
