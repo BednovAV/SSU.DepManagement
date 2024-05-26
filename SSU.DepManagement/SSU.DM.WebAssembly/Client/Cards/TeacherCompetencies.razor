@@ -16,14 +16,14 @@
                 <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
                                  TextProperty="DisciplineName" ChildrenProperty="Faculties">
                     <Template Context="item">
-                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName) 
-                        <div class="bg-light text-dark m-lg-2">
-                        Приоритет:  
-                        <RadzenNumeric  style="width: 52px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority) />
+                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName)
+                        <div class="bg-light text-dark m-2">
+                            Приоритет:
+                            <RadzenNumeric style="width: 53px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority)/>
                         </div>
                     </Template>
                 </RadzenTreeLevel>
-                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+                <RadzenTreeLevel TextProperty="FacultyName" HasChildren="_ => false"/>
             </RadzenTree>
         </RadzenTabsItem>
         <RadzenTabsItem Text="Практики">
@@ -31,14 +31,14 @@
                 <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
                                  TextProperty="DisciplineName" ChildrenProperty="Faculties">
                     <Template Context="item">
-                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName) 
+                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName)
                         <div class="bg-light text-dark m-2">
-                        Приоритет:  
-                        <RadzenNumeric  style="width: 52px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority) />
+                            Приоритет:
+                            <RadzenNumeric style="width: 53px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority)/>
                         </div>
                     </Template>
                 </RadzenTreeLevel>
-                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+                <RadzenTreeLevel TextProperty="FacultyName" HasChildren="_ => false"/>
             </RadzenTree>
         </RadzenTabsItem>
         <RadzenTabsItem Text="Лабораторные">
@@ -46,14 +46,14 @@
                 <RadzenTreeLevel Expanded="@(obj => ShouldExpanded(obj as TeacherCompetenciesViewItem))"
                                  TextProperty="DisciplineName" ChildrenProperty="Faculties">
                     <Template Context="item">
-                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName) 
+                        @((item.Value as TeacherCompetenciesViewItem).DisciplineName)
                         <div class="bg-light text-dark m-2">
-                        Приоритет:  
-                        <RadzenNumeric  style="width: 52px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority) />
+                            Приоритет:
+                            <RadzenNumeric style="width: 53px; height: 30px; margin-left: 5px;" Min="1" Max="10" @bind-Value=@((item.Value as TeacherCompetenciesViewItem).Priority)/>
                         </div>
                     </Template>
                 </RadzenTreeLevel>
-                <RadzenTreeLevel TextProperty="FacultyName"  HasChildren="_ => false"/>
+                <RadzenTreeLevel TextProperty="FacultyName" HasChildren="_ => false"/>
             </RadzenTree>
         </RadzenTabsItem>
     </Tabs>
@@ -123,7 +123,7 @@
                 .Concat(practicalCompetencies.Select(item => new PriorityItem(item.DisciplineId, LessonForm.Practical, item.Priority)))
                 .Concat(laboratoryCompetencies.Select(item => new PriorityItem(item.DisciplineId, LessonForm.Laboratory, item.Priority)))
                 .ToList();
-            
+
             var request = new SaveTeacherCompetenciesRequest
             {
                 TeacherId = Teacher.Id,
@@ -145,4 +145,5 @@
 
         return item.Faculties.Any(x => x.Checked);
     }
+
 }

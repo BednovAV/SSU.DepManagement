@@ -6,11 +6,11 @@ using SSU.DM.Tools.Interface;
 
 namespace SSU.DM.LogicLayer.Reports;
 
-public class CalculationOfHoursDataDataBuilder : ICalculationOfHoursDataBuilder, IEqualityComparer<Faculty>
+public class CalculationOfHoursDataBuilder : ICalculationOfHoursDataBuilder, IEqualityComparer<Faculty>
 {
     private readonly IApplicationFormDao _applicationFormDao;
 
-    public CalculationOfHoursDataDataBuilder(
+    public CalculationOfHoursDataBuilder(
         IApplicationFormDao applicationFormDao)
     {
         _applicationFormDao = applicationFormDao;

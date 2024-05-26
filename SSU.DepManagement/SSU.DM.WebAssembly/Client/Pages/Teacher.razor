@@ -152,7 +152,7 @@
     {
         await DialogService.OpenAsync<TeacherCompetencies>($"Информация о преподавателе: {teacher.ToString()}",
             new Dictionary<string, object>() { { "Teacher", teacher } },
-            new DialogOptions() { Width = "700px", Height = "700px" });
+            new DialogOptions() { Width = "1000px", Height = "700px" });
     }
 
     private async Task UpdateTeacherJobTitle(object obj, TeacherViewItem teacher)

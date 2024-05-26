@@ -15,6 +15,8 @@ public class RequestViewItem
     public string LessonForm { get; set; }
     
     public int YearSemester { get; set; }
+
+    public int StudentsCount { get; set; }
     
     public TeacherViewItem Teacher { get; set; }
 

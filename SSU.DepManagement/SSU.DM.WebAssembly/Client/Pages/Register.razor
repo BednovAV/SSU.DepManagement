@@ -8,7 +8,7 @@
 <PageTitle>Register</PageTitle>
 
 <h1 class="text-center">
-    Blazor with Identity Sample
+    Система расчета нагрузки по кафедре
 </h1>
 
 <div class="container mt-md-5">
@@ -16,38 +16,38 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
-                    <h1 class="h2 text-center">Create Account</h1>
+                    <h1 class="h2 text-center">Создать аккаунт</h1>
                 </div>
                 <div class="card-body">
                     <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="registerParameters">
                         <DataAnnotationsValidator />
 
                         <div class="form-floating mb-3">
-                            <InputText id="inputUsername" class="form-control" @bind-Value="registerParameters.UserName" autofocus placeholder="Username" />
-                            <label for="inputUsername">User Name</label>
+                            <InputText id="inputUsername" class="form-control" @bind-Value="registerParameters.UserName" autofocus placeholder="Имя пользователя" />
+                            <label for="inputUsername">Имя пользователя</label>
                             <ValidationMessage For="@(() => registerParameters.UserName)" />
                         </div>
 
                         <div class="form-floating mb-3">
-                            <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="registerParameters.Password" />
-                            <label for="inputPassword">Password</label>
+                            <InputText type="password" id="inputPassword" class="form-control" placeholder="Пароль" @bind-Value="registerParameters.Password" />
+                            <label for="inputPassword">Пароль</label>
                             <ValidationMessage For="@(() => registerParameters.Password)" />
                         </div>
 
                         <div class="form-floating mb-3">
-                            <InputText type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" @bind-Value="registerParameters.PasswordConfirm" />
-                            <label for="inputPasswordConfirm">Password Confirmation</label>
+                            <InputText type="password" id="inputPasswordConfirm" class="form-control" placeholder="Подтвердите пароль" @bind-Value="registerParameters.PasswordConfirm" />
+                            <label for="inputPasswordConfirm">Подтвердите пароль</label>
                             <ValidationMessage For="@(() => registerParameters.PasswordConfirm)" />
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Create account</button>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Создать</button>
                         </div>
 
                         <label class="text-danger">@error</label>
 
                         <NavLink href="login">
-                            <h6 class="font-weight-normal text-center">Already have an account? Click here to login</h6>
+                            <h6 class="font-weight-normal text-center">Уже есть аккаунт? Нажмите сюда, чтобы авторизоваться</h6>
                         </NavLink>
                     </EditForm>
                 </div>

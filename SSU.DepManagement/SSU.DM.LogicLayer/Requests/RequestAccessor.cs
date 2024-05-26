@@ -110,6 +110,7 @@ public class RequestAccessor : IRequestAccessor
             LessonForm = GetLessonFromName(request.LessonForm!.Value),
             Teacher = request.Teacher?.ToViewItem(),
             YearSemester = request.YearSemester,
+            StudentsCount = request.BudgetCount.Sum(),
             AvailableTeacherIds = GetAvailableTeacherIds(request)
         };
     }
